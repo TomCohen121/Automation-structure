@@ -1,0 +1,81 @@
+# Ignore virtual environment directories
+venv/
+env/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+nosetests.xml
+coverage/
+*.cover
+*.py,cover
+.hypothesis/
+
+# PyCharm project files
+.idea/
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Environments
+.env
+.venv
+ENV/
+env.bak/
+venv.bak/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Docker
+*.env
+docker-compose.yml
+Dockerfile
+
+# Ignore Allure Report files
+allure-results/
+allure-report/
+
+# Ignore custom report paths
+reports/
+*.html
