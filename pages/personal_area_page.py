@@ -1,9 +1,15 @@
+
 from pages.base_page import BasePage
 
 
 class PersonalAreaPage(BasePage):
    def __init__(self, page):
        super().__init__(page)
+
+
+
+   def txt_search_box(self):
+       return self.page.locator("[data-test=\"username\"]")
 
 
    def btn_questionnaire_evaluation(self):

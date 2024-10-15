@@ -8,7 +8,7 @@ class ConfigurationManager:
 
     @staticmethod
     def load_config():
-        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Marvad_Automation/resources/config.properties')
+        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/config.properties')
         ConfigurationManager._config.read(config_file_path)
         return ConfigurationManager._config['DEFAULT']
 
@@ -30,7 +30,7 @@ class ConfigurationManager:
 
     @staticmethod
     def maximize_window():
-        return ConfigurationManager._config.getboolean('DEFAULT', 'maximize.window')
+        return ConfigurationManager._config.getboolean('DEFAULT', 'maximize.window', fallback=True)
 
 class BrowserManager:
     @staticmethod

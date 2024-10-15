@@ -10,7 +10,6 @@ from pages.portions_page import PortionPage
 class WorkFlow(BasePage):
    def __init__(self, page: Page):
        super().__init__(page)
-       self.page = page
        self.personalAreaPage = PersonalAreaPage(self.page)
        self.loadingPage = LoadingPage(self.page)
        self.checkNotebookPage = CheckNotebookPage(self.page)

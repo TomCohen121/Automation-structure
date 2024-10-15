@@ -1,17 +1,6 @@
-from playwright.sync_api import Playwright, Page
-
-from extensions.functions import Functions
-from flows.web_flows import WorkFlow
+from playwright.sync_api import Page
 from helper.configuration_manager import ConfigurationManager
 
-from extensions.functions import Functions
-from pages.check_notebook_page import CheckNotebookPage
-from pages.loading_page import LoadingPage
-from pages.notebook_page import NotebookPage
-from pages.personal_area_page import PersonalAreaPage
-from pages.portions_page import PortionPage
-from flows.web_flows import WorkFlow
-from tests.conftest import initialize_pages
 
 
 class BasePage:
@@ -24,25 +13,25 @@ class BasePage:
 
     @staticmethod
     def initialize_all_pages(page):
-        loadingPage= LoadingPage(page)
-        checkNotebook = CheckNotebookPage(page)
-        noteBookPage = NotebookPage(page)
-        personalAreaPage = PersonalAreaPage(page)
-        functions = Functions(page)
-        portionPage = PortionPage(page)
-        workflow = WorkFlow(page)
+        from pages.portions_page import PortionPage
+        from pages.loading_page import LoadingPage
+        from extensions.functions import Functions
+        from flows.web_flows import WorkFlow
+        from pages.check_notebook_page import CheckNotebookPage
+        from pages.notebook_page import NotebookPage
+        from pages.personal_area_page import PersonalAreaPage
 
-        returnObject = {
-            "CheckNotebookPage": checkNotebook,
-            "LoadingPage": loadingPage,
-            "NotebookPage": noteBookPage,
-            "PersonalAreaPage": personalAreaPage,
-            "PortionPage": portionPage,
-            "Functions": functions,
-            "WorkFlow": workflow,
-        }
+        # יצירה של העמודים פעם אחת בלבד
+        pages = {}
+        pages["LoadingPage"] = LoadingPage(page)
+        pages["CheckNotebookPage"] = CheckNotebookPage(page)
+        pages["NotebookPage"] = NotebookPage(page)
+        pages["PersonalAreaPage"] = PersonalAreaPage(page)
+        pages["PortionPage"] = PortionPage(page)
+        pages["Functions"] = Functions(page)  # ודא ש-Functions לא מנסה לטעון מחדש עמודים אחרים
+        pages["WorkFlow"] = WorkFlow(page)
 
-        return returnObject
+        return pages
 
     @staticmethod
     def goto_homepage(pages):

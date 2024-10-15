@@ -1,6 +1,5 @@
 import pytest
 import allure
-
 from extensions.functions import Functions
 from flows.web_flows import WorkFlow
 from helper.configuration_manager import BrowserManager
