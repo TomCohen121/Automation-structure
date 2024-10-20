@@ -20,24 +20,20 @@ class LoadingPage(BasePage):
        return self.page.get_by_role("button", name="שמור").click()
 
 
-   def btn_table_choose_a_row(self, row_number):
-       return self.page.locator(f"tr:nth-child({row_number})")
-
-
    def txt_statistics_number_of_checked_portions(self):
-       return self.page.locator("div").filter(has_text=re.compile(r'^מנות שנבדקו \d+$')).text_content()
+       return self.page.locator("div").filter(has_text=re.compile(r'^מנות שנבדקו \d+$'))
 
 
    def txt_statistics_number_of_unchecked_portions(self):
-       return self.page.locator("div").filter(has_text=re.compile(r'^מנות שטרם נבדקו \d+$')).text_content()
+       return self.page.locator("div").filter(has_text=re.compile(r'^מנות שטרם נבדקו \d+$'))
 
 
    def txt_statistics_checked_notebooks(self):
-       return self.page.locator("div:nth-child(3) > .content").first.text_content()
+       return self.page.locator("div:nth-child(3) > .content").first
 
 
    def txt_statistics_unchecked_notebooks(self):
-       return self.page.locator("div:nth-child(5) > .content").first.text_content()
+       return self.page.locator("div:nth-child(5) > .content > span").first
 
 
    def btn_loading_archive(self):

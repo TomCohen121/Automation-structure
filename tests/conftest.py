@@ -16,7 +16,7 @@ def setup_page(playwright: Playwright):
 
 
 @pytest.fixture(scope="function")
-def initialize_pages(setup_page):
+def from_page(setup_page):
     pages = BasePage.initialize_all_pages(setup_page)
     BasePage.goto_homepage(pages)
     return pages

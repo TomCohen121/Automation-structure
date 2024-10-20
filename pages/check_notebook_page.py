@@ -19,8 +19,12 @@ class CheckNotebookPage(BasePage):
        return self.page.locator('input[name="subQuestion"]')
 
 
-   def btn_save_question(self):
+   def btn_save_question_score(self):
        return self.page.get_by_role("button", name="שמור", exact=True)
+
+
+   def txt_total_notebook_grade(self):
+       return self.page.locator(".summary-scores p").first
 
 
    def btn_notebook_pagination(self):
@@ -36,7 +40,7 @@ class CheckNotebookPage(BasePage):
 
 
    def btn_close_after_saving_notebook(self):
-       return self.page.get_by_role("button", name="סגור")
+        return self.page.get_by_role("button", name="סגור")
 
 
    def btn_Suspicious_notebook(self):

@@ -7,11 +7,6 @@ class PersonalAreaPage(BasePage):
        super().__init__(page)
 
 
-
-   def txt_search_box(self):
-       return self.page.locator("[data-test=\"username\"]")
-
-
    def btn_questionnaire_evaluation(self):
        return self.page.get_by_role("button", name="הערכת שאלון")
 

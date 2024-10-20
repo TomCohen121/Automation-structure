@@ -21,3 +21,19 @@ class WorkFlow(BasePage):
        self.personalAreaPage.btn_questionnaire_evaluation().click()
        self.personalAreaPage.btn_reception_screens().click()
        self.personalAreaPage.btn_loading_for_the_evaluator().click()
+
+   def notebook_checking_process(self):
+       self.checkNotebookPage.field_question_number().fill('1')
+       self.functions.is_subquestion_exist()
+       self.checkNotebookPage.field_question_score().fill('1')
+       self.checkNotebookPage.btn_save_question_score().click()
+       self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible('button[role="button"][name="סגור"]')
+       self.functions.wait_for_domcontentloaded()
+
+
+
