@@ -14,7 +14,7 @@ class NotebookPage(BasePage):
 
    def txt_table_notebook_grade(self, row_number):
        text_value = self.page.locator('td .progress-bar-component p.ng-star-inserted').text_content()
-       return text_value
+       return float(text_value)
 
 
    def txt_table_notebook_status(self, row_number):

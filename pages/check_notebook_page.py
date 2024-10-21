@@ -27,6 +27,7 @@ class CheckNotebookPage(BasePage):
        return self.page.locator(".summary-scores p").first
 
 
+
    def btn_notebook_pagination(self):
        return self.page.locator(".pagination-buttons > app-icon-button:nth-child(3) > .icon-button")
 

@@ -6,6 +6,7 @@ from pages.loading_page import LoadingPage
 from pages.notebook_page import NotebookPage
 from pages.personal_area_page import PersonalAreaPage
 from pages.portions_page import PortionPage
+from soft_assert import soft_assert
 
 
 class Functions(BasePage):
@@ -24,6 +25,7 @@ class Functions(BasePage):
    def search_loading(self, loadingNumber):
        self.loadingPage.field_search().fill(loadingNumber)
        self.loadingPage.field_search().press('Enter')
+
 
    def popup_answer_law(self):
        try:
@@ -65,21 +67,16 @@ class Functions(BasePage):
        text_content = locator.text_content()
        match = re.search(r'(\d*\.?\d+)', text_content)
        number = match.group(0)
-       print(f'The number is {number}')
-       return number
+       return float(number)
+
 
    def wait_for_domcontentloaded(self):
        self.page.wait_for_load_state("domcontentloaded")
 
 
-   def assert_equal_to(self, value1,value2):
-       try:
-           assert value1 == value2 # This will pass
-           print(f'{value1} is equal to {value2}')
-           return True
-       except:
-           print(f'{value1} is not equal to {value2}')
-           return False
+   def assert_equal_to(self, value1, value2):
+       soft_assert.check(value1 == value2, f'{value1} is not equal to {value2}')
+
 
    def wait_for_loader(self, timeout=25000):
        try:
@@ -87,3 +84,7 @@ class Functions(BasePage):
            self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout)
        except:
            pass
+
+
+   def check_if_loading_exists_in_archives(self, locator,number):
+       return locator.text_content() == number

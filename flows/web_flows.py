@@ -27,7 +27,8 @@ class WorkFlow(BasePage):
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('1')
        self.checkNotebookPage.btn_save_question_score().click()
-       self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
+       self.checkNotebookPage.txt_total_notebook_grade().wait_for()
+       self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -36,4 +37,8 @@ class WorkFlow(BasePage):
        self.functions.wait_for_domcontentloaded()
 
 
-
+   def loading_discharge_and_navigate_to_archive(self):
+       self.loadingPage.btn_loading_discharge().click()
+       self.loadingPage.btn_save_loading_discharge_popup().click()
+       self.page.get_by_role("button", name="סגור").click()
+       self.loadingPage.btn_loading_archive().click()

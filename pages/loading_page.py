@@ -17,7 +17,7 @@ class LoadingPage(BasePage):
 
 
    def btn_save_loading_discharge_popup(self):
-       return self.page.get_by_role("button", name="שמור").click()
+       return self.page.get_by_role("button", name="שמור")
 
 
    def txt_statistics_number_of_checked_portions(self):
