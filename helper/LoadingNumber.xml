@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+##regular_evaluator
+    <regular_loading_number>0045558</regular_loading_number>
+    <suspicious_loading_number>fill</suspicious_loading_number>
+    <senior_loading_number>fill</senior_loading_number>
+    <noncompliance_loading_number>fill</noncompliance_loading_number>
+    <afterAppeal_loading_number>fill</afterAppeal_loading_number>
+    <sampleAfterEvaluation_loading_number>fill</sampleAfterEvaluation_loading_number>
+</config>

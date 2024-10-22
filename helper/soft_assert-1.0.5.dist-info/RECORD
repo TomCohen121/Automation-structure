@@ -1,0 +1,11 @@
+soft_assert-1.0.5.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+soft_assert-1.0.5.dist-info/LICENSE,sha256=DghfAfO4h5I5Xhawma-9diSyXh54Ygy9tVNUw3TUZhs,1068
+soft_assert-1.0.5.dist-info/METADATA,sha256=csvDcOFJbx1HX5UnRPP-e0Jj_XERONkwTMuLsCPXDZA,1484
+soft_assert-1.0.5.dist-info/RECORD,,
+soft_assert-1.0.5.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+soft_assert-1.0.5.dist-info/WHEEL,sha256=oiQVh_5PnQM0E3gPdiz09WCNmwiHDMaGer_elqB3coM,92
+soft_assert-1.0.5.dist-info/top_level.txt,sha256=5Xpd2-u4NlwDJGL7vy88pBaYnGi6OinQWMk3PWv_Q_4,12
+soft_assert/__init__.py,sha256=GSsdgmLmacN--LalJkbJTbc_cXsRBG87dg1MWX6sYEI,118
+soft_assert/__pycache__/__init__.cpython-312.pyc,,
+soft_assert/__pycache__/soft_assert.cpython-312.pyc,,
+soft_assert/soft_assert.py,sha256=yoNTL7cLbbRUztGPUOf5w6yOB7CXnwkhm0ZupQ95rsk,1658
