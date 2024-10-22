@@ -27,7 +27,6 @@ class CheckNotebookPage(BasePage):
        return self.page.locator(".summary-scores p").first
 
 
-
    def btn_notebook_pagination(self):
        return self.page.locator(".pagination-buttons > app-icon-button:nth-child(3) > .icon-button")
 
@@ -44,7 +43,7 @@ class CheckNotebookPage(BasePage):
         return self.page.get_by_role("button", name="סגור")
 
 
-   def btn_Suspicious_notebook(self):
+   def btn_suspicious_notebook(self):
        return self.page.get_by_role("button", name="מחברת חשודה")
 
 

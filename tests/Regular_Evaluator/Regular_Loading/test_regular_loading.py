@@ -1,21 +1,18 @@
 import allure
 import pytest
-from allure_pytest.utils import allure_suite_labels
 from pytest_playwright.pytest_playwright import page
-from extensions.functions import Functions
-from pages.base_page import BasePage
-from helper.utils import loading_number
-from soft_assert import soft_assert
+from helper.utils import *
+from helper.soft_assert import soft_assert
 
 
 
-@pytest.mark.marih
+@pytest.mark.regular_evaluator
 @allure.story("בדיקת E2E הערכה רגילה")
 @allure.description("בדיקת1")
 def test_regular_loading(from_page, add_allure_attach, page):
    from_page["Functions"].wait_for_domcontentloaded()
    from_page["WorkFlow"].navigation_to_loading_screen()
-   from_page["Functions"].search_loading(loading_number)
+   from_page["Functions"].search_loading(regular_loading_number)
    from_page["Functions"].table_choose_a_row(2).click()
 
    #LoadingScreen
@@ -53,7 +50,7 @@ def test_regular_loading(from_page, add_allure_attach, page):
    from_page["Functions"].assert_equal_to(from_page["NotebookPage"].txt_table_notebook_status(2),"מחברת נבדקה")
    from_page["Functions"].assert_equal_to(table_notebook_grade_before,from_page["WorkFlow"].notebook_grade)
 
-   from_page["NotebookPage"].btn_breadcrumbs_to_portions_page().click()
+   from_page["Breadcrumbs"].btn_breadcrumbs_to_portions_page().click()
 
    #PortionScreen
    table_number_of_checked_notebooks_after = from_page["PortionPage"].txt_table_number_of_checked_notebooks(2)
@@ -61,7 +58,7 @@ def test_regular_loading(from_page, add_allure_attach, page):
    from_page["Functions"].assert_equal_to(table_avarage_grade_before,from_page["WorkFlow"].notebook_grade)
    from_page["Functions"].assert_equal_to(from_page["PortionPage"].txt_table_portion_status(2),"מנה תקינה ממתינה למשיכת תפוקה")
 
-   from_page["PortionPage"].btn_breadcrumbs_to_loadings_page().click()
+   from_page["Breadcrumbs"].btn_breadcrumbs_to_loadings_page().click()
 
    #LoadingScreen
    statistics_number_of_checked_portions_after = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_statistics_number_of_checked_portions())
@@ -76,7 +73,7 @@ def test_regular_loading(from_page, add_allure_attach, page):
    from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
 
    #ArchiveScreen
-   from_page["Functions"].search_loading(loading_number)
+   from_page["Functions"].search_loading(regular_loading_number)
    soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible())
    soft_assert.assert_all()
 

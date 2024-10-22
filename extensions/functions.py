@@ -1,12 +1,12 @@
 import re
 from pages.base_page import BasePage
-from playwright.sync_api import Page, Error
+from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
 from pages.loading_page import LoadingPage
 from pages.notebook_page import NotebookPage
 from pages.personal_area_page import PersonalAreaPage
 from pages.portions_page import PortionPage
-from soft_assert import soft_assert
+from helper.soft_assert import soft_assert
 
 
 class Functions(BasePage):
@@ -17,6 +17,7 @@ class Functions(BasePage):
        self.checkNotebookPage = CheckNotebookPage(self.page)
        self.notebookPage = NotebookPage(self.page)
        self.portionPage = PortionPage(self.page)
+
 
    def table_choose_a_row(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number})")

@@ -21,8 +21,7 @@ class NotebookPage(BasePage):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(7) > .text-wrapper > .text-overflow > span").first.text_content()
 
 
-   def btn_breadcrumbs_to_portions_page(self):
-       return self.page.locator("div.label.router-link-active", has_text="מנות למעריך")
+
 
 
 

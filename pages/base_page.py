@@ -2,7 +2,6 @@ from playwright.sync_api import Page
 from helper.configuration_manager import ConfigurationManager
 
 
-
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
@@ -20,17 +19,17 @@ class BasePage:
         from pages.check_notebook_page import CheckNotebookPage
         from pages.notebook_page import NotebookPage
         from pages.personal_area_page import PersonalAreaPage
+        from pages.breadcrumbs import Breadcrumbs
 
-        # יצירה של העמודים פעם אחת בלבד
         pages = {}
         pages["LoadingPage"] = LoadingPage(page)
         pages["CheckNotebookPage"] = CheckNotebookPage(page)
         pages["NotebookPage"] = NotebookPage(page)
         pages["PersonalAreaPage"] = PersonalAreaPage(page)
         pages["PortionPage"] = PortionPage(page)
-        pages["Functions"] = Functions(page)  # ודא ש-Functions לא מנסה לטעון מחדש עמודים אחרים
+        pages["Functions"] = Functions(page)
         pages["WorkFlow"] = WorkFlow(page)
-
+        pages["Breadcrumbs"] = Breadcrumbs(page)
         return pages
 
     @staticmethod

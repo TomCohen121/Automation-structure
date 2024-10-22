@@ -17,10 +17,12 @@ class WorkFlow(BasePage):
        self.portionPage = PortionPage(self.page)
        self.functions = Functions(self.page)
 
+
    def navigation_to_loading_screen(self):
        self.personalAreaPage.btn_questionnaire_evaluation().click()
        self.personalAreaPage.btn_reception_screens().click()
        self.personalAreaPage.btn_loading_for_the_evaluator().click()
+
 
    def notebook_checking_process(self):
        self.checkNotebookPage.field_question_number().fill('1')
