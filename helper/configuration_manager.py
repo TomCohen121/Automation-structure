@@ -1,36 +1,39 @@
 import os
-import configparser
-from playwright.sync_api import Playwright, BrowserType, Browser, Page
+import xml.etree.ElementTree as ET
+
+from playwright.async_api import Playwright, BrowserType
 
 
 class ConfigurationManager:
-    _config = configparser.ConfigParser()
+    _config = None
 
     @staticmethod
     def load_config():
-        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/config.properties')
-        ConfigurationManager._config.read(config_file_path)
-        return ConfigurationManager._config['DEFAULT']
+        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/Configuration.xml')
+        tree = ET.parse(config_file_path)
+        ConfigurationManager._config = ET.parse(config_file_path).getroot()  # ניתוח קובץ ה-XML
+        return ConfigurationManager._config
 
     @staticmethod
     def get_browser():
-        return ConfigurationManager._config.get('DEFAULT', 'browser')
+        return ConfigurationManager._config.find('browser').text
 
     @staticmethod
     def is_headless():
-        return ConfigurationManager._config.getboolean('DEFAULT', 'headless')
+        return ConfigurationManager._config.find('headless').text.lower() == 'true'
 
     @staticmethod
     def get_slow_motion():
-        return ConfigurationManager._config.getint('DEFAULT', 'slow.motion')
+        return int(ConfigurationManager._config.find('slow_motion').text)
 
     @staticmethod
     def base_url():
-        return ConfigurationManager._config.get('DEFAULT', 'base.url')
+        return ConfigurationManager._config.find('base_url').text
 
     @staticmethod
     def maximize_window():
-        return ConfigurationManager._config.getboolean('DEFAULT', 'maximize.window', fallback=True)
+        return ConfigurationManager._config.find('maximize_window').text.lower() == 'true'
+
 
 class BrowserManager:
     @staticmethod
@@ -46,11 +49,11 @@ class BrowserManager:
 
     @staticmethod
     def setup(playwright: Playwright):
-        config = ConfigurationManager.load_config()
-        browser_type = config.get('browser', 'chromium')
+        ConfigurationManager.load_config()
+        browser_type = ConfigurationManager.get_browser()
         browser_options = {
-            "headless": config.getboolean('headless', False),
-            "slow_mo": config.getint('slow.motion', 0)
+            "headless": ConfigurationManager.is_headless(),
+            "slow_mo": ConfigurationManager.get_slow_motion()
         }
         browser = getattr(playwright, browser_type).launch(**browser_options)
         context = browser.new_context(viewport={"width": 1920, "height": 1080} if ConfigurationManager.maximize_window() else {})

@@ -38,3 +38,18 @@ class LoadingPage(BasePage):
 
    def btn_loading_archive(self):
        return self.page.get_by_role("button", name="מעבר לארכיון טעינות")
+
+
+   def btn_filter(self):
+       return self.page.get_by_role("main").locator("app-icon-button").get_by_role("button")
+
+   def btn_filter_navigation_arrows(self):
+       return self.page.locator("div:nth-child(3) > app-svg-icon > .mat-icon > svg")
+
+   def checkbox_loading_moved_to_evaluation(self):
+       return self.page.get_by_label("טעינה הועברה למעריך")
+
+   def btn_filter_saving(self):
+       return self.page.get_by_role("button", name="שמור")
+
+

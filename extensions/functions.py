@@ -74,9 +74,10 @@ class Functions(BasePage):
    def wait_for_domcontentloaded(self):
        self.page.wait_for_load_state("domcontentloaded")
 
-
-   def assert_equal_to(self, value1, value2):
-       soft_assert.check(value1 == value2, f'{value1} is not equal to {value2}')
+   def assert_equal_to(self, value1, value2, message=None):
+       if message is None:
+           message = f'Assertion failed: {value1} is not equal to {value2}'
+       soft_assert.check(value1 == value2, message)
 
 
    def wait_for_loader(self, timeout=25000):
@@ -89,3 +90,9 @@ class Functions(BasePage):
 
    def check_if_loading_exists_in_archives(self, locator,number):
        return locator.text_content() == number
+
+
+   def assert_verify_popup_error_message(self, locator, expected_text):
+       soft_assert.check(locator.is_visible(), f'Expected popup with locator {locator} to be visible, but it is not.')
+       popup_text = self.checkNotebookPage.txt_saving_notebook_error_message().text_content()
+       soft_assert.check(popup_text == expected_text,f' Expected popup text: "{expected_text}", but got: "{popup_text}".')

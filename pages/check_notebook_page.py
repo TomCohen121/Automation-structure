@@ -49,3 +49,13 @@ class CheckNotebookPage(BasePage):
 
    def btn_not_reviewable_button(self):
        return self.page.get_by_role("button", name="אי בדיקת מחברת")
+
+
+   def popup_saving_notebook_error_message(self):
+       return self.page.locator(".popUp-message-body")
+
+   def txt_saving_notebook_error_message(self):
+       return self.page.get_by_role("paragraph")
+
+   def btn_txt_saving_notebook_error_message_close(self):
+       return self.page.get_by_role("button", name="סגור")

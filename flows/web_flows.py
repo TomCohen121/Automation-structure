@@ -24,6 +24,7 @@ class WorkFlow(BasePage):
        self.personalAreaPage.btn_loading_for_the_evaluator().click()
 
 
+
    def notebook_checking_process(self):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
@@ -44,3 +45,12 @@ class WorkFlow(BasePage):
        self.loadingPage.btn_save_loading_discharge_popup().click()
        self.page.get_by_role("button", name="סגור").click()
        self.loadingPage.btn_loading_archive().click()
+
+
+   def filters_new_loading_search(self):
+       self.loadingPage.btn_filter().click()
+       self.loadingPage.btn_filter_navigation_arrows().click()
+       self.loadingPage.btn_filter_navigation_arrows().click()
+       self.loadingPage.btn_filter_navigation_arrows().click()
+       self.loadingPage.checkbox_loading_moved_to_evaluation().check()
+       self.loadingPage.btn_filter_saving().click()

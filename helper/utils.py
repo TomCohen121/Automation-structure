@@ -26,5 +26,5 @@ def load_numbers_from_xml(file_path):
     afterAppeal_loading_number = root.find('afterAppeal_loading_number').text
     sampleAfterEvaluation_loading_number = root.find('sampleAfterEvaluation_loading_number').text
 
-xml_file_path = 'C:/Automation/Projects/marvad_automation/helper/LoadingNumber.xml'
+xml_file_path = 'C:/Automation/Projects/marvad_automation/resources/Configuration.xml'
 load_numbers_from_xml(xml_file_path)
