@@ -64,10 +64,10 @@ def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
    statistics_number_of_unchecked_portions_after = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_statistics_number_of_unchecked_portions()))
    statistics_number_of_checked_notebooks_after = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_statistics_checked_notebooks()))
    statistics_number_of_unchecked_notebooks_after = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_statistics_unchecked_notebooks()))
-   from_page["Functions"].assert_equal_to(statistics_number_of_checked_portions_before +1, statistics_number_of_checked_portions_after)
-   from_page["Functions"].assert_equal_to(statistics_number_of_unchecked_portions_before +1, statistics_number_of_unchecked_portions_after)
-   from_page["Functions"].assert_equal_to(statistics_number_of_checked_notebooks_before +1, statistics_number_of_checked_notebooks_after)
-   from_page["Functions"].assert_equal_to(statistics_number_of_unchecked_notebooks_before +1, statistics_number_of_unchecked_notebooks_after)
+   from_page["Functions"].assert_equal_to(statistics_number_of_checked_portions_before +1, statistics_number_of_checked_portions_after, "Statistics: Number of checked portions is incorrect")
+   from_page["Functions"].assert_equal_to(statistics_number_of_unchecked_portions_before +1, statistics_number_of_unchecked_portions_after, "Statistics: Number of unchecked portions is incorrect")
+   from_page["Functions"].assert_equal_to(statistics_number_of_checked_notebooks_before +1, statistics_number_of_checked_notebooks_after , "Statistics: Number of checked notebooks is incorrect")
+   from_page["Functions"].assert_equal_to(statistics_number_of_unchecked_notebooks_before +1, statistics_number_of_unchecked_notebooks_after , "Statistics: Number of unchecked notebooks is incorrect")
 
    from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
 
