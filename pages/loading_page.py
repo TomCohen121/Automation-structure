@@ -28,8 +28,20 @@ class LoadingPage(BasePage):
        return self.page.locator("div").filter(has_text=re.compile(r'^מנות שטרם נבדקו \d+$'))
 
 
+   def txt_statistics_number_of_nocheck_portions(self):
+       return self.page.locator("div").filter(has_text=re.compile(r'^מנות באי בדיקה \d+$'))
+
+
    def txt_statistics_checked_notebooks(self):
        return self.page.locator("div:nth-child(3) > .content").first
+
+
+   def txt_statistics_nocheck_notebooks(self):
+       return self.page.locator("div:nth-child(2) > .content").first
+
+
+   def txt_statistics_suspicious_notebooks(self):
+       return self.page.locator("div:nth-child(4) > .content > span").first
 
 
    def txt_statistics_unchecked_notebooks(self):
@@ -43,8 +55,10 @@ class LoadingPage(BasePage):
    def btn_filter(self):
        return self.page.get_by_role("main").locator("app-icon-button").get_by_role("button")
 
+
    def btn_filter_navigation_arrows(self):
        return self.page.locator("div:nth-child(3) > app-svg-icon > .mat-icon > svg")
+
 
    def checkbox_loading_moved_to_evaluation(self):
        return self.page.get_by_label("טעינה הועברה למעריך")

@@ -21,6 +21,11 @@ class NotebookPage(BasePage):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(7) > .text-wrapper > .text-overflow > span").first.text_content()
 
 
+   def checkbox_notebook_suspicious_evaluation(self, row_number):
+       return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(5) .mdc-checkbox__native-control").first
+
+
+
 
 
 

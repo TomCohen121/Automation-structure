@@ -6,8 +6,8 @@ from helper.soft_assert import soft_assert
 
 
 @pytest.mark.regular_evaluator
-@allure.story("בדיקת E2E הערכה רגילה - מעריך רגיל")
-@allure.description("תהליך בדיקת מחברת ופריקה של הטעינה")
+@allure.story("E2E Test for Regular Evaluation - Regular Evaluator")
+@allure.description("Process of Notebook Evaluation and Loading Unload")
 def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
    from_page["Functions"].wait_for_domcontentloaded()
    from_page["WorkFlow"].navigation_to_loading_screen()
@@ -38,7 +38,7 @@ def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
    from_page["Functions"].table_choose_a_row(2).dblclick()
 
    #CheckNotebookScreen
-   from_page["WorkFlow"].notebook_checking_process()
+   from_page["WorkFlow"].notebook_checking_process_with_grade()
    from_page["Functions"].popup_answer_law()
 
 # #################################################################################################################################################################################
@@ -75,4 +75,5 @@ def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
    from_page["Functions"].search_loading(regular_loading_number)
    soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
    soft_assert.assert_all()
+
 

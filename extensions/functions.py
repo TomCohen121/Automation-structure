@@ -37,13 +37,22 @@ class Functions(BasePage):
            pass
 
 
-   def click_element_if_visible(self, element, timeout=12000):
+   def click_element_if_visible_all(self, element_locator_function, timeout=1200):
        try:
-           x = self.page.wait_for_selector(element, timeout=timeout)
-           if x.is_visible():
-               x.click()
+           element = element_locator_function().wait_for(timeout=timeout)
+           if element.is_visible():
+               element.click()
        except Exception as e:
            pass
+
+
+   # def click_element_if_visible(self, element, timeout=12000):
+   #     try:
+   #         x = self.page.wait_for_selector(element, timeout=timeout)
+   #         if x.is_visible():
+   #             x.click()
+   #     except Exception as e:
+   #         pass
 
 
    def notebook_pagination_loop(self):
@@ -74,6 +83,7 @@ class Functions(BasePage):
    def wait_for_domcontentloaded(self):
        self.page.wait_for_load_state("domcontentloaded")
 
+
    def assert_equal_to(self, value1, value2, message=None):
        if message is None:
            message = f'Assertion failed: {value1} is not equal to {value2}'
@@ -96,3 +106,18 @@ class Functions(BasePage):
        soft_assert.check(locator.is_visible(), f'Expected popup with locator {locator} to be visible, but it is not.')
        popup_text = self.checkNotebookPage.txt_saving_notebook_error_message().text_content()
        soft_assert.check(popup_text == expected_text,f' Expected popup text: "{expected_text}", but got: "{popup_text}".')
+
+
+   def select_first_option_from_dropdown(self, dropdown_locator, options_list_locator):
+       dropdown_locator.click()
+       options_list_locator.wait_for(state='visible')
+       first_option = options_list_locator.locator('div').first
+       first_option.click()
+
+   def checkbox_is_checked(self, checkbox_locator, expected_state):
+       checkbox_locator.wait_for(state="visible")
+       is_checked = checkbox_locator.is_checked()
+       soft_assert.check(
+           is_checked == expected_state,
+           f"The Suspicious CheckBox is expected to be {'checked' if expected_state else 'unchecked'}, "
+           f"but it is {'checked' if is_checked else 'unchecked'}.")

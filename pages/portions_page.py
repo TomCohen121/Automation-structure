@@ -14,6 +14,11 @@ class PortionPage(BasePage):
        return int(text_value.strip())
 
 
+   def txt_table_number_of_suspicious_notebooks(self, row_number):
+       text_value = self.page.locator(f"tr:nth-child({row_number}) td:nth-child(10) > .data-wrapper > span").first.text_content()
+       return int(text_value.strip())
+
+
    def txt_table_avg_grade(self, row_number):
        text_value = self.page.locator(f"tr:nth-child({row_number}) td:nth-child(11) > .text-wrapper > .text-overflow > span").first.text_content()
        return float(text_value)
@@ -29,5 +34,4 @@ class PortionPage(BasePage):
 
    def btn_save_loading_half_discharge_popup(self):
        return self.page.get_by_role("button", name="שמור")
-
 

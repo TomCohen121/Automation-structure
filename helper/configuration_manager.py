@@ -1,7 +1,7 @@
 import os
 import xml.etree.ElementTree as ET
 
-from playwright.async_api import Playwright, BrowserType
+from playwright.sync_api import Playwright, BrowserType
 
 
 class ConfigurationManager:

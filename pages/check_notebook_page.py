@@ -47,6 +47,30 @@ class CheckNotebookPage(BasePage):
        return self.page.get_by_role("button", name="מחברת חשודה")
 
 
+   def checkbox_mark_suspicious_notebook(self):
+       return self.page.get_by_label("סמן כמחברת חשודה - חשד הערכה")
+
+
+   def dropdown_suspicious_reason(self):
+       return self.page.locator('input[placeholder="חפש כאן..."]')
+
+
+   def dropdown_suspicious_reason_list(self):
+       return self.page.locator(".options-wrapper")
+
+
+   def btn_choose_suspicious_dropdown_options(self):
+       return self.page.get_by_role("button", name="בחר")
+
+
+   def field_suspicious_text(self):
+       return self.page.locator('.ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline')
+
+
+   def btn_save_suspicious_notebook_popup(self):
+       return self.page.locator("app-big-button").get_by_role("button", name="שמור")
+
+
    def btn_not_reviewable_button(self):
        return self.page.get_by_role("button", name="אי בדיקת מחברת")
 
@@ -54,8 +78,10 @@ class CheckNotebookPage(BasePage):
    def popup_saving_notebook_error_message(self):
        return self.page.locator(".popUp-message-body")
 
+
    def txt_saving_notebook_error_message(self):
        return self.page.get_by_role("paragraph")
+
 
    def btn_txt_saving_notebook_error_message_close(self):
        return self.page.get_by_role("button", name="סגור")
