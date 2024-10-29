@@ -1,6 +1,5 @@
 import os
-import xml.etree.ElementTree as ET
-
+import json
 from playwright.sync_api import Playwright, BrowserType
 
 
@@ -9,30 +8,36 @@ class ConfigurationManager:
 
     @staticmethod
     def load_config():
-        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/Configuration.xml')
-        tree = ET.parse(config_file_path)
-        ConfigurationManager._config = ET.parse(config_file_path).getroot()  # ניתוח קובץ ה-XML
+        # נתיב לקובץ ה-JSON
+        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/Configuration.json')
+        with open(config_file_path, 'r') as config_file:
+            ConfigurationManager._config = json.load(config_file)  # טוען את קובץ ה-JSON
         return ConfigurationManager._config
 
     @staticmethod
     def get_browser():
-        return ConfigurationManager._config.find('browser').text
+        return ConfigurationManager._config["browser"]
 
     @staticmethod
     def is_headless():
-        return ConfigurationManager._config.find('headless').text.lower() == 'true'
+        return ConfigurationManager._config["headless"]
 
     @staticmethod
     def get_slow_motion():
-        return int(ConfigurationManager._config.find('slow_motion').text)
+        return ConfigurationManager._config["slow_motion"]
 
     @staticmethod
     def base_url():
-        return ConfigurationManager._config.find('base_url').text
+        return ConfigurationManager._config["base_url"]
 
     @staticmethod
     def maximize_window():
-        return ConfigurationManager._config.find('maximize_window').text.lower() == 'true'
+        return ConfigurationManager._config["maximize_window"]
+
+    @staticmethod
+    def get_loading_number(type_name):
+        # מחזיר loading_number לפי סוג
+        return ConfigurationManager._config["loading_numbers"].get(type_name)
 
 
 class BrowserManager:
