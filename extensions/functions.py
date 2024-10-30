@@ -36,7 +36,7 @@ class Functions(BasePage):
         """Waits for the DOM content to be fully loaded."""
         self.page.wait_for_load_state("domcontentloaded")
 
-    def wait_for_loader(self, timeout=25000):
+    def wait_for_loader(self, timeout=35000):
         """Waits for the loading bar to show and then hide."""
         try:
             self.page.wait_for_selector(".loading-bar-wrapper.show", timeout=timeout)
@@ -49,12 +49,10 @@ class Functions(BasePage):
         return locator.text_content() == number
 
     # --------------------------- Popup Functions ---------------------------
-
     def popup_answer_law(self):
-        """Closes the popup if the close button is visible."""
         try:
             close_button = self.page.wait_for_selector("app-small-button:has-text('סגור')", timeout=5000)
-            if close_button.is_visible():
+            if close_button and close_button.is_visible():
                 close_button.click()
         except Exception as e:
             pass

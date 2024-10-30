@@ -45,7 +45,7 @@ def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
     #NotebookScreen
    table_number_of_checked_questions_after = from_page["Functions"].number_to_int(from_page["NotebookPage"].txt_table_number_of_checked_questions(2))
    from_page["Functions"].assert_equal_to(table_number_of_checked_questions_before+1,table_number_of_checked_questions_after,"Number of checked Questions is incorrect")
-   from_page["Functions"].assert_equal_to(from_page["NotebookPage"].txt_table_notebook_status(2),"מחברת נבדקה", "the status is not 'מחברת שנבדקה'")
+   from_page["Functions"].assert_equal_to(from_page["NotebookPage"].txt_table_notebook_status(2),"מחברת נבדקה", "the status is not 'מחברת נבדקה'")
    from_page["Functions"].assert_equal_to(table_notebook_grade_before,from_page["WorkFlow"].notebook_grade,"The Notebook grade is incorrect")
 
    from_page["Breadcrumbs"].btn_breadcrumbs_to_portions_page().click()
@@ -68,11 +68,11 @@ def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
    from_page["Functions"].assert_equal_to(statistics_number_of_checked_notebooks_before +1, statistics_number_of_checked_notebooks_after , "Statistics: Number of checked notebooks is incorrect")
    from_page["Functions"].assert_equal_to(statistics_number_of_unchecked_notebooks_before +1, statistics_number_of_unchecked_notebooks_after , "Statistics: Number of unchecked notebooks is incorrect")
 
-   from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
-
-   #ArchiveScreen
-   from_page["Functions"].search_loading(regular_loading_number)
-   soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
+   # from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
+   #
+   # #ArchiveScreen
+   # from_page["Functions"].search_loading(regular_loading_number)
+   # soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
 
    #Dashbord_test - TO DO

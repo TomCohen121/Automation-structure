@@ -1,7 +1,6 @@
 import pytest
 import allure
-from extensions.functions import Functions
-from flows.web_flows import WorkFlow
+
 from helper.configuration_manager import BrowserManager
 from helper.reporting_manager import ReportingManager
 from pages.base_page import BasePage

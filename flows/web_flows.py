@@ -36,7 +36,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
-       self.functions.wait_for_domcontentloaded()
+
 
 
    def notebook_checking_process(self):
@@ -49,7 +49,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
-       self.functions.wait_for_domcontentloaded()
+
 
 
    def loading_discharge_and_navigate_to_archive(self):
@@ -93,6 +93,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_suspicious_text().fill('tom')
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
 
+
    def flow_set_uncheck_notebook(self):
        self.checkNotebookPage.btn_uncheck_notebook().click()
        self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_uncheck_reason(),self.checkNotebookPage.dropdown_uncheck_reason_list(),'div')
@@ -102,4 +103,3 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
-       self.functions.wait_for_domcontentloaded()

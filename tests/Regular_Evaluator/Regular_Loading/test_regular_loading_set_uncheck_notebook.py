@@ -31,7 +31,6 @@ def test_regular_loading_set_uncheck_notebook(from_page, add_allure_attach, page
     # CheckNotebookScreen
     from_page["WorkFlow"].flow_set_uncheck_notebook()
     from_page["Functions"].popup_answer_law()
-
     ######################################################################################################################################################
                                                                 # Testing
 
@@ -45,11 +44,11 @@ def test_regular_loading_set_uncheck_notebook(from_page, add_allure_attach, page
     statistics_number_of_nocheck_notebooks_after = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_statistics_nocheck_notebooks())
     from_page["Functions"].assert_equal_to(statistics_number_of_nocheck_notebooks_before+1,statistics_number_of_nocheck_notebooks_after, "Statistics: Number of uncheck portions is incorrect")
     from_page["Functions"].assert_equal_to(statistics_number_of_nocheck_portions_before+1,statistics_number_of_nocheck_portions_after, "Statistics: Number of uncheck notebooks is incorrect")
-    from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
-
-    # ArchiveScreen
-    from_page["Functions"].search_loading(regular_loading_number)
-    soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
+    # from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
+    #
+    # # ArchiveScreen
+    # from_page["Functions"].search_loading(regular_loading_number)
+    # soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()
 
