@@ -13,7 +13,7 @@ def test_regular_loading_error_handling(from_page, add_allure_attach, page):
    from_page["WorkFlow"].navigation_to_loading_screen()
    # from_page["WorkFlow"].filters_new_loading_search()
    from_page["Functions"].search_loading(regular_loading_number)
-   from_page["WorkFlow"].flow_from_loading_to_checknotebookpage(2,3,2)
+   from_page["WorkFlow"].flow_from_loading_to_checknotebookpage(2,2,2)
 
    # ##########################################################################################################################################
                                                                     # Testing

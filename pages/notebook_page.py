@@ -11,7 +11,7 @@ class NotebookPage(BasePage):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(4) > .text-wrapper > .text-overflow > span").first.text_content()
 
    def txt_table_notebook_grade(self, row_number):
-       return self.page.locator('td .progress-bar-component p.ng-star-inserted').text_content().strip()
+       return self.page.locator('td .progress-bar-component p.ng-star-inserted').text_content()
 
    def txt_table_notebook_status(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(7) > .text-wrapper > .text-overflow > span").first.text_content().strip()

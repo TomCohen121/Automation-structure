@@ -51,10 +51,10 @@ class Functions(BasePage):
     # --------------------------- Popup Functions ---------------------------
     def popup_answer_law(self):
         try:
-            close_button = self.page.wait_for_selector("app-small-button:has-text('סגור')", timeout=5000)
-            if close_button and close_button.is_visible():
+            close_button = self.page.wait_for_selector("app-small-button:has-text('סגור')", timeout=3000)
+            if close_button.is_visible():
                 close_button.click()
-        except Exception as e:
+        except:
             pass
 
     def assert_verify_popup_error_message(self, locator, expected_text):

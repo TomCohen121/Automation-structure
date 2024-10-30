@@ -61,6 +61,6 @@ class BrowserManager:
             "slow_mo": ConfigurationManager.get_slow_motion()
         }
         browser = getattr(playwright, browser_type).launch(**browser_options)
-        context = browser.new_context(viewport=None if ConfigurationManager.maximize_window() else {"width": 1920, "height": 1080})
+        context = browser.new_context(viewport={"width": 1920, "height": 1080} if ConfigurationManager.maximize_window() else {})
         page = context.new_page()
         return browser, page

@@ -27,7 +27,7 @@ class WorkFlow(BasePage):
    def notebook_checking_process_with_grade(self):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
-       self.checkNotebookPage.field_question_score().fill('1')
+       self.checkNotebookPage.field_question_score().fill('20')
        self.checkNotebookPage.btn_save_question_score().click()
        self.checkNotebookPage.txt_total_notebook_grade().wait_for()
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
@@ -36,19 +36,21 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
+       self.functions.wait_for_domcontentloaded()
 
 
 
    def notebook_checking_process(self):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
-       self.checkNotebookPage.field_question_score().fill('1')
+       self.checkNotebookPage.field_question_score().fill('20')
        self.checkNotebookPage.btn_save_question_score().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
+       self.functions.wait_for_domcontentloaded()
 
 
 
@@ -71,6 +73,7 @@ class WorkFlow(BasePage):
    def flow_from_loading_to_checknotebookpage(self,row_number,row_number1,row_number2):
        self.functions.table_choose_a_row(row_number).dblclick()
        self.functions.table_choose_a_row(row_number1).dblclick()
+       self.functions.popup_answer_law()
        self.functions.table_choose_a_row(row_number2).dblclick()
 
 
@@ -103,3 +106,4 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
+       self.functions.wait_for_domcontentloaded()

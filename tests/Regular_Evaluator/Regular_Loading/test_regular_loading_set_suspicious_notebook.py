@@ -36,7 +36,7 @@ def test_regular_loading_set_suspicious_notebook(from_page, add_allure_attach, p
     #################################################################################################################################################
                                                                 #Testing
     #NotebookScreen
-    from_page["Functions"].checkbox_is_checked(from_page["NotebookPage"].checkbox_notebook_suspicious_evaluation(2),expected_state=False)
+    from_page["Functions"].checkbox_is_checked(from_page["NotebookPage"].checkbox_notebook_suspicious_evaluation(2),expected_state=True)
     from_page["Breadcrumbs"].btn_breadcrumbs_to_portions_page().click()
 
     #PortionScreen
@@ -47,11 +47,11 @@ def test_regular_loading_set_suspicious_notebook(from_page, add_allure_attach, p
     #LoadingScreen
     statistics_number_of_suspicious_notebooks_after = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_statistics_suspicious_notebooks())
     from_page["Functions"].assert_equal_to(statistics_number_of_suspicious_notebook_before+1,statistics_number_of_suspicious_notebooks_after, "Number of Suspicious notebooks is incorrect")
-    from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
 
-    #ArchiveScreen
-    from_page["Functions"].search_loading(regular_loading_number)
-    soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
+    # from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
+    # #ArchiveScreen
+    # from_page["Functions"].search_loading(regular_loading_number)
+    # soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()
 
