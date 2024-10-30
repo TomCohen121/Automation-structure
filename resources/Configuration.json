@@ -8,8 +8,11 @@
     "slow_motion": 300,
     "_comment_slow_motion": "Adjust to slow down or speed up the actions, In milliseconds.",
 
-    "base_url": "https://d1dltc9sqvdor1.cloudfront.net/?f5=ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4",
-    "_comment_base_url": "Update this to the base URL needed for your tests.",
+    "url": "QA",
+    "_comment_url": "Choose either 'QA' or 'DEV'.",
+
+    "token": "token2",
+    "_comment_token": "Choose either 'token1' or 'token2'.",
 
     "maximize_window": true,
     "_comment_maximize_window": "Set True for maximize window, False for normal window",

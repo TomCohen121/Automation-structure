@@ -28,7 +28,26 @@ class ConfigurationManager:
 
     @staticmethod
     def base_url():
-        return ConfigurationManager._config["base_url"]
+        selected_url = ConfigurationManager._config["url"]
+        url_map = {
+            "QA": "https://d1dltc9sqvdor1.cloudfront.net/?f5=",
+            "DEV": "https://djmgx4dl196h1.cloudfront.net/?f5="
+            #"Prod": "complete" #
+        }
+        base_url = url_map.get(selected_url)
+
+        # קבל את ה-token שנבחר
+        selected_token = ConfigurationManager._config["token"]
+        token_map = {
+            "token1": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4",
+            "token2": "ZjVTU089ZjVTU091c2VyPTMwNzU2NzkwOSZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng=="
+        }
+        token = token_map.get(selected_token)
+
+        # צור את ה-URL המלא
+        if base_url and token:
+            return f"{base_url}{token}"  # מחבר את ה-URL וה-token
+        return None
 
     @staticmethod
     def maximize_window():
