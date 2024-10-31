@@ -101,11 +101,10 @@ class Functions(BasePage):
 
     def extracting_total_notebook_grade(self, locator):
         """Extracts a float value from the locator's text content, matching a number pattern."""
-        text_content = locator.text_content()
-        match = re.search(r'(\d*\.?\d+)', text_content)
+        text_content = locator.text_content().strip()
+        match = re.search(r'(\d+\.?\d*)', text_content)
         number = match.group(0)
-        return float(number)
-
+        return int(float(number))
     # --------------------------- Assertion Functions ---------------------------
 
     def assert_equal_to(self, value1, value2, message=None):
@@ -128,8 +127,7 @@ class Functions(BasePage):
     def number_to_int(self, number_str):
         """Converts a string to an integer after stripping whitespace."""
         number = number_str.strip()
-        number_int = int(number)
-        return number_int
+        return int(float(number))
 
     def number_to_float(self, number_str):
         """Converts a string to a float after stripping whitespace."""
@@ -153,3 +151,8 @@ class Functions(BasePage):
                 element.click()
         except Exception as e:
             pass
+
+    def check_row_disabled_soft_assert(self, row_locator, error_message="The row is not disabled as expected"):
+        row_class = row_locator.get_attribute("class")
+        is_disabled = "disabled" in row_class if row_class else False
+        soft_assert.check(is_disabled, error_message)
