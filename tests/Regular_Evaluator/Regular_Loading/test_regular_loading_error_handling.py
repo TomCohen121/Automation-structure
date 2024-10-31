@@ -11,8 +11,6 @@ from pages.base_page import BasePage
 @allure.story("בדיקת שגיאות הערכה רגילה - מעריך רגיל")
 @allure.description("תהליך בדיקת שגיאות של הטעינה")
 def test_regular_loading_error_handling(from_page, add_allure_attach, page):
-   ConfigurationManager.load_config()
-
 
    from_page["Functions"].wait_for_domcontentloaded()
    from_page["WorkFlow"].navigation_to_loading_screen()

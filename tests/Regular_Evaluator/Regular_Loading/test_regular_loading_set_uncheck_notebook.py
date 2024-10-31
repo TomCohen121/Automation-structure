@@ -35,6 +35,7 @@ def test_regular_loading_set_uncheck_notebook(from_page, add_allure_attach, page
                                                                 # Testing
 
     # NotebookScreen
+    from_page["Functions"].table_choose_a_row(2).click()
     notebook_status = from_page["NotebookPage"].txt_table_notebook_status(2).strip()
     from_page["Functions"].assert_equal_to(notebook_status,from_page["WorkFlow"].uncheck_reason,"The Notebook Status is not equal to the uncheck reason")
     from_page["Breadcrumbs"].btn_breadcrumbs_to_loadings_page().click()

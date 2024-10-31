@@ -1,3 +1,5 @@
+import time
+
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -27,7 +29,7 @@ class WorkFlow(BasePage):
    def notebook_checking_process_with_grade(self):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
-       self.checkNotebookPage.field_question_score().fill('20')
+       self.checkNotebookPage.field_question_score().fill('5')
        self.checkNotebookPage.btn_save_question_score().click()
        self.checkNotebookPage.txt_total_notebook_grade().wait_for()
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
@@ -43,7 +45,7 @@ class WorkFlow(BasePage):
    def notebook_checking_process(self):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
-       self.checkNotebookPage.field_question_score().fill('20')
+       self.checkNotebookPage.field_question_score().fill('5')
        self.checkNotebookPage.btn_save_question_score().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -107,3 +109,4 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
        self.functions.wait_for_domcontentloaded()
+

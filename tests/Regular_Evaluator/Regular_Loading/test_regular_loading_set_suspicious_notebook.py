@@ -36,6 +36,7 @@ def test_regular_loading_set_suspicious_notebook(from_page, add_allure_attach, p
     #################################################################################################################################################
                                                                 #Testing
     #NotebookScreen
+    from_page["Functions"].table_choose_a_row(2).click()
     from_page["Functions"].checkbox_is_checked(from_page["NotebookPage"].checkbox_notebook_suspicious_evaluation(2),expected_state=True)
     from_page["Breadcrumbs"].btn_breadcrumbs_to_portions_page().click()
 
