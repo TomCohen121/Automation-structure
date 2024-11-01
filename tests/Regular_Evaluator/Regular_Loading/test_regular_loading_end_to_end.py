@@ -9,7 +9,7 @@ from helper.soft_assert import soft_assert
 @allure.story("E2E Test for Regular Evaluation - Regular Evaluator")
 @allure.description("Process of Notebook Evaluation and Loading Unload")
 def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
-   from_page["Functions"].wait_for_domcontentloaded()
+   from_page["Functions"].wait_for_networkidle()
    from_page["WorkFlow"].navigation_to_loading_screen()
    from_page["Functions"].search_loading(regular_loading_number)
    from_page["Functions"].table_choose_a_row(2).click()

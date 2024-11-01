@@ -38,6 +38,9 @@ class Functions(BasePage):
         """Waits for the DOM content to be fully loaded."""
         self.page.wait_for_load_state("domcontentloaded")
 
+    def wait_for_networkidle(self):
+        self.page.wait_for_load_state("networkidle")
+
     def wait_for_loader(self, timeout=35000):
         """Waits for the loading bar to show and then hide."""
         try:
@@ -52,12 +55,9 @@ class Functions(BasePage):
 
     # --------------------------- Popup Functions ---------------------------
     def popup_answer_law(self):
-        try:
-            close_button = self.page.wait_for_selector("app-small-button:has-text('סגור')", timeout=3000)
-            if close_button.is_visible():
-                close_button.click()
-        except:
-            pass
+        close_button = self.page.query_selector("app-small-button:has-text('סגור')")
+        if close_button and close_button.is_visible():
+            close_button.click()
 
     def assert_verify_popup_error_message(self, locator, expected_text):
         """Asserts that a popup error message is visible and matches the expected text."""
