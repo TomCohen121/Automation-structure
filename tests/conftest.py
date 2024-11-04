@@ -1,6 +1,5 @@
 import pytest
 import allure
-
 from helper.configuration_manager import BrowserManager
 from helper.reporting_manager import ReportingManager
 from pages.base_page import BasePage
@@ -15,10 +14,12 @@ def setup_page(playwright: Playwright):
 
 
 @pytest.fixture(scope="function")
-def from_page(setup_page):
-    pages = BasePage.initialize_all_pages(setup_page)
-    BasePage.goto_homepage(pages)
-    return pages
+def f(setup_page):
+    base_page = BasePage(setup_page)  # Create an instance of BasePage
+    base_page.initialize_all_pages()  # Initialize all pages
+    BasePage.goto_homepage(base_page)  # Call the static method to navigate to the homepage
+    return base_page  # Return the base_page instance to be used in tests
+
 
 @pytest.fixture()
 def add_allure_attach(request, setup_page):

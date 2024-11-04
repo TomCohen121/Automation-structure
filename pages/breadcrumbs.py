@@ -11,3 +11,6 @@ class Breadcrumbs(BasePage):
 
    def btn_breadcrumbs_to_portions_page(self):
        return self.page.locator("div.label.router-link-active", has_text="מנות למעריך")
+
+   def btn_breadcrumbs_to_personal_area_page(self):
+       return self.page.locator("div.label.router-link-active", has_text="איזור אישי")

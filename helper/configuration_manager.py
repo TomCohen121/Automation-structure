@@ -30,8 +30,8 @@ class ConfigurationManager:
     def base_url():
         selected_url = ConfigurationManager._config["url"]
         url_map = {
-            "QA": "https://d1dltc9sqvdor1.cloudfront.net/?f5=",
-            "DEV": "https://djmgx4dl196h1.cloudfront.net/?f5="
+            "QA": "https://djmgx4dl196h1.cloudfront.net/?f5=",
+            "DEV": "https://d1dltc9sqvdor1.cloudfront.net/?f5="
             #"Prod": "complete" #
         }
         base_url = url_map.get(selected_url)
@@ -39,7 +39,7 @@ class ConfigurationManager:
         selected_token = ConfigurationManager._config["token"]
         token_map = {
             "token1": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
-            "ronatoken": "ZjVTU089ZjVTU091c2VyPTMwNzU2NzkwOSZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng=="
+            "ronatoken": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4"
         }
         token = token_map.get(selected_token)
 

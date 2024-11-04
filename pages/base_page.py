@@ -1,17 +1,23 @@
 from playwright.sync_api import Page
 from helper.configuration_manager import ConfigurationManager
 
-
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
+        self.loadingPage = None
+        self.check_notebookPage = None
+        self.notebookPage = None
+        self.personal_areaPage = None
+        self.portionPage = None
+        self.functions = None
+        self.workflow = None
+        self.breadcrumbs = None
 
     def goto(self, url=None):
         self.page.goto(url or ConfigurationManager.base_url())
         return self
 
-    @staticmethod
-    def initialize_all_pages(page):
+    def initialize_all_pages(self):
         from pages.portions_page import PortionPage
         from pages.loading_page import LoadingPage
         from extensions.functions import Functions
@@ -21,19 +27,17 @@ class BasePage:
         from pages.personal_area_page import PersonalAreaPage
         from pages.breadcrumbs import Breadcrumbs
 
-        pages = {}
-        pages["LoadingPage"] = LoadingPage(page)
-        pages["CheckNotebookPage"] = CheckNotebookPage(page)
-        pages["NotebookPage"] = NotebookPage(page)
-        pages["PersonalAreaPage"] = PersonalAreaPage(page)
-        pages["PortionPage"] = PortionPage(page)
-        pages["Functions"] = Functions(page)
-        pages["WorkFlow"] = WorkFlow(page)
-        pages["Breadcrumbs"] = Breadcrumbs(page)
-        return pages
+        self.loadingPage = LoadingPage(self.page)
+        self.check_notebookPage = CheckNotebookPage(self.page)
+        self.notebookPage = NotebookPage(self.page)
+        self.personal_areaPage = PersonalAreaPage(self.page)
+        self.portionPage = PortionPage(self.page)
+        self.functions = Functions(self.page)
+        self.workflow = WorkFlow(self.page)
+        self.breadcrumbs = Breadcrumbs(self.page)
+
 
     @staticmethod
     def goto_homepage(pages):
-        pages['LoadingPage'].goto()
-
+        pages.loadingPage.goto()
 

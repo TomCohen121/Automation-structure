@@ -1,6 +1,4 @@
 import re
-import time
-
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
@@ -14,7 +12,6 @@ from helper.soft_assert import soft_assert
 class Functions(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
-        # Initialize page objects
         self.personalAreaPage = PersonalAreaPage(self.page)
         self.loadingPage = LoadingPage(self.page)
         self.checkNotebookPage = CheckNotebookPage(self.page)
@@ -54,6 +51,7 @@ class Functions(BasePage):
         return locator.text_content() == number
 
     # --------------------------- Popup Functions ---------------------------
+
     def popup_answer_law(self):
         close_button = self.page.query_selector("app-small-button:has-text('סגור')")
         if close_button and close_button.is_visible():

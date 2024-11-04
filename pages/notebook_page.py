@@ -18,10 +18,3 @@ class NotebookPage(BasePage):
 
    def checkbox_notebook_suspicious_evaluation(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(5) .mdc-checkbox__native-control").first
-
-
-
-
-
-
-

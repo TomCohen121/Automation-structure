@@ -4,75 +4,90 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-
 @pytest.mark.regular_evaluator
 @allure.story("E2E Test for Regular Evaluation - Regular Evaluator")
 @allure.description("Process of Notebook Evaluation and Loading Unload")
-def test_regular_loading_end_to_end(from_page, add_allure_attach, page):
-   from_page["Functions"].wait_for_networkidle()
-   from_page["WorkFlow"].navigation_to_loading_screen()
-   from_page["Functions"].search_loading(regular_loading_number)
-   from_page["Functions"].table_choose_a_row(2).click()
+def test_regular_loading_end_to_end(f, add_allure_attach, page):
+
+   f.functions.wait_for_networkidle()
+   #Dashboard
+   num_of_discharged_loadings_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
+   num_of_discharged_portions_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
+   num_of_discharged_notebooks_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_notebooks())
+   f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen
-   stat_num_of_checked_portions_before = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_stat_num_of_checked_portions())
-   stat_num_of_unchecked_portions_before = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_stat_num_of_unchecked_portions()))
-   stat_num_of_checked_notebooks_before = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_stat_checked_notebooks()))
-   stat_num_of_unchecked_notebooks_before = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_stat_unchecked_notebooks()))
-   from_page["Functions"].table_choose_a_row(2).dblclick()
+   f.functions.search_loading(regular_loading_number)
+   f.functions.table_choose_a_row(2).click()
+   stat_num_of_checked_portions_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_num_of_checked_portions())
+   stat_num_of_unchecked_portions_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_num_of_unchecked_portions()))
+   stat_num_of_checked_notebooks_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_checked_notebooks()))
+   stat_num_of_unchecked_notebooks_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_unchecked_notebooks()))
+   f.functions.table_choose_a_row(2).dblclick()
 
    #PortionScreen
-   from_page["Functions"].table_choose_a_row(2).click()
-   table_num_of_checked_notebooks_before = from_page["Functions"].number_to_int(from_page["PortionPage"].txt_table_num_of_checked_notebooks(2))
+   f.functions.table_choose_a_row(2).click()
+   table_num_of_checked_notebooks_before = f.functions.number_to_int(f.portionPage.txt_table_num_of_checked_notebooks(2))
 
-   from_page["Functions"].table_choose_a_row(2).dblclick()
+   f.functions.table_choose_a_row(2).dblclick()
 
    #NotebookScreen
-   from_page["Functions"].popup_answer_law()
-   from_page["Functions"].table_choose_a_row(2).click()
-   table_num_of_checked_questions_before = from_page["Functions"].number_to_int(from_page["NotebookPage"].txt_table_num_of_checked_questions(2))
+   f.functions.popup_answer_law()
+   f.functions.table_choose_a_row(2).click()
+   table_num_of_checked_questions_before = f.functions.number_to_int(f.notebookPage.txt_table_num_of_checked_questions(2))
 
-   from_page["Functions"].table_choose_a_row(2).dblclick()
+   f.functions.table_choose_a_row(2).dblclick()
 
    #CheckNotebookScreen
-   from_page["WorkFlow"].notebook_checking_process_with_grade()
-   from_page["Functions"].popup_answer_law()
+   f.workflow.notebook_checking_process_with_grade()
+   f.functions.popup_answer_law()
+
    ##################################################################################################################################################################################
                                                                            # Testing
     #NotebookScreen
-   table_num_of_checked_questions_after = from_page["Functions"].number_to_int(from_page["NotebookPage"].txt_table_num_of_checked_questions(2))
-   table_notebook_grade_after = from_page["Functions"].number_to_int(from_page["NotebookPage"].txt_table_notebook_grade(2))
-   from_page["Functions"].assert_equal_to(table_num_of_checked_questions_before+1,table_num_of_checked_questions_after,"Number of checked Questions is incorrect")
-   from_page["Functions"].assert_equal_to(from_page["NotebookPage"].txt_table_notebook_status(2),"מחברת נבדקה", "the status is not 'מחברת נבדקה'")
-   from_page["Functions"].assert_equal_to(table_notebook_grade_after,from_page["WorkFlow"].notebook_grade,"The Notebook grade is incorrect")
+   table_num_of_checked_questions_after = f.functions.number_to_int(f.notebookPage.txt_table_num_of_checked_questions(2))
+   table_notebook_grade_after = f.functions.number_to_int(f.notebookPage.txt_table_notebook_grade(2))
+   f.functions.assert_equal_to(table_num_of_checked_questions_before+1,table_num_of_checked_questions_after,"Number of checked Questions is incorrect")
+   f.functions.assert_equal_to(f.notebookPage.txt_table_notebook_status(2),"מחברת נבדקה", "the status is not 'מחברת נבדקה'")
+   f.functions.assert_equal_to(table_notebook_grade_after,f.workflow.notebook_grade,"The Notebook grade is incorrect")
 
-   from_page["Breadcrumbs"].btn_breadcrumbs_to_portions_page().click()
+   f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
    #PortionScreen
-   table_num_of_checked_notebooks_after = from_page["Functions"].number_to_int(from_page["PortionPage"].txt_table_num_of_checked_notebooks(2))
-   from_page["Functions"].assert_equal_to(table_num_of_checked_notebooks_before+1,table_num_of_checked_notebooks_after,"Number of checked Notebooks is incorrect")
-   table_avg_grade_after = from_page["Functions"].number_to_int(from_page["PortionPage"].txt_table_avg_grade(2))
-   from_page["Functions"].assert_equal_to(table_avg_grade_after,from_page["WorkFlow"].notebook_grade,"The Portion Average grade incorrect" )
-   from_page["Functions"].assert_equal_to(from_page["PortionPage"].txt_table_portion_status(2),"מנה תקינה ממתינה למשיכת תפוקה","the status is not 'מנה תקינה ממתינה למשיכת תפוקה'")
+   table_num_of_checked_notebooks_after = f.functions.number_to_int(f.portionPage.txt_table_num_of_checked_notebooks(2))
+   f.functions.assert_equal_to(table_num_of_checked_notebooks_before+1,table_num_of_checked_notebooks_after,"Number of checked Notebooks is incorrect")
+   table_avg_grade_after = f.functions.number_to_int(f.portionPage.txt_table_avg_grade(2))
+   f.functions.assert_equal_to(table_avg_grade_after,f.workflow.notebook_grade,"The Portion Average grade incorrect" )
+   f.functions.assert_equal_to(f.portionPage.txt_table_portion_status(2),"מנה תקינה ממתינה למשיכת תפוקה","the status is not 'מנה תקינה ממתינה למשיכת תפוקה'")
 
-   from_page["Breadcrumbs"].btn_breadcrumbs_to_loadings_page().click()
+   f.breadcrumbs.btn_breadcrumbs_to_loadings_page().click()
 
    #LoadingScreen
-   stat_num_of_checked_portions_after = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_stat_num_of_checked_portions())
-   stat_num_of_unchecked_portions_after = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_stat_num_of_unchecked_portions()))
-   stat_num_of_checked_notebooks_after = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_stat_checked_notebooks()))
-   stat_num_of_unchecked_notebooks_after = from_page["Functions"].extracting_value_from_statistics((from_page["LoadingPage"].txt_stat_unchecked_notebooks()))
-   from_page["Functions"].assert_equal_to(stat_num_of_checked_portions_before +1, stat_num_of_checked_portions_after, "Statistics: Number of checked portions is incorrect")
-   from_page["Functions"].assert_equal_to(stat_num_of_unchecked_portions_before -1, stat_num_of_unchecked_portions_after, "Statistics: Number of unchecked portions is incorrect")
-   from_page["Functions"].assert_equal_to(stat_num_of_checked_notebooks_before +1, stat_num_of_checked_notebooks_after , "Statistics: Number of checked notebooks is incorrect")
-   from_page["Functions"].assert_equal_to(stat_num_of_unchecked_notebooks_before -1, stat_num_of_unchecked_notebooks_after , "Statistics: Number of unchecked notebooks is incorrect")
+   stat_num_of_checked_portions_after = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_num_of_checked_portions())
+   stat_num_of_unchecked_portions_after = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_num_of_unchecked_portions()))
+   stat_num_of_checked_notebooks_after = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_checked_notebooks()))
+   stat_num_of_unchecked_notebooks_after = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_unchecked_notebooks()))
+   f.functions.assert_equal_to(stat_num_of_checked_portions_before +1, stat_num_of_checked_portions_after, "Statistics: Number of checked portions is incorrect")
+   f.functions.assert_equal_to(stat_num_of_unchecked_portions_before -1, stat_num_of_unchecked_portions_after, "Statistics: Number of unchecked portions is incorrect")
+   f.functions.assert_equal_to(stat_num_of_checked_notebooks_before +1, stat_num_of_checked_notebooks_after , "Statistics: Number of checked notebooks is incorrect")
+   f.functions.assert_equal_to(stat_num_of_unchecked_notebooks_before -1, stat_num_of_unchecked_notebooks_after , "Statistics: Number of unchecked notebooks is incorrect")
 
-   # from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
-   # #ArchiveScreen
-   # from_page["Functions"].search_loading(regular_loading_number)
-   # soft_assert.check(from_page["Functions"].table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
+   f.workflow.loading_discharge_and_navigate_to_archive()
 
-   #Dashbord_test - TO DO
+   #ArchiveScreen
+   f.functions.search_loading(regular_loading_number)
+   soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
+
+   #Dashboard
+   f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
+   num_of_discharged_loadings_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
+   num_of_discharged_portions_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
+   num_of_discharged_notebooks_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_notebooks())
+
+   f.functions.assert_equal_to(num_of_discharged_loadings_before+1 ,num_of_discharged_loadings_after , "Dashboard statistics: Number of discharged loadings is Incorrect")
+   f.functions.assert_equal_to(num_of_discharged_portions_before+1 ,num_of_discharged_portions_after , "Dashboard statistics: Number of discharged portions is Incorrect")
+   f.functions.assert_equal_to(num_of_discharged_notebooks_before+1 ,num_of_discharged_notebooks_after , "Dashboard statistics: Number of discharged notebooks is Incorrect")
+
    soft_assert.assert_all()
 
 

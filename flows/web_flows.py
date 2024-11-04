@@ -1,5 +1,3 @@
-import time
-
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -19,12 +17,7 @@ class WorkFlow(BasePage):
        self.portionPage = PortionPage(self.page)
        self.functions = Functions(self.page)
 
-
-   def navigation_to_loading_screen(self):
-       self.personalAreaPage.btn_questionnaire_evaluation().click()
-       self.personalAreaPage.btn_reception_screens().click()
-       self.personalAreaPage.btn_loading_for_the_evaluator().click()
-
+    # --------------------------- Notebook Checking Process ---------------------------
 
    def notebook_checking_process_with_grade(self):
        self.checkNotebookPage.field_question_number().fill('1')
@@ -41,7 +34,6 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
        self.functions.wait_for_domcontentloaded()
 
-
    def notebook_checking_process(self):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
@@ -55,30 +47,25 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
        self.functions.wait_for_domcontentloaded()
 
+    # --------------------------- Navigation Flows ---------------------------
 
-
-   def loading_discharge_and_navigate_to_archive(self):
-       self.loadingPage.btn_loading_discharge().click()
-       self.loadingPage.btn_save_loading_discharge_popup().click()
-       # self.page.get_by_role("button", name="סגור").click()
-       self.loadingPage.btn_loading_archive().click()
-
-
-   def filters_new_loading_search(self):
-       self.loadingPage.btn_filter().click()
-       self.loadingPage.btn_filter_navigation_arrows().click()
-       self.loadingPage.btn_filter_navigation_arrows().click()
-       self.loadingPage.btn_filter_navigation_arrows().click()
-       self.loadingPage.checkbox_loading_moved_to_evaluation().check()
-       self.loadingPage.btn_filter_saving().click()
-
-
-   def flow_from_loading_to_checknotebookpage(self,row_number,row_number1,row_number2):
+   def navigation_from_loading_to_CheckNotebookPage(self,row_number,row_number1,row_number2):
        self.functions.table_choose_a_row(row_number).dblclick()
        self.functions.table_choose_a_row(row_number1).dblclick()
        self.functions.popup_answer_law()
        self.functions.table_choose_a_row(row_number2).dblclick()
 
+   def navigation_to_loading_screen(self):
+       self.personalAreaPage.btn_questionnaire_evaluation().click()
+       self.personalAreaPage.btn_reception_screens().click()
+       self.personalAreaPage.btn_loading_for_the_evaluator().click()
+
+   def loading_discharge_and_navigate_to_archive(self):
+        self.loadingPage.btn_loading_discharge().click()
+        self.loadingPage.btn_save_loading_discharge_popup().click()
+        self.loadingPage.btn_loading_archive().click()
+
+    # --------------------------- Asserts Flows ---------------------------
 
    def assert_and_validate_popup_and_error_messages(self):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -90,6 +77,7 @@ class WorkFlow(BasePage):
        self.functions.assert_verify_popup_error_message(
        self.checkNotebookPage.popup_saving_notebook_error_message(), "יש להזין ציון לפחות לשאלה אחת")
 
+    # --------------------------- Suspicious Notebook Flows ---------------------------
 
    def flow_set_suspicious_notebook(self):
        self.checkNotebookPage.btn_suspicious_notebook().click()
@@ -99,6 +87,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_suspicious_text().fill('tom')
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
 
+    # --------------------------- Uncheck Notebook Flows ---------------------------
 
    def flow_set_uncheck_notebook(self):
        self.checkNotebookPage.btn_uncheck_notebook().click()
