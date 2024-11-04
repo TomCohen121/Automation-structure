@@ -11,7 +11,7 @@
     "url": "QA",
     "_comment_url": "Choose either 'QA' or 'DEV'.",
 
-    "token": "ronatoken",
+    "token": "token1",
     "_comment_token": "Choose either 'token1' or 'ronatoken'.",
 
     "maximize_window": true,

@@ -16,27 +16,27 @@ class LoadingPage(BasePage):
 
 
     # --------------------------- Portions Statistics Locators ---------------------------
-   def txt_statistics_number_of_checked_portions(self):
+   def txt_stat_num_of_checked_portions(self):
        return self.page.locator("div").filter(has_text=re.compile(r'^מנות שנבדקו \d+$'))
 
-   def txt_statistics_number_of_unchecked_portions(self):
+   def txt_stat_num_of_unchecked_portions(self):
        return self.page.locator("div").filter(has_text=re.compile(r'^מנות שטרם נבדקו \d+$'))
 
-   def txt_statistics_number_of_nocheck_portions(self):
+   def txt_stat_num_of_nocheck_portions(self):
        return self.page.locator("div").filter(has_text=re.compile(r'^מנות באי בדיקה \d+$'))
 
 
     # --------------------------- Notebooks Statistics Locators ---------------------------
-   def txt_statistics_checked_notebooks(self):
+   def txt_stat_checked_notebooks(self):
        return self.page.locator("div:nth-child(3) > .content > span").first
 
-   def txt_statistics_nocheck_notebooks(self):
+   def txt_stat_nocheck_notebooks(self):
        return self.page.locator("div:nth-child(2) > .content > span").first
 
-   def txt_statistics_suspicious_notebooks(self):
+   def txt_stat_suspicious_notebooks(self):
        return self.page.locator("div:nth-child(4) > .content > span").first
 
-   def txt_statistics_unchecked_notebooks(self):
+   def txt_stat_unchecked_notebooks(self):
        return self.page.locator("div:nth-child(5) > .content > span").first
 
 

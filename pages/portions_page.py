@@ -10,10 +10,10 @@ class PortionPage(BasePage):
 
 
     # --------------------------- Variables from Table Locators ---------------------------
-   def txt_table_number_of_checked_notebooks(self, row_number):
+   def txt_table_num_of_checked_notebooks(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(9) > .data-wrapper > span").first.text_content()
 
-   def txt_table_number_of_suspicious_notebooks(self, row_number):
+   def txt_table_num_of_suspicious_notebooks(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(10) > .data-wrapper > span").first.text_content()
 
    def txt_table_avg_grade(self, row_number):

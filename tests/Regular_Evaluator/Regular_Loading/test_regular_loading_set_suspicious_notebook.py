@@ -17,12 +17,12 @@ def test_regular_loading_set_suspicious_notebook(from_page, add_allure_attach, p
 
     #LoadingScreen
     from_page["Functions"].table_choose_a_row(2).click()
-    statistics_number_of_suspicious_notebook_before = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_statistics_suspicious_notebooks())
+    stat_num_of_suspicious_notebook_before = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_stat_suspicious_notebooks())
     from_page["Functions"].table_choose_a_row(2).dblclick()
 
     #PortionScreen
     from_page["Functions"].table_choose_a_row(2).click()
-    table_number_of_notebooks_in_suspicious_before = from_page["Functions"].number_to_int(from_page["PortionPage"].txt_table_number_of_suspicious_notebooks(2))
+    table_num_of_notebooks_in_suspicious_before = from_page["Functions"].number_to_int(from_page["PortionPage"].txt_table_num_of_suspicious_notebooks(2))
     from_page["Functions"].table_choose_a_row(2).dblclick()
 
     #NotebookScreen
@@ -41,13 +41,13 @@ def test_regular_loading_set_suspicious_notebook(from_page, add_allure_attach, p
     from_page["Breadcrumbs"].btn_breadcrumbs_to_portions_page().click()
 
     #PortionScreen
-    table_number_of_notebooks_in_suspicious_after = from_page["Functions"].number_to_int(from_page["PortionPage"].txt_table_number_of_suspicious_notebooks(2))
-    from_page["Functions"].assert_equal_to(table_number_of_notebooks_in_suspicious_before+1,table_number_of_notebooks_in_suspicious_after , "Number of notebooks in Suspicious is incorrect")
+    table_num_of_notebooks_in_suspicious_after = from_page["Functions"].number_to_int(from_page["PortionPage"].txt_table_num_of_suspicious_notebooks(2))
+    from_page["Functions"].assert_equal_to(table_num_of_notebooks_in_suspicious_before+1,table_num_of_notebooks_in_suspicious_after , "Number of notebooks in Suspicious is incorrect")
     from_page["Breadcrumbs"].btn_breadcrumbs_to_loadings_page().click()
 
     #LoadingScreen
-    statistics_number_of_suspicious_notebooks_after = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_statistics_suspicious_notebooks())
-    from_page["Functions"].assert_equal_to(statistics_number_of_suspicious_notebook_before+1,statistics_number_of_suspicious_notebooks_after, "Number of Suspicious notebooks is incorrect")
+    stat_num_of_suspicious_notebooks_after = from_page["Functions"].extracting_value_from_statistics(from_page["LoadingPage"].txt_stat_suspicious_notebooks())
+    from_page["Functions"].assert_equal_to(stat_num_of_suspicious_notebook_before+1,stat_num_of_suspicious_notebooks_after, "Number of Suspicious notebooks is incorrect")
 
     # from_page["WorkFlow"].loading_discharge_and_navigate_to_archive()
     # #ArchiveScreen

@@ -7,7 +7,7 @@ class NotebookPage(BasePage):
        super().__init__(page)
 
     # --------------------------- Variables from Table Locators ---------------------------
-   def txt_table_number_of_checked_questions(self, row_number):
+   def txt_table_num_of_checked_questions(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(4) > .text-wrapper > .text-overflow > span").first.text_content()
 
    def txt_table_notebook_grade(self, row_number):
