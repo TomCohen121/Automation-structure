@@ -11,7 +11,7 @@ from helper.soft_assert import soft_assert
 def test_regular_loading_error_handling(f, add_allure_attach, page):
    f.functions.wait_for_networkidle()
    f.workflow.navigation_to_loading_screen()
-   f.functions.search_loading(regular_loading_number)
+   f.functions.search_loading(regular_loading_number_error_handling)
    f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
    ###########################################################################################################################################
                                                                     # Testing

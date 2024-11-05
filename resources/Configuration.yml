@@ -6,9 +6,16 @@ token: "token1"               # Choose either 'token1' or 'ronatoken'.
 maximize_window: true         # Set True for maximize window, False for normal window
 
 loading_numbers:
-  regular_loading_number: "0046707"
-  suspicious_loading_number: "fill"
-  senior_loading_number: "fill"
-  noncompliance_loading_number: "fill"
-  afterAppeal_loading_number: "fill"
-  sampleAfterEvaluation_loading_number: "fill"
+  #Regular Loading
+  regular_loading_number_E2E: "0046707"
+  regular_loading_number_error_handling: "0046707"
+  regular_loading_number_E2E_half_discharge: "0046707"
+  regular_loading_number_E2E_set_suspicious_notebook: "0046707"
+  regular_loading_number_E2E_set_uncheck_notebook: "0046707"
+
+  #AfterApeal Loading
+  after_appeal_loading_number_E2E:
+  after_appeal_number_error_handling:
+  after_appeal_number_E2E_half_discharge:
+  after_appeal_number_E2E_set_suspicious_notebook:
+  after_appeal_number_E2E_set_uncheck_notebook:

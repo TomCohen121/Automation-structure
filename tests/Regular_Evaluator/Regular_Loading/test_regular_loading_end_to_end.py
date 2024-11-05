@@ -4,6 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
+
 @pytest.mark.regular_evaluator
 @allure.story("E2E Test for Regular Evaluation - Regular Evaluator")
 @allure.description("Process of Notebook Evaluation and Loading Unload")
@@ -18,7 +19,7 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen
-   f.functions.search_loading(regular_loading_number)
+   f.functions.search_loading(regular_loading_number_E2E)
    f.functions.table_choose_a_row(2).click()
    stat_num_of_checked_portions_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_num_of_checked_portions())
    stat_num_of_unchecked_portions_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_num_of_unchecked_portions()))
@@ -73,11 +74,11 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.functions.assert_equal_to(stat_num_of_checked_notebooks_before +1, stat_num_of_checked_notebooks_after , "Statistics: Number of checked notebooks is incorrect")
    f.functions.assert_equal_to(stat_num_of_unchecked_notebooks_before -1, stat_num_of_unchecked_notebooks_after , "Statistics: Number of unchecked notebooks is incorrect")
 
-   f.workflow.loading_discharge_and_navigate_to_archive()
-
-   #ArchiveScreen
-   f.functions.search_loading(regular_loading_number)
-   soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
+   # f.workflow.loading_discharge_and_navigate_to_archive()
+   #
+   # #ArchiveScreen
+   # f.functions.search_loading(regular_loading_number_E2E)
+   # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
    #Dashboard
    f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()

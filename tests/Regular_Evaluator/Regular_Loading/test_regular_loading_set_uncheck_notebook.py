@@ -6,7 +6,6 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-
 @pytest.mark.regular_evaluator2
 @allure.story("בדיקת אי בדיקה למחברת הערכה רגילה - מעריך רגיל")
 @allure.description("תהליך אי בדיקה למחברת")
@@ -15,7 +14,7 @@ def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
 
     # Dashboard
     f.workflow.navigation_to_loading_screen()
-    f.functions.search_loading(regular_loading_number)
+    f.functions.search_loading(regular_loading_number_E2E_set_uncheck_notebook)
 
     #LoadingScreen
     f.functions.table_choose_a_row(2).click()
@@ -51,7 +50,7 @@ def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
 
     # f.workflow.loading_discharge_and_navigate_to_archive()
     #ArchiveScreen
-    # f.functions.search_loading(regular_loading_number)
+    # f.functions.search_loading(regular_loading_number_E2E_set_uncheck_notebook)
     # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()

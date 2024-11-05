@@ -39,7 +39,6 @@ class Functions(BasePage):
         self.page.wait_for_load_state("networkidle")
 
     def wait_for_loader(self, timeout=35000):
-        """Waits for the loading bar to show and then hide."""
         try:
             self.page.wait_for_selector(".loading-bar-wrapper.show", timeout=timeout)
             self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout)
