@@ -15,6 +15,8 @@ class PersonalAreaPage(BasePage):
     def btn_loading_for_the_evaluator(self):
         return self.page.locator('//div[@class="menuItem" and contains(text(), "טעינה למעריך")]')
 
+
+    # --------------------------- Dashboard Statistics Locators ---------------------------
     def txt_num_of_discharged_loadings(self):
         return self.page.locator('.finished').first.text_content()
 

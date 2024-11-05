@@ -4,13 +4,12 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
+@pytest.mark.afterappeal_loading
 @pytest.mark.regular_evaluator
-@allure.story("E2E Test for Regular Loading - Regular Evaluator")
-@allure.description("Process of Checking Notebooks and Loading Discharge")
-def test_regular_loading_end_to_end(f, add_allure_attach, page):
-   f.functions.check_loading_number(regular_loading_number_E2E,'regular_loading_number_E2E')
-
+@allure.story("E2E Test for AfterAppeal Loading - Regular Evaluator")
+@allure.description("Notebook Checking and Loading Discharge Process")
+def test_afterappeal_loading_end_to_end(f, add_allure_attach, page):
+   f.functions.check_loading_number(after_appeal_loading_number_E2E,'after_appeal_loading_number_E2E')
    #Dashboard
    # num_of_discharged_loadings_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
    # num_of_discharged_portions_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
@@ -19,7 +18,7 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen
-   f.functions.search_loading(regular_loading_number_E2E)
+   f.functions.search_loading(after_appeal_loading_number_E2E)
    f.functions.table_choose_a_row(2).click()
    stat_num_of_checked_portions_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_num_of_checked_portions())
    stat_num_of_unchecked_portions_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_num_of_unchecked_portions()))
@@ -44,9 +43,9 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.workflow.notebook_checking_process_with_grade()
    f.functions.popup_answer_law()
 
-   ##################################################################################################################################################################################
+  ##################################################################################################################################################################################
                                                                            # Testing
-    #NotebookScreen
+   #NotebookScreen
    table_num_of_checked_questions_after = f.functions.number_to_int(f.notebookPage.txt_table_num_of_checked_questions(2))
    table_notebook_grade_after = f.functions.number_to_int(f.notebookPage.txt_table_notebook_grade(2))
    f.functions.assert_equal_to(table_num_of_checked_questions_before+1,table_num_of_checked_questions_after,"Number of checked Questions is incorrect")
@@ -91,6 +90,3 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    # f.functions.assert_equal_to(num_of_discharged_notebooks_before+1 ,num_of_discharged_notebooks_after , "Dashboard statistics: Number of discharged notebooks is Incorrect")
 
    soft_assert.assert_all()
-
-
-
