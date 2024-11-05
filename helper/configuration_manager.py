@@ -1,5 +1,5 @@
 import os
-import json
+import yaml
 from playwright.sync_api import Playwright, BrowserType
 
 
@@ -8,10 +8,10 @@ class ConfigurationManager:
 
     @staticmethod
     def load_config():
-        # נתיב לקובץ ה-JSON
-        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/Configuration.json')
+        # נתיב לקובץ ה-YAML
+        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/Configuration.yml')
         with open(config_file_path, 'r') as config_file:
-            ConfigurationManager._config = json.load(config_file)  # טוען את קובץ ה-JSON
+            ConfigurationManager._config = yaml.safe_load(config_file)  # טוען את קובץ ה-YAML
         return ConfigurationManager._config
 
     @staticmethod
@@ -30,16 +30,15 @@ class ConfigurationManager:
     def base_url():
         selected_url = ConfigurationManager._config["url"]
         url_map = {
-            "QA": "https://djmgx4dl196h1.cloudfront.net/?f5=",
-            "DEV": "https://d1dltc9sqvdor1.cloudfront.net/?f5="
-            #"Prod": "complete" #
+            "QA": "https://d1dltc9sqvdor1.cloudfront.net/?f5=",
+            "DEV": "https://djmgx4dl196h1.cloudfront.net/?f5="
         }
         base_url = url_map.get(selected_url)
 
         selected_token = ConfigurationManager._config["token"]
         token_map = {
             "token1": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
-            "ronatoken": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4"
+            "ronatoken": "ZjVTU089ZjVTU091c2VyPTMwNzU2NzkwOSZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng=="
         }
         token = token_map.get(selected_token)
 

@@ -8,12 +8,13 @@ from helper.soft_assert import soft_assert
 @allure.story("E2E Test for Regular Evaluation - Regular Evaluator")
 @allure.description("Process of Notebook Evaluation and Loading Unload")
 def test_regular_loading_end_to_end(f, add_allure_attach, page):
-
    f.functions.wait_for_networkidle()
+
    #Dashboard
    num_of_discharged_loadings_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
    num_of_discharged_portions_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
    num_of_discharged_notebooks_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_notebooks())
+
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen

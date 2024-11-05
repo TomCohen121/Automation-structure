@@ -1,0 +1,14 @@
+browser: "chromium"          # Valid options are 'chromium', 'firefox', 'webkit'.
+headless: false               # Set to True for headless mode, False for normal mode.
+slow_motion: 300              # Adjust to slow down or speed up the actions, in milliseconds.
+url: "QA"                     # Choose either 'QA' or 'DEV'.
+token: "token1"               # Choose either 'token1' or 'ronatoken'.
+maximize_window: true         # Set True for maximize window, False for normal window
+
+loading_numbers:
+  regular_loading_number: "0046707"
+  suspicious_loading_number: "fill"
+  senior_loading_number: "fill"
+  noncompliance_loading_number: "fill"
+  afterAppeal_loading_number: "fill"
+  sampleAfterEvaluation_loading_number: "fill"

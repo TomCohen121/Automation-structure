@@ -12,6 +12,8 @@ from pages.loading_page import LoadingPage
 @allure.description("תהליך אי בדיקה למחברת")
 def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
     f.functions.wait_for_networkidle()
+
+    # Dashboard
     f.workflow.navigation_to_loading_screen()
     f.functions.search_loading(regular_loading_number)
 
