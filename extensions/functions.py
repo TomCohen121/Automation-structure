@@ -1,4 +1,6 @@
 import re
+import time
+
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
@@ -26,6 +28,10 @@ class Functions(BasePage):
 
     # --------------------------- Loading Functions ---------------------------
 
+    def check_loading_number(self, loading_number, variable_name):
+        if not loading_number or loading_number == "fill":
+            raise ValueError(f"Error: The loading number '{variable_name}' is empty. Please check the configuration.")
+
     def search_loading(self, loadingNumber):
         """Fills the loading number in the search field and submits it."""
         self.loadingPage.field_search().fill(loadingNumber)
@@ -52,9 +58,12 @@ class Functions(BasePage):
     # --------------------------- Popup Functions ---------------------------
 
     def popup_answer_law(self):
-        close_button = self.page.query_selector("app-small-button:has-text('סגור')")
-        if close_button and close_button.is_visible():
-            close_button.click()
+        for _ in range(3):
+            close_button = self.page.query_selector("app-small-button:has-text('סגור')")
+            if close_button and close_button.is_visible():
+                close_button.click()
+                return
+            time.sleep(0.1)
 
     def assert_verify_popup_error_message(self, locator, expected_text):
         """Asserts that a popup error message is visible and matches the expected text."""
@@ -153,3 +162,4 @@ class Functions(BasePage):
         row_class = row_locator.get_attribute("class")
         is_disabled = "disabled" in row_class if row_class else False
         soft_assert.check(is_disabled, error_message)
+

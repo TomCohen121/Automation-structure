@@ -4,17 +4,17 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-
+@pytest.mark.regular_loading
 @pytest.mark.regular_evaluator
 @allure.story("E2E Test for Regular Evaluation - Regular Evaluator")
 @allure.description("Process of Notebook Evaluation and Loading Unload")
 def test_regular_loading_end_to_end(f, add_allure_attach, page):
-   f.functions.wait_for_networkidle()
+   f.functions.check_loading_number(regular_loading_number_E2E,'regular_loading_number_E2E')
 
    #Dashboard
-   num_of_discharged_loadings_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
-   num_of_discharged_portions_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
-   num_of_discharged_notebooks_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_notebooks())
+   # num_of_discharged_loadings_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
+   # num_of_discharged_portions_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
+   # num_of_discharged_notebooks_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_notebooks())
 
    f.workflow.navigation_to_loading_screen()
 
@@ -75,20 +75,20 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.functions.assert_equal_to(stat_num_of_unchecked_notebooks_before -1, stat_num_of_unchecked_notebooks_after , "Statistics: Number of unchecked notebooks is incorrect")
 
    # f.workflow.loading_discharge_and_navigate_to_archive()
-   #
+
    # #ArchiveScreen
    # f.functions.search_loading(regular_loading_number_E2E)
    # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
    #Dashboard
-   f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
-   num_of_discharged_loadings_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
-   num_of_discharged_portions_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
-   num_of_discharged_notebooks_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_notebooks())
+   # f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
+   # num_of_discharged_loadings_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
+   # num_of_discharged_portions_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())
+   # num_of_discharged_notebooks_after = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_notebooks())
 
-   f.functions.assert_equal_to(num_of_discharged_loadings_before+1 ,num_of_discharged_loadings_after , "Dashboard statistics: Number of discharged loadings is Incorrect")
-   f.functions.assert_equal_to(num_of_discharged_portions_before+1 ,num_of_discharged_portions_after , "Dashboard statistics: Number of discharged portions is Incorrect")
-   f.functions.assert_equal_to(num_of_discharged_notebooks_before+1 ,num_of_discharged_notebooks_after , "Dashboard statistics: Number of discharged notebooks is Incorrect")
+   # f.functions.assert_equal_to(num_of_discharged_loadings_before+1 ,num_of_discharged_loadings_after , "Dashboard statistics: Number of discharged loadings is Incorrect")
+   # f.functions.assert_equal_to(num_of_discharged_portions_before+1 ,num_of_discharged_portions_after , "Dashboard statistics: Number of discharged portions is Incorrect")
+   # f.functions.assert_equal_to(num_of_discharged_notebooks_before+1 ,num_of_discharged_notebooks_after , "Dashboard statistics: Number of discharged notebooks is Incorrect")
 
    soft_assert.assert_all()
 

@@ -6,10 +6,12 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.regular_evaluator2
+@pytest.mark.regular_loading
+@pytest.mark.regular_evaluator
 @allure.story("בדיקת אי בדיקה למחברת הערכה רגילה - מעריך רגיל")
 @allure.description("תהליך אי בדיקה למחברת")
 def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
+    f.functions.check_loading_number(regular_loading_number_E2E_set_uncheck_notebook, 'regular_loading_number_E2E_set_uncheck_notebook')
     f.functions.wait_for_networkidle()
 
     # Dashboard

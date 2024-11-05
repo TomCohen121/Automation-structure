@@ -6,10 +6,13 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.regular_evaluator2
+@pytest.mark.regular_loading
+@pytest.mark.regular_evaluator
 @allure.story("בדיקת החשדת מחברת הערכה רגילה - מעריך רגיל")
 @allure.description("תהליך החשדת מחברת")
 def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
+    f.functions.check_loading_number(regular_loading_number_E2E_set_suspicious_notebook, 'regular_loading_number_E2E_set_suspicious_notebook')
+
     f.functions.wait_for_networkidle()
     f.workflow.navigation_to_loading_screen()
     f.functions.search_loading(regular_loading_number_E2E_set_suspicious_notebook)
