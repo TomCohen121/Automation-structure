@@ -1,11 +1,10 @@
 import os
-
 import yaml
 
 
 def path_from_project_root(file_path: str) -> str:
     _root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    return _root_dir + '/' + file_path
+    return os.path.join(_root_dir, file_path)  # השתמש ב-os.path.join להבטיח תאימות בין מערכות הפעלה
 
 # Regular Loading
 regular_loading_number_E2E = None
@@ -45,6 +44,6 @@ def load_numbers_from_yaml(file_path):
     after_appeal_number_E2E_set_uncheck_notebook = config["loading_numbers"]["after_appeal_number_E2E_set_uncheck_notebook"]
 
 
-# שינוי הנתיב לקובץ YAML
-yaml_file_path = 'C:/Automation/Projects/marvad_automation/resources/Configuration.yml'
+# שינוי הנתיב לקובץ YAML לנתיב יחסי
+yaml_file_path = path_from_project_root('resources/Configuration.yml')
 load_numbers_from_yaml(yaml_file_path)  # קריאה לפונקציה עם קובץ YAML

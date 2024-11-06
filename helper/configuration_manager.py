@@ -8,8 +8,8 @@ class ConfigurationManager:
 
     @staticmethod
     def load_config():
-        # נתיב לקובץ ה-YAML
-        config_file_path = os.path.join(os.path.dirname(__file__), 'C:/Automation/Projects/marvad_automation/resources/Configuration.yml')
+        # נתיב יחסי לקובץ ה-YAML
+        config_file_path = os.path.join(os.path.dirname(__file__), '..', 'resources', 'Configuration.yml')
         with open(config_file_path, 'r') as config_file:
             ConfigurationManager._config = yaml.safe_load(config_file)  # טוען את קובץ ה-YAML
         return ConfigurationManager._config
