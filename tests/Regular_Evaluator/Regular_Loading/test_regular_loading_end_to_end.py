@@ -10,7 +10,7 @@ from helper.soft_assert import soft_assert
 @allure.story("E2E Test for Regular Loading - Regular Evaluator")
 @allure.description("Process of Checking Notebooks and Loading Discharge")
 def test_regular_loading_end_to_end(f, add_allure_attach, page):
-   f.functions.check_loading_number(regular_loading_number_E2E,'regular_loading_number_E2E')
+   f.functions.check_if_loading_number_exist(regular_loading_number_E2E,'regular_loading_number_E2E')
 
    #Dashboard
    # num_of_discharged_loadings_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())

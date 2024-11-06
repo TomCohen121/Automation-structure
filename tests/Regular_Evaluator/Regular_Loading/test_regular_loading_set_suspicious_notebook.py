@@ -11,7 +11,7 @@ from pages.loading_page import LoadingPage
 @allure.story("Set Suspicious Notebook Test for Regular Loading - Regular Evaluator")
 @allure.description("Set Suspicious Notebook Process and Loading Discharge")
 def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
-    f.functions.check_loading_number(regular_loading_number_E2E_set_suspicious_notebook, 'regular_loading_number_E2E_set_suspicious_notebook')
+    f.functions.check_if_loading_number_exist(regular_loading_number_E2E_set_suspicious_notebook, 'regular_loading_number_E2E_set_suspicious_notebook')
 
     f.functions.wait_for_networkidle()
     f.workflow.navigation_to_loading_screen()

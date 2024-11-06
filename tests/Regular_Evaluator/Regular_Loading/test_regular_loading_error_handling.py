@@ -9,7 +9,7 @@ from helper.soft_assert import soft_assert
 @allure.story("Error Handling Test for Regular loading - Regular Evaluator")
 @allure.description("Error Handling Checking Process")
 def test_regular_loading_error_handling(f, add_allure_attach, page):
-   f.functions.check_loading_number(regular_loading_number_error_handling,'regular_loading_number_error_handling')
+   f.functions.check_if_loading_number_exist(regular_loading_number_error_handling,'regular_loading_number_error_handling')
    f.functions.wait_for_networkidle()
    f.workflow.navigation_to_loading_screen()
    f.functions.search_loading(regular_loading_number_error_handling)

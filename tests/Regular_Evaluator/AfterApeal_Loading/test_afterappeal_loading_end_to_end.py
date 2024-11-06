@@ -9,7 +9,7 @@ from helper.soft_assert import soft_assert
 @allure.story("E2E Test for AfterAppeal Loading - Regular Evaluator")
 @allure.description("Notebook Checking and Loading Discharge Process")
 def test_afterappeal_loading_end_to_end(f, add_allure_attach, page):
-   f.functions.check_loading_number(after_appeal_loading_number_E2E,'after_appeal_loading_number_E2E')
+   f.functions.check_if_loading_number_exist(after_appeal_loading_number_E2E,'after_appeal_loading_number_E2E')
    #Dashboard
    # num_of_discharged_loadings_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_loadings())
    # num_of_discharged_portions_before = f.functions.number_to_int(f.personal_areaPage.txt_num_of_discharged_portions())

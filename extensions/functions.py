@@ -28,7 +28,7 @@ class Functions(BasePage):
 
     # --------------------------- Loading Functions ---------------------------
 
-    def check_loading_number(self, loading_number, variable_name):
+    def check_if_loading_number_exist(self, loading_number, variable_name):
         if not loading_number or loading_number == "fill":
             raise ValueError(f"Error: The loading number '{variable_name}' is empty. Please check the configuration.")
 

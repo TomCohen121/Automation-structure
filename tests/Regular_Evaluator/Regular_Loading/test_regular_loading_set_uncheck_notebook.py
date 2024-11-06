@@ -11,7 +11,7 @@ from pages.loading_page import LoadingPage
 @allure.story("Set Uncheck Notebook Test for Regular Loading - Regular Evaluator")
 @allure.description("Set Uncheck Notebook Process and Loading Discharge")
 def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
-    f.functions.check_loading_number(regular_loading_number_E2E_set_uncheck_notebook, 'regular_loading_number_E2E_set_uncheck_notebook')
+    f.functions.check_if_loading_number_exist(regular_loading_number_E2E_set_uncheck_notebook, 'regular_loading_number_E2E_set_uncheck_notebook')
     f.functions.wait_for_networkidle()
 
     # Dashboard

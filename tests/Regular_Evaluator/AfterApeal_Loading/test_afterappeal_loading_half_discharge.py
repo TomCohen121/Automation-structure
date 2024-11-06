@@ -10,7 +10,7 @@ from pages.loading_page import LoadingPage
 @allure.story("Half Discharge Process AfterAppeal Loading - Regular Evaluator")
 @allure.description("Half Discharge Process")
 def test_afterappeal_loading_half_discharge(f, add_allure_attach, page):
-    f.functions.check_loading_number(after_appeal_number_E2E_half_discharge, 'after_appeal_number_E2E_half_discharge')
+    f.functions.check_if_loading_number_exist(after_appeal_number_E2E_half_discharge, 'after_appeal_number_E2E_half_discharge')
 
     f.functions.wait_for_networkidle()
     f.workflow.navigation_to_loading_screen()
