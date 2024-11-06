@@ -1,4 +1,5 @@
 import types
+from typing import Optional
 
 failed_conditions = []
 
@@ -13,12 +14,12 @@ def get_failures() -> list:
     return failed_conditions
 
 
-def get_last_failure() -> str | None:
+def get_last_failure() -> Optional[str]:
     global failed_conditions
     return failed_conditions[-1] if failed_conditions else None
 
 
-def extract_last_failure() -> str | None:
+def extract_last_failure() -> Optional[str]:
     global failed_conditions
     return failed_conditions.pop() if failed_conditions else None
 
@@ -66,6 +67,7 @@ def assert_all():
                 report.append(failure)
         clear_failures()  # מנקה את השגיאות לאחר שהן דווחו
         raise AssertionError("\n".join(report))
+
 
 class verify:
     def __enter__(self):
