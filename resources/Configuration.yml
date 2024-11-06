@@ -9,13 +9,13 @@ loading_numbers:
   #Regular Loading
   regular_loading_number_E2E: "0046707"
   regular_loading_number_error_handling: "0046707"
-  regular_loading_number_E2E_half_discharge: "0046707"
+  regular_loading_number_E2E_half_discharge: "0045583"
   regular_loading_number_E2E_set_suspicious_notebook: "0046707"
   regular_loading_number_E2E_set_uncheck_notebook: "0046707"
 
   #AfterApeal Loading
   after_appeal_loading_number_E2E: "0045295"
   after_appeal_number_error_handling: "0045295"
-  after_appeal_number_E2E_half_discharge: "0045295"
+  after_appeal_number_E2E_half_discharge: "0045583"
   after_appeal_number_E2E_set_suspicious_notebook: "0045295"
   after_appeal_number_E2E_set_uncheck_notebook: "0045295"

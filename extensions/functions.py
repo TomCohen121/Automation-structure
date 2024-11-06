@@ -71,6 +71,13 @@ class Functions(BasePage):
         popup_text = self.checkNotebookPage.txt_saving_notebook_error_message().text_content()
         soft_assert.check(popup_text == expected_text, f'Expected popup text: "{expected_text}", but got: "{popup_text}".')
 
+    def verify_locator_or_raise_error(self,locator, error_message="The Popup Error Message did not appear as expected", timeout=5000):
+        try:
+            if not locator.is_visible(timeout=timeout):
+                raise AssertionError(error_message)
+        except Exception as e:
+            raise AssertionError(f"An unexpected error occurred: {str(e)}")
+
     # --------------------------- Checkbox Functions ---------------------------
 
     def checkbox_is_checked(self, checkbox_locator, expected_state):
@@ -160,6 +167,10 @@ class Functions(BasePage):
 
     def check_row_disabled_soft_assert(self, row_locator, error_message="The row is not disabled as expected"):
         row_class = row_locator.get_attribute("class")
-        is_disabled = "disabled" in row_class if row_class else False
+        is_disabled = "disabled" in (row_class or "")
         soft_assert.check(is_disabled, error_message)
 
+    def check_if_button_enabled_and_click(self, button_locator, error_message):
+        if not button_locator.is_enabled():
+            raise Exception(error_message)
+        button_locator.click()

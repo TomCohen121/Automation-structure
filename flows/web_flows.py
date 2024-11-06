@@ -23,7 +23,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('6')
-       self.checkNotebookPage.btn_max_grade().click()
+       self.checkNotebookPage.btn_maximum_grade().click()
        self.checkNotebookPage.btn_save_question_score().click()
        self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
@@ -38,7 +38,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_question_number().fill('1')
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('6')
-       self.checkNotebookPage.btn_max_grade().click()
+       self.checkNotebookPage.btn_maximum_grade().click()
        self.checkNotebookPage.btn_save_question_score().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -69,6 +69,7 @@ class WorkFlow(BasePage):
 
    def assert_and_validate_popup_and_error_messages(self):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.functions.verify_locator_or_raise_error(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(
        self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
        self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
@@ -100,3 +101,10 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
        self.functions.wait_for_domcontentloaded()
 
+
+   def half_discharge_process(self):
+       # self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
+       # self.portionPage.btn_save_loading_half_discharge_popup().click()
+       row_locator = self.functions.table_choose_a_row(2)
+       row_locator.wait_for(state="detached", timeout=5000)
+       self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")

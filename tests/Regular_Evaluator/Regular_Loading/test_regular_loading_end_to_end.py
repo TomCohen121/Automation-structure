@@ -5,6 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 @pytest.mark.regular_loading
+@pytest.mark.tom
 @pytest.mark.regular_evaluator
 @allure.story("E2E Test for Regular Loading - Regular Evaluator")
 @allure.description("Process of Checking Notebooks and Loading Discharge")
