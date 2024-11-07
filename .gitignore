@@ -67,12 +67,6 @@ venv.bak/
 *.log
 *.sqlite3
 
-# Docker
-# אם אתה רוצה להשתמש בקובץ Dockerfile, אל תשכח להסיר את השורה הבאה
-# *.env
-# docker-compose.yml
-Dockerfile
-
 # Ignore Allure Report files
 allure-results/
 allure-report/
