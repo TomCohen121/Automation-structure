@@ -1,17 +1,17 @@
-browser: "chromium"          # Valid options are 'chromium', 'firefox', 'webkit'.
+browser: "chromium"           # Valid options are 'chromium', 'firefox', 'webkit'.
 headless: false               # Set to True for headless mode, False for normal mode.
 slow_motion: 300              # Adjust to slow down or speed up the actions, in milliseconds.
 url: "QA"                     # Choose either 'QA' or 'DEV'.
-token: "ronatoken"               # Choose either 'token1' or 'ronatoken'.
+token: "ronatoken"               # Choose either 'ronatoken' or 'RegularEvaluator'.
 maximize_window: true         # Set True for maximize window, False for normal window
 
 loading_numbers:
   #Regular Loading
   regular_loading_number_E2E: "0046707"
   regular_loading_number_error_handling: "0046707"
-  regular_loading_number_E2E_half_discharge: "0045583"
-  regular_loading_number_E2E_set_suspicious_notebook: "0046707"
-  regular_loading_number_E2E_set_uncheck_notebook: "0046707"
+  regular_loading_number_E2E_half_discharge: "0045580"
+  regular_loading_number_E2E_set_suspicious_notebook: "0045561"
+  regular_loading_number_E2E_set_uncheck_notebook: "0045587"
 
   #AfterApeal Loading
   after_appeal_loading_number_E2E: "0045295"
@@ -19,3 +19,10 @@ loading_numbers:
   after_appeal_number_E2E_half_discharge: "0045583"
   after_appeal_number_E2E_set_suspicious_notebook: "0045295"
   after_appeal_number_E2E_set_uncheck_notebook: "0045295"
+
+  #Suspicious Loading
+  suspicious_loading_number_E2E_approve: "0045543"
+  suspicious_loading_number_E2E_denied: "0045543"
+  suspicious_number_error_handling: "0045543"
+  suspicious_number_E2E_half_discharge: "0002963"
+  suspicious_number_E2E_set_uncheck_notebook: "0002963"

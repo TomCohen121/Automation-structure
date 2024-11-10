@@ -1,14 +1,15 @@
 import re
 import time
-
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
 from pages.loading_page import LoadingPage
 from pages.notebook_page import NotebookPage
 from pages.personal_area_page import PersonalAreaPage
-from pages.portions_page import PortionPage
+from pages.portion_page import PortionPage
 from helper.soft_assert import soft_assert
+from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
+from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
 
 
 class Functions(BasePage):
@@ -19,6 +20,8 @@ class Functions(BasePage):
         self.checkNotebookPage = CheckNotebookPage(self.page)
         self.notebookPage = NotebookPage(self.page)
         self.portionPage = PortionPage(self.page)
+        self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
+        self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
 
     # --------------------------- Table Interaction Functions ---------------------------
 
@@ -57,13 +60,15 @@ class Functions(BasePage):
 
     # --------------------------- Popup Functions ---------------------------
 
-    def popup_answer_law(self):
-        for _ in range(3):
-            close_button = self.page.query_selector("app-small-button:has-text('סגור')")
-            if close_button and close_button.is_visible():
+    def popup_answer_law(self, timeout=3000, interval=0.5):
+        start_time = time.time()
+        while (time.time() - start_time) * 1000 < timeout:
+            close_button = self.page.query_selector(".close-btn")
+            if close_button:
                 close_button.click()
-                return
-            time.sleep(0.1)
+                return True  # הכפתור נמצא והלחיצה בוצעה
+            time.sleep(interval)  # המתנה קצרה לפני בדיקה נוספת
+        raise Exception('Could not find the close button within the specified timeout.')
 
     def assert_verify_popup_error_message(self, locator, expected_text):
         """Asserts that a popup error message is visible and matches the expected text."""
@@ -71,7 +76,7 @@ class Functions(BasePage):
         popup_text = self.checkNotebookPage.txt_saving_notebook_error_message().text_content()
         soft_assert.check(popup_text == expected_text, f'Expected popup text: "{expected_text}", but got: "{popup_text}".')
 
-    def verify_locator_or_raise_error(self,locator, error_message="The Popup Error Message did not appear as expected", timeout=5000):
+    def verify_correct_popup_appeared(self,locator, error_message="The Popup Error Message did not appear as expected", timeout=5000):
         try:
             if not locator.is_visible(timeout=timeout):
                 raise AssertionError(error_message)
@@ -80,15 +85,11 @@ class Functions(BasePage):
 
     # --------------------------- Checkbox Functions ---------------------------
 
-    def checkbox_is_checked(self, checkbox_locator, expected_state):
+    def is_checkbox_checked(self, checkbox_locator, expected_state, error_message):
         """Checks if a checkbox's state matches the expected state (checked/unchecked)."""
         checkbox_locator.wait_for(state="visible")
         is_checked = checkbox_locator.is_checked()
-        soft_assert.check(
-            is_checked == expected_state,
-            f"The Suspicious CheckBox is expected to be {'checked' if expected_state else 'unchecked'}, "
-            f"but it is {'checked' if is_checked else 'unchecked'}."
-        )
+        soft_assert.check(is_checked == expected_state,error_message)
 
     # --------------------------- Notebook Functions ---------------------------
 
@@ -140,7 +141,7 @@ class Functions(BasePage):
     def number_to_int(self, number_str):
         """Converts a string to an integer after stripping whitespace."""
         number = number_str.strip()
-        return int(float(number))
+        return int(round(float(number)))
 
     def number_to_float(self, number_str):
         """Converts a string to a float after stripping whitespace."""
@@ -156,7 +157,7 @@ class Functions(BasePage):
 
     # --------------------------- Element Interaction Functions ---------------------------
 
-    def click_element_if_visible_all(self, element_locator_function, timeout=1200):
+    def click_element_if_visible(self, element_locator_function, timeout=1200):
         """Clicks an element if it is visible within a given timeout."""
         try:
             element = element_locator_function().wait_for(timeout=timeout)
@@ -171,6 +172,16 @@ class Functions(BasePage):
         soft_assert.check(is_disabled, error_message)
 
     def check_if_button_enabled_and_click(self, button_locator, error_message):
-        if not button_locator.is_enabled():
+        button_locator.wait_for(state="visible", timeout=5000)
+        if button_locator.is_enabled():
+            button_locator.click()
+        else:
             raise Exception(error_message)
-        button_locator.click()
+
+    def convert_to_int_from_str_or_number(self,value):
+        if isinstance(value, str):
+            value = value.strip() if value.strip() else '0'
+        try:
+            return int(value)
+        except ValueError:
+            return 0

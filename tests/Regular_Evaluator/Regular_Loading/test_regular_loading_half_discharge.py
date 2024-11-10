@@ -15,19 +15,18 @@ def test_regular_loading_half_discharge(f, add_allure_attach, page):
 
     f.functions.wait_for_networkidle()
     f.workflow.navigation_to_loading_screen()
+    #LoadingScreen
     f.functions.search_loading(regular_loading_number_E2E_half_discharge)
-    f.functions.table_choose_a_row(2).dblclick()
-    # f.functions.table_choose_a_row(2).dblclick()
-    # f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
+    f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
 
     #CheckNotebookScreen
-    # f.workflow.notebook_checking_process()
-    # f.functions.popup_answer_law()
+    f.workflow.notebook_checking_process()
 
     ###########################################################################################################################################
                                                                     # Testing
     #PortionScreen
-    # f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
+    f.functions.popup_answer_law()
+    f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
     f.workflow.half_discharge_process()
 
     soft_assert.assert_all()

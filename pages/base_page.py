@@ -1,6 +1,8 @@
 from playwright.sync_api import Page
 from helper.configuration_manager import ConfigurationManager
 
+
+
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
@@ -12,13 +14,15 @@ class BasePage:
         self.functions = None
         self.workflow = None
         self.breadcrumbs = None
+        self.suspiciousLoadingPortionPage = None
+        self.suspiciousLoadingNotebookPage = None
 
     def goto(self, url=None):
         self.page.goto(url or ConfigurationManager.base_url())
         return self
 
     def initialize_all_pages(self):
-        from pages.portions_page import PortionPage
+        from pages.portion_page import PortionPage
         from pages.loading_page import LoadingPage
         from extensions.functions import Functions
         from flows.web_flows import WorkFlow
@@ -26,6 +30,8 @@ class BasePage:
         from pages.notebook_page import NotebookPage
         from pages.personal_area_page import PersonalAreaPage
         from pages.breadcrumbs import Breadcrumbs
+        from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
+        from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 
         self.loadingPage = LoadingPage(self.page)
         self.check_notebookPage = CheckNotebookPage(self.page)
@@ -35,7 +41,8 @@ class BasePage:
         self.functions = Functions(self.page)
         self.workflow = WorkFlow(self.page)
         self.breadcrumbs = Breadcrumbs(self.page)
-
+        self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
+        self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
 
     @staticmethod
     def goto_homepage(pages):

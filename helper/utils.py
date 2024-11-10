@@ -20,12 +20,20 @@ after_appeal_number_E2E_half_discharge = None
 after_appeal_number_E2E_set_suspicious_notebook = None
 after_appeal_number_E2E_set_uncheck_notebook = None
 
+# Suspicious Loading
+suspicious_loading_number_E2E_approve = None
+suspicious_loading_number_E2E_denied = None
+suspicious_number_error_handling = None
+suspicious_number_E2E_half_discharge = None
+suspicious_number_E2E_set_uncheck_notebook = None
 
 def load_numbers_from_yaml(file_path):
     global regular_loading_number_E2E, regular_loading_number_error_handling, regular_loading_number_E2E_half_discharge
     global regular_loading_number_E2E_set_uncheck_notebook, regular_loading_number_E2E_set_suspicious_notebook
     global after_appeal_loading_number_E2E, after_appeal_number_error_handling, after_appeal_number_E2E_half_discharge
     global after_appeal_number_E2E_set_suspicious_notebook, after_appeal_number_E2E_set_uncheck_notebook
+    global suspicious_loading_number_E2E_approve, suspicious_loading_number_E2E_denied, suspicious_number_error_handling, suspicious_number_E2E_half_discharge
+    global suspicious_number_E2E_set_uncheck_notebook
 
     with open(file_path, 'r') as yaml_file:  # טוען את קובץ ה-YAML
         config = yaml.safe_load(yaml_file)  # טוען את הנתונים מקובץ YAML
@@ -42,6 +50,12 @@ def load_numbers_from_yaml(file_path):
     after_appeal_number_E2E_half_discharge = config["loading_numbers"]["after_appeal_number_E2E_half_discharge"]
     after_appeal_number_E2E_set_suspicious_notebook = config["loading_numbers"]["after_appeal_number_E2E_set_suspicious_notebook"]
     after_appeal_number_E2E_set_uncheck_notebook = config["loading_numbers"]["after_appeal_number_E2E_set_uncheck_notebook"]
+
+    suspicious_loading_number_E2E_approve = config["loading_numbers"]["suspicious_loading_number_E2E_approve"]
+    suspicious_loading_number_E2E_denied = config["loading_numbers"]["suspicious_loading_number_E2E_denied"]
+    suspicious_number_error_handling = config["loading_numbers"]["suspicious_number_error_handling"]
+    suspicious_number_E2E_half_discharge = config["loading_numbers"]["suspicious_number_E2E_half_discharge"]
+    suspicious_number_E2E_set_uncheck_notebook = config["loading_numbers"]["suspicious_number_E2E_set_uncheck_notebook"]
 
 
 # שינוי הנתיב לקובץ YAML לנתיב יחסי

@@ -5,7 +5,10 @@ from pages.check_notebook_page import CheckNotebookPage
 from pages.loading_page import LoadingPage
 from pages.notebook_page import NotebookPage
 from pages.personal_area_page import PersonalAreaPage
-from pages.portions_page import PortionPage
+from pages.portion_page import PortionPage
+from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
+from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
+
 
 class WorkFlow(BasePage):
    def __init__(self, page: Page):
@@ -16,6 +19,8 @@ class WorkFlow(BasePage):
        self.notebookPage = NotebookPage(self.page)
        self.portionPage = PortionPage(self.page)
        self.functions = Functions(self.page)
+       self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
+       self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
 
     # --------------------------- Notebook Checking Process ---------------------------
 
@@ -31,8 +36,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
-       self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
-       self.functions.wait_for_domcontentloaded()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
    def notebook_checking_process(self):
        self.checkNotebookPage.field_question_number().fill('1')
@@ -44,8 +48,28 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
-       self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
-       self.functions.wait_for_domcontentloaded()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
+   def notebook_suspicion_approved_process(self):
+       self.checkNotebookPage.btn_suspicion_approved().click()
+       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(),'div')
+       self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
+       self.checkNotebookPage.field_suspicious_text().fill('tom')
+       self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
+   def notebook_suspicion_denied_process(self):
+       self.checkNotebookPage.btn_suspicion_denied().click()
+       self.checkNotebookPage.btn_save_suspicion_denied_popup().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
     # --------------------------- Navigation Flows ---------------------------
 
@@ -67,9 +91,9 @@ class WorkFlow(BasePage):
 
     # --------------------------- Asserts Flows ---------------------------
 
-   def assert_and_validate_popup_and_error_messages(self):
+   def assert_and_validate_popup_and_error_messages_regular_loading(self):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
-       self.functions.verify_locator_or_raise_error(self.checkNotebookPage.popup_saving_notebook_error_message())
+       self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(
        self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
        self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
@@ -77,6 +101,15 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.assert_verify_popup_error_message(
        self.checkNotebookPage.popup_saving_notebook_error_message(), "יש להזין ציון לפחות לשאלה אחת")
+
+   def assert_and_validate_popup_and_error_messages_suspicious_loading(self):
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
+       self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
+       self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לאשר / לבטל חשד לפני סיום בדיקה")
 
     # --------------------------- Suspicious Notebook Flows ---------------------------
 
@@ -98,13 +131,11 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
-       self.functions.click_element_if_visible_all(self.checkNotebookPage.btn_close_after_saving_notebook())
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
        self.functions.wait_for_domcontentloaded()
 
-
    def half_discharge_process(self):
-       # self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
-       # self.portionPage.btn_save_loading_half_discharge_popup().click()
-       row_locator = self.functions.table_choose_a_row(2)
-       row_locator.wait_for(state="detached", timeout=5000)
+       self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
+       self.portionPage.btn_save_loading_half_discharge_popup().click()
+       self.page.reload()
        self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")

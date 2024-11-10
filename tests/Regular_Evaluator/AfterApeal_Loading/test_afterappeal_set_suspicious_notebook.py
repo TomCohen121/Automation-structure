@@ -6,12 +6,12 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.regular_loading
+@pytest.mark.afterappeal_loading
 @pytest.mark.regular_evaluator
-@allure.story("Set Suspicious Notebook Test for Regular Loading - Regular Evaluator")
+@allure.story("Set Suspicious Notebook Test for AfterAppel Loading - Regular Evaluator")
 @allure.description("Set Suspicious Notebook Process and Loading Discharge")
 def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
-    f.functions.check_if_loading_number_exist(regular_loading_number_E2E_set_suspicious_notebook, 'regular_loading_number_E2E_set_suspicious_notebook')
+    f.functions.check_if_loading_number_exist(after_appeal_number_E2E_set_suspicious_notebook, 'after_appeal_number_E2E_set_suspicious_notebook')
 
     f.functions.wait_for_networkidle()
     f.workflow.navigation_to_loading_screen()
@@ -19,7 +19,7 @@ def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
 
     #LoadingScreen
     f.functions.table_choose_a_row(2).click()
-    stat_num_of_suspicious_notebooks_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
+    stat_num_of_suspicious_notebook_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
     f.functions.table_choose_a_row(2).dblclick()
 
     #PortionScreen
@@ -50,11 +50,11 @@ def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
 
     #LoadingScreen
     stat_num_of_suspicious_notebooks_after = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
-    f.functions.assert_equal_to(stat_num_of_suspicious_notebooks_before+1,stat_num_of_suspicious_notebooks_after, "Statistics: Number of Suspicious notebooks is incorrect")
+    f.functions.assert_equal_to(stat_num_of_suspicious_notebook_before+1,stat_num_of_suspicious_notebooks_after, "Statistics: Number of Suspicious notebooks is incorrect")
 
     # #ArchiveScreen
     # f.workflow.loading_discharge_and_navigate_to_archive()
-    # f.functions.search_loading(regular_loading_number_E2E_set_suspicious_notebook)
+    # f.functions.search_loading(after_appeal_number_E2E_set_suspicious_notebook)
     # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()

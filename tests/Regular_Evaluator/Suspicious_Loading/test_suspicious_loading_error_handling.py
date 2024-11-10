@@ -6,18 +6,18 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.regular_loading
 @pytest.mark.regular_evaluator
-@allure.story("Error Handling Test for Regular loading - Regular Evaluator")
+@allure.story("Error Handling Test for Suspicious Loading - Regular Evaluator")
 @allure.description("Error Handling Checking Process")
-def test_regular_loading_error_handling(f, add_allure_attach, page):
-   f.functions.check_if_loading_number_exist(regular_loading_number_error_handling,'regular_loading_number_error_handling')
+def test_suspicious_loading_error_handling(f, add_allure_attach, page):
+   f.functions.check_if_loading_number_exist(suspicious_number_error_handling,'suspicious_number_error_handling')
    f.functions.wait_for_networkidle()
    f.workflow.navigation_to_loading_screen()
-   f.functions.search_loading(regular_loading_number_error_handling)
+   f.functions.search_loading(suspicious_number_error_handling)
 
    f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
 
    ###########################################################################################################################################
                                                                     # Testing
 
-   f.workflow.assert_and_validate_popup_and_error_messages_regular_loading()
+   f.workflow.assert_and_validate_popup_and_error_messages_suspicious_loading()
    soft_assert.assert_all()

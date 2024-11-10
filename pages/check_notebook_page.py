@@ -38,7 +38,7 @@ class CheckNotebookPage(BasePage):
        return self.page.get_by_role("button", name="שמור וסיים בדיקת מחברת")
 
    def btn_save_notebook_popup(self):
-       return self.page.get_by_role("button", name="שמור").nth(2)
+       return self.page.locator("mat-icon[ng-reflect-svg-icon='arrowLeft']")
 
    def btn_close_after_saving_notebook(self):
         return self.page.get_by_role("button", name="סגור")
@@ -58,7 +58,7 @@ class CheckNotebookPage(BasePage):
        return self.page.locator(".options-wrapper")
 
    def btn_choose_suspicious_dropdown_options(self):
-       return self.page.get_by_role("button", name="בחר")
+       return self.page.get_by_role("button", name="select")
 
    def field_suspicious_text(self):
        return self.page.locator('.ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline')
@@ -90,3 +90,15 @@ class CheckNotebookPage(BasePage):
 
    def btn_txt_saving_notebook_error_message_close(self):
        return self.page.get_by_role("button", name="סגור")
+
+
+    # --------------------------- Suspicion Notebook Locators ---------------------------
+   def btn_suspicion_approved(self):
+       return self.page.get_by_role("button", name="אישור חשד")
+
+   def btn_suspicion_denied(self):
+       return self.page.get_by_role("button", name="ביטול חשד")
+
+   def btn_save_suspicion_denied_popup(self):
+       return self.page.locator("app-small-button[ng-reflect-text='שמור'] button")
+

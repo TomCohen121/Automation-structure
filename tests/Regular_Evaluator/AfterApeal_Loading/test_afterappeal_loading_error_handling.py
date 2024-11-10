@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
+@pytest.mark.afterappeal_loading
 @pytest.mark.regular_evaluator
 @allure.story("Error Handling Test for AfterAppeal Loading - Regular Evaluator")
 @allure.description("Error Handling Checking Process")
@@ -19,5 +19,5 @@ def test_afterappeal_loading_error_handling(f, add_allure_attach, page):
    ###########################################################################################################################################
                                                                     # Testing
 
-   f.workflow.assert_and_validate_popup_and_error_messages()
+   f.workflow.assert_and_validate_popup_and_error_messages_regular_loading()
    soft_assert.assert_all()
