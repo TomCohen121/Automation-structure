@@ -9,7 +9,7 @@ from helper.soft_assert import soft_assert
 @allure.story("E2E Test for Suspicious Loading - Denied Notebook Suspicion - Regular Evaluator")
 @allure.description("Denied Notebook Suspicion And Loading Discharge Process")
 def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
-   f.functions.check_if_loading_number_exist(suspicious_loading_number_E2E_denied,'suspicious_loading_number_E2E_denied')
+   f.functions.check_if_loading_number_exist(suspicious_loading_denied_num,'suspicious_loading_denied_num')
 
    #Dashboard
    num_of_discharged_loadings_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_loadings())
@@ -19,7 +19,7 @@ def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen
-   f.functions.search_loading(suspicious_loading_number_E2E_denied)
+   f.functions.search_loading(suspicious_loading_denied_num)
    f.functions.table_choose_a_row(2).click()
    stat_num_of_checked_portions_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_num_of_checked_portions())
    stat_num_of_unchecked_portions_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_num_of_unchecked_portions()))
@@ -29,7 +29,6 @@ def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
    f.functions.table_choose_a_row(2).dblclick()
 
    #PortionScreen
-   f.functions.table_choose_a_row(2).click()
    table_num_of_suspicion_denied_before = f.functions.number_to_int(f.suspiciousLoadingPortionPage.txt_table_num_of_suspicion_denied(2))
    f.functions.table_choose_a_row(2).dblclick()
 
@@ -68,7 +67,7 @@ def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
 
    #ArchiveScreen
    f.workflow.loading_discharge_and_navigate_to_archive()
-   f.functions.search_loading(suspicious_loading_number_E2E_denied)
+   f.functions.search_loading(suspicious_loading_denied_num)
    soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
    f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()

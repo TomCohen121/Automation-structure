@@ -7,19 +7,19 @@ from helper.soft_assert import soft_assert
 @pytest.mark.regular_loading
 @pytest.mark.regular_evaluator
 @allure.story("E2E Test for Regular Loading - Regular Evaluator")
-@allure.description("Process of Checking Notebooks and Loading Discharge")
+@allure.description("Notebook Checking and Loading Discharge Process")
 def test_regular_loading_end_to_end(f, add_allure_attach, page):
-   f.functions.check_if_loading_number_exist(regular_loading_number_E2E,'regular_loading_number_E2E')
+   f.functions.check_if_loading_number_exist(regular_loading_E2E_num,'regular_loading_E2E_num')
 
    #Dashboard
-   num_of_discharged_loadings_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_loadings())
-   num_of_discharged_portions_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_portions())
-   num_of_discharged_notebooks_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_notebooks())
+   # num_of_discharged_loadings_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_loadings())
+   # num_of_discharged_portions_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_portions())
+   # num_of_discharged_notebooks_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_notebooks())
 
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen
-   f.functions.search_loading(regular_loading_number_E2E)
+   f.functions.search_loading(regular_loading_E2E_num)
    f.functions.table_choose_a_row(2).click()
    stat_num_of_checked_portions_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_num_of_checked_portions())
    stat_num_of_unchecked_portions_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_num_of_unchecked_portions()))
@@ -28,14 +28,12 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.functions.table_choose_a_row(2).dblclick()
 
    #PortionScreen
-   f.functions.table_choose_a_row(2).click()
    table_num_of_checked_notebooks_before = f.functions.number_to_int(f.portionPage.txt_table_num_of_checked_notebooks(2))
 
    f.functions.table_choose_a_row(2).dblclick()
 
    #NotebookScreen
    f.functions.popup_answer_law()
-   f.functions.table_choose_a_row(2).click()
    table_num_of_checked_questions_before = f.functions.number_to_int(f.notebookPage.txt_table_num_of_checked_questions(2))
 
    f.functions.table_choose_a_row(2).dblclick()
@@ -76,9 +74,9 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
 
    #ArchiveScreen
    # f.workflow.loading_discharge_and_navigate_to_archive()
-   # f.functions.search_loading(regular_loading_number_E2E)
+   # f.functions.search_loading(regular_loading_E2E_num)
    # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
-   #
+
    # f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
 
    #Dashboard

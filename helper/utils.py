@@ -7,57 +7,85 @@ def path_from_project_root(file_path: str) -> str:
     return os.path.join(_root_dir, file_path)  # השתמש ב-os.path.join להבטיח תאימות בין מערכות הפעלה
 
 # Regular Loading
-regular_loading_number_E2E = None
-regular_loading_number_error_handling = None
-regular_loading_number_E2E_half_discharge = None
-regular_loading_number_E2E_set_suspicious_notebook = None
-regular_loading_number_E2E_set_uncheck_notebook = None
+regular_loading_E2E_num = None
+regular_loading_error_num = None
+regular_loading_half_discharge_num = None
+regular_loading_set_suspicious_num = None
+regular_loading_set_unchecked_num = None
 
 # After Appeal Loading
-after_appeal_loading_number_E2E = None
-after_appeal_number_error_handling = None
-after_appeal_number_E2E_half_discharge = None
-after_appeal_number_E2E_set_suspicious_notebook = None
-after_appeal_number_E2E_set_uncheck_notebook = None
+appeal_loading_E2E_num = None
+appeal_loading_error_num = None
+appeal_loading_half_discharge_num = None
+appeal_loading_set_suspicious_num = None
+appeal_loading_set_unchecked_num = None
 
 # Suspicious Loading
-suspicious_loading_number_E2E_approve = None
-suspicious_loading_number_E2E_denied = None
-suspicious_number_error_handling = None
-suspicious_number_E2E_half_discharge = None
-suspicious_number_E2E_set_uncheck_notebook = None
+suspicious_loading_approve_num = None
+suspicious_loading_denied_num = None
+suspicious_loading_error_num = None
+suspicious_loading_half_discharge_num = None
+suspicious_loading_set_unchecked_num = None
+
+# MisMatch Loading
+MisMatch_loading_E2E_num = None
+MisMatch_loading_set_suspicious_num = None
+MisMatch_loading_error_num = None
+MisMatch_loading_half_discharge_num = None
+MisMatch_loading_set_unchecked_num = None
+
+# Sample Loading
+sample_loading_E2E_num = None
+sample_loading_set_suspicious_num = None
+sample_loading_error_num = None
+sample_loading_half_discharge_num = None
+sample_loading_set_unchecked_num = None
 
 def load_numbers_from_yaml(file_path):
-    global regular_loading_number_E2E, regular_loading_number_error_handling, regular_loading_number_E2E_half_discharge
-    global regular_loading_number_E2E_set_uncheck_notebook, regular_loading_number_E2E_set_suspicious_notebook
-    global after_appeal_loading_number_E2E, after_appeal_number_error_handling, after_appeal_number_E2E_half_discharge
-    global after_appeal_number_E2E_set_suspicious_notebook, after_appeal_number_E2E_set_uncheck_notebook
-    global suspicious_loading_number_E2E_approve, suspicious_loading_number_E2E_denied, suspicious_number_error_handling, suspicious_number_E2E_half_discharge
-    global suspicious_number_E2E_set_uncheck_notebook
+    global regular_loading_E2E_num, regular_loading_error_num, regular_loading_half_discharge_num
+    global regular_loading_set_suspicious_num, regular_loading_set_unchecked_num
+    global appeal_loading_E2E_num, appeal_loading_error_num, appeal_loading_half_discharge_num
+    global appeal_loading_set_suspicious_num, appeal_loading_set_unchecked_num
+    global suspicious_loading_approve_num, suspicious_loading_denied_num, suspicious_loading_error_num, suspicious_loading_half_discharge_num
+    global suspicious_loading_set_unchecked_num
+    global MisMatch_loading_E2E_num, MisMatch_loading_set_suspicious_num, MisMatch_loading_error_num
+    global MisMatch_loading_half_discharge_num, MisMatch_loading_set_unchecked_num
+    global sample_loading_E2E_num, sample_loading_set_suspicious_num, sample_loading_error_num
+    global sample_loading_half_discharge_num, sample_loading_set_unchecked_num
+
 
     with open(file_path, 'r') as yaml_file:  # טוען את קובץ ה-YAML
         config = yaml.safe_load(yaml_file)  # טוען את הנתונים מקובץ YAML
 
-    # שליפת הערכים ממבנה ה-YAML
-    regular_loading_number_E2E = config["loading_numbers"]["regular_loading_number_E2E"]
-    regular_loading_number_error_handling = config["loading_numbers"]["regular_loading_number_error_handling"]
-    regular_loading_number_E2E_half_discharge = config["loading_numbers"]["regular_loading_number_E2E_half_discharge"]
-    regular_loading_number_E2E_set_suspicious_notebook = config["loading_numbers"]["regular_loading_number_E2E_set_suspicious_notebook"]
-    regular_loading_number_E2E_set_uncheck_notebook = config["loading_numbers"]["regular_loading_number_E2E_set_uncheck_notebook"]
+    regular_loading_E2E_num = config["loading_numbers"]["regular_loading_E2E_num"]
+    regular_loading_error_num = config["loading_numbers"]["regular_loading_error_num"]
+    regular_loading_half_discharge_num = config["loading_numbers"]["regular_loading_half_discharge_num"]
+    regular_loading_set_suspicious_num = config["loading_numbers"]["regular_loading_set_suspicious_num"]
+    regular_loading_set_unchecked_num = config["loading_numbers"]["regular_loading_set_unchecked_num"]
 
-    after_appeal_loading_number_E2E = config["loading_numbers"]["after_appeal_loading_number_E2E"]
-    after_appeal_number_error_handling = config["loading_numbers"]["after_appeal_number_error_handling"]
-    after_appeal_number_E2E_half_discharge = config["loading_numbers"]["after_appeal_number_E2E_half_discharge"]
-    after_appeal_number_E2E_set_suspicious_notebook = config["loading_numbers"]["after_appeal_number_E2E_set_suspicious_notebook"]
-    after_appeal_number_E2E_set_uncheck_notebook = config["loading_numbers"]["after_appeal_number_E2E_set_uncheck_notebook"]
+    appeal_loading_E2E_num = config["loading_numbers"]["appeal_loading_E2E_num"]
+    appeal_loading_error_num = config["loading_numbers"]["appeal_loading_error_num"]
+    appeal_loading_half_discharge_num = config["loading_numbers"]["appeal_loading_half_discharge_num"]
+    appeal_loading_set_suspicious_num = config["loading_numbers"]["appeal_loading_set_suspicious_num"]
+    appeal_loading_set_unchecked_num = config["loading_numbers"]["appeal_loading_set_unchecked_num"]
 
-    suspicious_loading_number_E2E_approve = config["loading_numbers"]["suspicious_loading_number_E2E_approve"]
-    suspicious_loading_number_E2E_denied = config["loading_numbers"]["suspicious_loading_number_E2E_denied"]
-    suspicious_number_error_handling = config["loading_numbers"]["suspicious_number_error_handling"]
-    suspicious_number_E2E_half_discharge = config["loading_numbers"]["suspicious_number_E2E_half_discharge"]
-    suspicious_number_E2E_set_uncheck_notebook = config["loading_numbers"]["suspicious_number_E2E_set_uncheck_notebook"]
+    suspicious_loading_approve_num = config["loading_numbers"]["suspicious_loading_approve_num"]
+    suspicious_loading_denied_num = config["loading_numbers"]["suspicious_loading_denied_num"]
+    suspicious_loading_error_num = config["loading_numbers"]["suspicious_loading_error_num"]
+    suspicious_loading_half_discharge_num = config["loading_numbers"]["suspicious_loading_half_discharge_num"]
+    suspicious_loading_set_unchecked_num = config["loading_numbers"]["suspicious_loading_set_unchecked_num"]
 
+    MisMatch_loading_E2E_num = config["loading_numbers"]["MisMatch_loading_E2E_num"]
+    MisMatch_loading_set_suspicious_num = config["loading_numbers"]["MisMatch_loading_set_suspicious_num"]
+    MisMatch_loading_error_num = config["loading_numbers"]["MisMatch_loading_error_num"]
+    MisMatch_loading_half_discharge_num = config["loading_numbers"]["MisMatch_loading_half_discharge_num"]
+    MisMatch_loading_set_unchecked_num = config["loading_numbers"]["MisMatch_loading_set_unchecked_num"]
 
-# שינוי הנתיב לקובץ YAML לנתיב יחסי
+    sample_loading_E2E_num = config["loading_numbers"]["sample_loading_E2E_num"]
+    sample_loading_set_suspicious_num = config["loading_numbers"]["sample_loading_set_suspicious_num"]
+    sample_loading_error_num = config["loading_numbers"]["sample_loading_error_num"]
+    sample_loading_half_discharge_num = config["loading_numbers"]["sample_loading_half_discharge_num"]
+    sample_loading_set_unchecked_num = config["loading_numbers"]["sample_loading_set_unchecked_num"]
+
 yaml_file_path = path_from_project_root('resources/Configuration.yml')
 load_numbers_from_yaml(yaml_file_path)  # קריאה לפונקציה עם קובץ YAML

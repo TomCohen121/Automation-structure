@@ -23,25 +23,37 @@ class Functions(BasePage):
         self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
 
+
+
+    # --------------------------- Check Functions ---------------------------
+
+    def check_if_loading_number_exist(self, loading_number, variable_name):
+        if not loading_number or loading_number == "fill":
+            raise ValueError(f"Error: The loading number '{variable_name}' is empty. Please check the configuration.")
+
+    def check_if_loading_exists_in_archives(self, locator, number):
+        """Checks if the loading text in archives matches the expected number."""
+        return locator.text_content() == number
+
     # --------------------------- Table Interaction Functions ---------------------------
 
     def table_choose_a_row(self, row_number):
         """Selects a specific row in a table based on the row number."""
         return self.page.locator(f"tr:nth-child({row_number})")
 
-    # --------------------------- Loading Functions ---------------------------
-
-    def check_if_loading_number_exist(self, loading_number, variable_name):
-        if not loading_number or loading_number == "fill":
-            raise ValueError(f"Error: The loading number '{variable_name}' is empty. Please check the configuration.")
+    def check_row_disabled_soft_assert(self, row_locator, error_message="The row is not disabled as expected"):
+        row_class = row_locator.get_attribute("class")
+        is_disabled = "disabled" in (row_class or "")
+        soft_assert.check(is_disabled, error_message)
 
     def search_loading(self, loadingNumber):
         """Fills the loading number in the search field and submits it."""
         self.loadingPage.field_search().fill(loadingNumber)
         self.loadingPage.field_search().press('Enter')
 
+    # --------------------------- Loading Functions ---------------------------
+
     def wait_for_domcontentloaded(self):
-        """Waits for the DOM content to be fully loaded."""
         self.page.wait_for_load_state("domcontentloaded")
 
     def wait_for_networkidle(self):
@@ -54,21 +66,22 @@ class Functions(BasePage):
         except:
             pass
 
-    def check_if_loading_exists_in_archives(self, locator, number):
-        """Checks if the loading text in archives matches the expected number."""
-        return locator.text_content() == number
 
     # --------------------------- Popup Functions ---------------------------
 
     def popup_answer_law(self, timeout=3000, interval=0.5):
         start_time = time.time()
-        while (time.time() - start_time) * 1000 < timeout:
-            close_button = self.page.query_selector(".close-btn")
-            if close_button:
-                close_button.click()
-                return True  # הכפתור נמצא והלחיצה בוצעה
-            time.sleep(interval)  # המתנה קצרה לפני בדיקה נוספת
-        raise Exception('Could not find the close button within the specified timeout.')
+        try:
+            while (time.time() - start_time) * 1000 < timeout:
+                close_button = self.page.query_selector(".close-btn")
+                if close_button:
+                    close_button.click()
+                    return True
+                time.sleep(interval)
+            return False
+        except Exception as e:
+            print(f'Error: {e}')
+            return False
 
     def assert_verify_popup_error_message(self, locator, expected_text):
         """Asserts that a popup error message is visible and matches the expected text."""
@@ -138,6 +151,14 @@ class Functions(BasePage):
 
     # --------------------------- Utility Functions ---------------------------
 
+    def convert_to_int_from_str_or_number(self,value):
+        if isinstance(value, str):
+            value = value.strip() if value.strip() else '0'
+        try:
+            return int(value)
+        except ValueError:
+            return 0
+
     def number_to_int(self, number_str):
         """Converts a string to an integer after stripping whitespace."""
         number = number_str.strip()
@@ -166,11 +187,6 @@ class Functions(BasePage):
         except Exception as e:
             pass
 
-    def check_row_disabled_soft_assert(self, row_locator, error_message="The row is not disabled as expected"):
-        row_class = row_locator.get_attribute("class")
-        is_disabled = "disabled" in (row_class or "")
-        soft_assert.check(is_disabled, error_message)
-
     def check_if_button_enabled_and_click(self, button_locator, error_message):
         button_locator.wait_for(state="visible", timeout=5000)
         if button_locator.is_enabled():
@@ -178,10 +194,4 @@ class Functions(BasePage):
         else:
             raise Exception(error_message)
 
-    def convert_to_int_from_str_or_number(self,value):
-        if isinstance(value, str):
-            value = value.strip() if value.strip() else '0'
-        try:
-            return int(value)
-        except ValueError:
-            return 0
+

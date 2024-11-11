@@ -22,7 +22,7 @@ class WorkFlow(BasePage):
        self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
        self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
 
-    # --------------------------- Notebook Checking Process ---------------------------
+    # --------------------------- Regular Notebook Checking Process ---------------------------
 
    def notebook_checking_process_with_grade(self):
        self.checkNotebookPage.field_question_number().fill('1')
@@ -50,26 +50,6 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
-   def notebook_suspicion_approved_process(self):
-       self.checkNotebookPage.btn_suspicion_approved().click()
-       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(),'div')
-       self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
-       self.checkNotebookPage.field_suspicious_text().fill('tom')
-       self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
-       self.functions.notebook_pagination_loop()
-       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
-       self.checkNotebookPage.btn_save_notebook_popup().click()
-       self.functions.wait_for_loader()
-       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
-
-   def notebook_suspicion_denied_process(self):
-       self.checkNotebookPage.btn_suspicion_denied().click()
-       self.checkNotebookPage.btn_save_suspicion_denied_popup().click()
-       self.functions.notebook_pagination_loop()
-       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
-       self.checkNotebookPage.btn_save_notebook_popup().click()
-       self.functions.wait_for_loader()
-       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
     # --------------------------- Navigation Flows ---------------------------
 
@@ -121,6 +101,27 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_suspicious_text().fill('tom')
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
 
+   def notebook_suspicion_approved_process(self):
+       self.checkNotebookPage.btn_suspicion_approved().click()
+       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(),'div')
+       self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
+       self.checkNotebookPage.field_suspicious_text().fill('tom')
+       self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
+   def notebook_suspicion_denied_process(self):
+       self.checkNotebookPage.btn_suspicion_denied().click()
+       self.checkNotebookPage.btn_save_suspicion_denied_popup().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
     # --------------------------- Uncheck Notebook Flows ---------------------------
 
    def flow_set_uncheck_notebook(self):
@@ -134,8 +135,47 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
        self.functions.wait_for_domcontentloaded()
 
-   def half_discharge_process(self):
+   def assert_and_perform_half_discharge(self):
        self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
        self.portionPage.btn_save_loading_half_discharge_popup().click()
        self.page.reload()
        self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")
+
+
+   def answer_all_questions(self):
+       for question_number in range(1, 15):
+           self.checkNotebookPage.field_question_number().fill(str(question_number))
+           subquestion_field = self.checkNotebookPage.field_subquestion()
+           if subquestion_field.count() == 0 or not subquestion_field.is_enabled():  # אם אין תת שאלה
+               self.checkNotebookPage.field_question_score().fill('6')
+               error_message = self.page.locator("div.error.show")
+               if error_message.count() > 0:  # אם יש שגיאה
+                   print(f"Warning: Question number {question_number} is invalid. Skipping this question.")
+                   continue
+               self.checkNotebookPage.btn_maximum_grade().click()
+               self.checkNotebookPage.btn_save_question_score().click()
+               popup = self.page.get_by_role("button", name="סגור")
+               if popup.count() > 0:  # אם הפופאפ קיים
+                   close_button = self.page.get_by_role("button", name="סגור")
+                   close_button.click()
+           else:
+               for subquestion_number in range(1, 5):  # עד 4 תתי שאלות
+                   subquestion_field = self.checkNotebookPage.field_subquestion()
+                   if subquestion_field.count() > 0 and subquestion_field.is_enabled():
+                       subquestion_field.fill(str(subquestion_number))
+                       self.checkNotebookPage.field_question_score().fill('6')
+                       error_message = self.page.locator("div.error.show")
+                       if error_message.count() > 0:  # אם יש שגיאה
+                           print(
+                               f"Warning: Subquestion {subquestion_number} of question {question_number} is invalid. Skipping this subquestion.")
+                           continue
+                       self.checkNotebookPage.btn_maximum_grade().click()
+                       self.checkNotebookPage.btn_save_question_score().click()
+                       popup = self.page.get_by_role("button", name="סגור")
+                       if popup.count() > 0:  # אם הפופאפ קיים
+                           close_button = self.page.get_by_role("button", name="סגור")
+                           close_button.click()
+                       self.checkNotebookPage.field_question_number().fill(
+                           str(question_number))  # ממלאים שוב את מספר השאלה
+                   else:
+                       break

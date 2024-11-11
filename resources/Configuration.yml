@@ -5,24 +5,39 @@ url: "QA"                     # Choose either 'QA' or 'DEV'.
 token: "ronatoken"               # Choose either 'ronatoken' or 'RegularEvaluator'.
 maximize_window: true         # Set True for maximize window, False for normal window
 
+
 loading_numbers:
-  #Regular Loading
-  regular_loading_number_E2E: "0046707"
-  regular_loading_number_error_handling: "0046707"
-  regular_loading_number_E2E_half_discharge: "0045580"
-  regular_loading_number_E2E_set_suspicious_notebook: "0045561"
-  regular_loading_number_E2E_set_uncheck_notebook: "0045587"
+  # Regular Loading
+  regular_loading_E2E_num: "0046709"
+  regular_loading_error_num: "0046707"
+  regular_loading_half_discharge_num: "0045580"
+  regular_loading_set_suspicious_num: "0045561"
+  regular_loading_set_unchecked_num: "0045587"
 
-  #AfterApeal Loading
-  after_appeal_loading_number_E2E: "0045295"
-  after_appeal_number_error_handling: "0045295"
-  after_appeal_number_E2E_half_discharge: "0045583"
-  after_appeal_number_E2E_set_suspicious_notebook: "0045295"
-  after_appeal_number_E2E_set_uncheck_notebook: "0045295"
+  # After Appeal Loading
+  appeal_loading_E2E_num: "0045295"
+  appeal_loading_error_num: "0045295"
+  appeal_loading_half_discharge_num: "0045583"
+  appeal_loading_set_suspicious_num: "0045295"
+  appeal_loading_set_unchecked_num: "0045295"
 
-  #Suspicious Loading
-  suspicious_loading_number_E2E_approve: "0045543"
-  suspicious_loading_number_E2E_denied: "0045543"
-  suspicious_number_error_handling: "0045543"
-  suspicious_number_E2E_half_discharge: "0002963"
-  suspicious_number_E2E_set_uncheck_notebook: "0002963"
+  # Suspicious Loading
+  suspicious_loading_approve_num: "0045543"
+  suspicious_loading_denied_num: "0045543"
+  suspicious_loading_error_num: "0045543"
+  suspicious_loading_half_discharge_num: "0002963"
+  suspicious_loading_set_unchecked_num: "0002963"
+
+  # MisMatch Loading
+  MisMatch_loading_E2E_num: "0045541"
+  MisMatch_loading_set_suspicious_num: "0045561"
+  MisMatch_loading_error_num: "0045543"
+  MisMatch_loading_half_discharge_num: "0002963"
+  MisMatch_loading_set_unchecked_num: "0002963"
+
+  # Sample After Evaluation Loading
+  sample_loading_E2E_num: "0045260"
+  sample_loading_set_suspicious_num: "0045561"
+  sample_loading_error_num: "0045543"
+  sample_loading_half_discharge_num: "0002963"
+  sample_loading_set_unchecked_num: "0002963"

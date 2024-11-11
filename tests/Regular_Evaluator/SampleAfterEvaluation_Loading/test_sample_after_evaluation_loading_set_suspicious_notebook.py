@@ -8,14 +8,14 @@ from pages.loading_page import LoadingPage
 
 @pytest.mark.regular_loading
 @pytest.mark.regular_evaluator
-@allure.story("Set Suspicious Notebook Test for Regular Loading - Regular Evaluator")
+@allure.story("Set Suspicious Notebook Test for Sample After Evaluation Loading - Regular Evaluator")
 @allure.description("Set Suspicious Notebook Process and Loading Discharge")
-def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
-    f.functions.check_if_loading_number_exist(regular_loading_set_suspicious_num, 'regular_loading_set_suspicious_num')
+def test_sample_loading_set_suspicious_notebook(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(sample_loading_set_suspicious_num, 'sample_loading_set_suspicious_num')
 
     f.functions.wait_for_networkidle()
     f.workflow.navigation_to_loading_screen()
-    f.functions.search_loading(regular_loading_set_suspicious_num)
+    f.functions.search_loading(sample_loading_set_suspicious_num)
 
     #LoadingScreen
     f.functions.table_choose_a_row(2).click()
@@ -53,7 +53,7 @@ def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
 
     # #ArchiveScreen
     # f.workflow.loading_discharge_and_navigate_to_archive()
-    # f.functions.search_loading(regular_loading_set_suspicious_num)
+    # f.functions.search_loading(sample_loading_set_suspicious_num)
     # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()

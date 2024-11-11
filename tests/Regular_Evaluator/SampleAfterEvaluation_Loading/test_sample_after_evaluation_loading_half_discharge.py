@@ -5,18 +5,17 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-@pytest.mark.afterappeal_loading
+@pytest.mark.sample_loading
 @pytest.mark.regular_evaluator
-@allure.story("Half Discharge Process AfterAppeal Loading - Regular Evaluator")
+@allure.story("Half Discharge Process for Sample After Evaluation Loading - Regular Evaluator")
 @allure.description("Half Discharge Process")
-def test_afterappeal_loading_half_discharge(f, add_allure_attach, page):
-    f.functions.check_if_loading_number_exist(appeal_loading_half_discharge_num, 'appeal_loading_half_discharge_num')
+def test_sample_loading_half_discharge(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(sample_loading_half_discharge_num, 'sample_loading_half_discharge_num')
 
-    f.functions.wait_for_networkidle()
     f.workflow.navigation_to_loading_screen()
     #LoadingScreen
-    f.functions.search_loading(appeal_loading_half_discharge_num)
-    f.workflow.navigation_from_loading_to_checknotebookpage(2,2,2)
+    f.functions.search_loading(sample_loading_half_discharge_num)
+    f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
 
     #CheckNotebookScreen
     f.workflow.notebook_checking_process()
