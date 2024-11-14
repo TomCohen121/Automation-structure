@@ -28,11 +28,11 @@ suspicious_loading_half_discharge_num = None
 suspicious_loading_set_unchecked_num = None
 
 # MisMatch Loading
-MisMatch_loading_E2E_num = None
-MisMatch_loading_set_suspicious_num = None
-MisMatch_loading_error_num = None
-MisMatch_loading_half_discharge_num = None
-MisMatch_loading_set_unchecked_num = None
+misMatch_loading_E2E_num = None
+misMatch_loading_set_suspicious_num = None
+misMatch_loading_error_num = None
+misMatch_loading_half_discharge_num = None
+misMatch_loading_set_unchecked_num = None
 
 # Sample Loading
 sample_loading_E2E_num = None
@@ -48,8 +48,8 @@ def load_numbers_from_yaml(file_path):
     global appeal_loading_set_suspicious_num, appeal_loading_set_unchecked_num
     global suspicious_loading_approve_num, suspicious_loading_denied_num, suspicious_loading_error_num, suspicious_loading_half_discharge_num
     global suspicious_loading_set_unchecked_num
-    global MisMatch_loading_E2E_num, MisMatch_loading_set_suspicious_num, MisMatch_loading_error_num
-    global MisMatch_loading_half_discharge_num, MisMatch_loading_set_unchecked_num
+    global misMatch_loading_E2E_num, misMatch_loading_set_suspicious_num, misMatch_loading_error_num
+    global misMatch_loading_half_discharge_num, misMatch_loading_set_unchecked_num
     global sample_loading_E2E_num, sample_loading_set_suspicious_num, sample_loading_error_num
     global sample_loading_half_discharge_num, sample_loading_set_unchecked_num
 
@@ -75,11 +75,11 @@ def load_numbers_from_yaml(file_path):
     suspicious_loading_half_discharge_num = config["loading_numbers"]["suspicious_loading_half_discharge_num"]
     suspicious_loading_set_unchecked_num = config["loading_numbers"]["suspicious_loading_set_unchecked_num"]
 
-    MisMatch_loading_E2E_num = config["loading_numbers"]["MisMatch_loading_E2E_num"]
-    MisMatch_loading_set_suspicious_num = config["loading_numbers"]["MisMatch_loading_set_suspicious_num"]
-    MisMatch_loading_error_num = config["loading_numbers"]["MisMatch_loading_error_num"]
-    MisMatch_loading_half_discharge_num = config["loading_numbers"]["MisMatch_loading_half_discharge_num"]
-    MisMatch_loading_set_unchecked_num = config["loading_numbers"]["MisMatch_loading_set_unchecked_num"]
+    misMatch_loading_E2E_num = config["loading_numbers"]["misMatch_loading_E2E_num"]
+    misMatch_loading_set_suspicious_num = config["loading_numbers"]["misMatch_loading_set_suspicious_num"]
+    misMatch_loading_error_num = config["loading_numbers"]["misMatch_loading_error_num"]
+    misMatch_loading_half_discharge_num = config["loading_numbers"]["misMatch_loading_half_discharge_num"]
+    misMatch_loading_set_unchecked_num = config["loading_numbers"]["misMatch_loading_set_unchecked_num"]
 
     sample_loading_E2E_num = config["loading_numbers"]["sample_loading_E2E_num"]
     sample_loading_set_suspicious_num = config["loading_numbers"]["sample_loading_set_suspicious_num"]

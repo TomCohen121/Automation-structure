@@ -7,7 +7,7 @@ from pages.loading_page import LoadingPage
 
 
 @pytest.mark.regular_loading
-@pytest.mark.regular_evaluator
+@pytest.mark.senior_evaluator
 @allure.story("Set Uncheck Notebook Test for Regular Loading - Regular Evaluator")
 @allure.description("Set Uncheck Notebook Process and Loading Discharge")
 def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):

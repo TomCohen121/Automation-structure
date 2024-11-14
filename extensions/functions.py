@@ -10,6 +10,7 @@ from pages.portion_page import PortionPage
 from helper.soft_assert import soft_assert
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
+import requests
 
 
 class Functions(BasePage):
@@ -194,4 +195,8 @@ class Functions(BasePage):
         else:
             raise Exception(error_message)
 
-
+    def fetch_api_data(self, url, params=None):
+        response = requests.get(url, params=params, verify=False)
+        data = response.json()
+        print("API Data:", data)
+        return data

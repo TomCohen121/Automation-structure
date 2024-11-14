@@ -29,11 +29,11 @@ loading_numbers:
   suspicious_loading_set_unchecked_num: "0002963"
 
   # MisMatch Loading
-  MisMatch_loading_E2E_num: "0045541"
-  MisMatch_loading_set_suspicious_num: "0045561"
-  MisMatch_loading_error_num: "0045543"
-  MisMatch_loading_half_discharge_num: "0002963"
-  MisMatch_loading_set_unchecked_num: "0002963"
+  misMatch_loading_E2E_num: "0045517"
+  misMatch_loading_set_suspicious_num: "0045561"
+  misMatch_loading_error_num: "0045517"
+  misMatch_loading_half_discharge_num: "0002963"
+  misMatch_loading_set_unchecked_num: "0045517"
 
   # Sample After Evaluation Loading
   sample_loading_E2E_num: "0045260"

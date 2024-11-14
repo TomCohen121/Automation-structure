@@ -1,3 +1,5 @@
+import time
+
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -69,7 +71,7 @@ class WorkFlow(BasePage):
         self.loadingPage.btn_save_loading_discharge_popup().click()
         self.loadingPage.btn_loading_archive().click()
 
-    # --------------------------- Asserts Flows ---------------------------
+    # --------------------------- Asserts Error Message Flows ---------------------------
 
    def assert_and_validate_popup_and_error_messages_regular_loading(self):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -90,6 +92,15 @@ class WorkFlow(BasePage):
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לאשר / לבטל חשד לפני סיום בדיקה")
+
+   def assert_and_validate_popup_and_error_messages_mismatch_loading(self):
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
+       self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
+       self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לסגור את הפער לפני סיום בדיקה")
 
     # --------------------------- Suspicious Notebook Flows ---------------------------
 
@@ -144,18 +155,22 @@ class WorkFlow(BasePage):
 
    def answer_all_questions(self):
        for question_number in range(1, 15):
+           question_field = self.checkNotebookPage.field_question_number()
+           if question_field.is_disabled():
+               return
            self.checkNotebookPage.field_question_number().fill(str(question_number))
            subquestion_field = self.checkNotebookPage.field_subquestion()
-           if subquestion_field.count() == 0 or not subquestion_field.is_enabled():  # אם אין תת שאלה
+           if subquestion_field.count() == 0 or not subquestion_field.is_enabled():
                self.checkNotebookPage.field_question_score().fill('6')
-               error_message = self.page.locator("div.error.show")
-               if error_message.count() > 0:  # אם יש שגיאה
-                   print(f"Warning: Question number {question_number} is invalid. Skipping this question.")
+               under_field_error_message = self.page.locator("div.error.show").first
+               error_text = under_field_error_message.text_content().strip()
+               if "שאלה" in error_text:
                    continue
                self.checkNotebookPage.btn_maximum_grade().click()
                self.checkNotebookPage.btn_save_question_score().click()
-               popup = self.page.get_by_role("button", name="סגור")
-               if popup.count() > 0:  # אם הפופאפ קיים
+               time.sleep(5)
+               popup_error = self.page.get_by_role("button", name="סגור")
+               if popup_error.count() > 0:
                    close_button = self.page.get_by_role("button", name="סגור")
                    close_button.click()
            else:
@@ -164,18 +179,18 @@ class WorkFlow(BasePage):
                    if subquestion_field.count() > 0 and subquestion_field.is_enabled():
                        subquestion_field.fill(str(subquestion_number))
                        self.checkNotebookPage.field_question_score().fill('6')
-                       error_message = self.page.locator("div.error.show")
-                       if error_message.count() > 0:  # אם יש שגיאה
-                           print(
-                               f"Warning: Subquestion {subquestion_number} of question {question_number} is invalid. Skipping this subquestion.")
+                       under_field_error_message = self.page.locator("div.error.show")
+                       if under_field_error_message.count() > 0:  # אם יש שגיאה
                            continue
                        self.checkNotebookPage.btn_maximum_grade().click()
                        self.checkNotebookPage.btn_save_question_score().click()
-                       popup = self.page.get_by_role("button", name="סגור")
-                       if popup.count() > 0:  # אם הפופאפ קיים
+                       time.sleep(5)
+                       popup_error = self.page.get_by_role("button", name="סגור")
+                       if popup_error.count() > 0:  # אם הפופאפ קיים
                            close_button = self.page.get_by_role("button", name="סגור")
                            close_button.click()
-                       self.checkNotebookPage.field_question_number().fill(
-                           str(question_number))  # ממלאים שוב את מספר השאלה
+                       self.checkNotebookPage.field_question_number().fill(str(question_number))
                    else:
                        break
+
+
