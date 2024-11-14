@@ -6,20 +6,19 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.afterappeal_loading
-@pytest.mark.regular_evaluator
-@allure.story("Set Suspicious Notebook Test for AfterAppel Loading - Regular Evaluator")
+@pytest.mark.regular_loading
+@pytest.mark.senior_evaluator
+@allure.story("Set Suspicious Notebook Test for Sample Before Evaluation Loading - Senior Evaluator")
 @allure.description("Set Suspicious Notebook Process and Loading Discharge")
-def test_afterappeal_loading_set_suspicious_notebook(f, add_allure_attach, page):
-    f.functions.check_if_loading_number_exist(appeal_loading_set_suspicious_num, 'appeal_loading_set_suspicious_num')
-
-    f.functions.wait_for_networkidle()
+def test_sample_loading_set_suspicious_notebook(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(sample_loading_sen_set_suspicious_num, 'sample_loading_sen_set_suspicious_num')
+    #Dashboard
     f.workflow.navigation_to_loading_screen()
-    f.functions.search_loading(appeal_loading_set_suspicious_num)
 
     #LoadingScreen
+    f.functions.search_loading(sample_loading_sen_set_suspicious_num)
     f.functions.table_choose_a_row(2).click()
-    stat_num_of_suspicious_notebook_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
+    stat_num_of_suspicious_notebooks_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
     f.functions.table_choose_a_row(2).dblclick()
 
     #PortionScreen
@@ -33,11 +32,12 @@ def test_afterappeal_loading_set_suspicious_notebook(f, add_allure_attach, page)
     #CheckNotebookScreen
     f.workflow.flow_set_suspicious_notebook()
     f.workflow.notebook_checking_process()
+    f.functions.popup_answer_law()
 
     #################################################################################################################################################
                                                                 #Testing
     #NotebookScreen
-    f.functions.popup_answer_law()
+    f.functions.table_choose_a_row(2).click()
     f.functions.is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2),expected_state=True)
     f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
@@ -48,11 +48,11 @@ def test_afterappeal_loading_set_suspicious_notebook(f, add_allure_attach, page)
 
     #LoadingScreen
     stat_num_of_suspicious_notebooks_after = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
-    f.functions.assert_equal_to(stat_num_of_suspicious_notebook_before+1,stat_num_of_suspicious_notebooks_after, "Statistics: Number of Suspicious notebooks is incorrect")
+    f.functions.assert_equal_to(stat_num_of_suspicious_notebooks_before+1,stat_num_of_suspicious_notebooks_after, "Statistics: Number of Suspicious notebooks is incorrect")
 
     # #ArchiveScreen
     # f.workflow.loading_discharge_and_navigate_to_archive()
-    # f.functions.search_loading(appeal_loading_set_suspicious_num)
+    # f.functions.search_loading(sample_loading_sen_set_suspicious_num)
     # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()

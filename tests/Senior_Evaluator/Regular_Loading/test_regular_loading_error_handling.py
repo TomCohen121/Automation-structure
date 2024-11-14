@@ -6,14 +6,15 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.regular_loading
 @pytest.mark.senior_evaluator
-@allure.story("Error Handling Test for Regular loading - Regular Evaluator")
+@allure.story("Error Handling Test for Regular loading - Senior Evaluator")
 @allure.description("Error Handling Checking Process")
 def test_regular_loading_error_handling(f, add_allure_attach, page):
-   f.functions.check_if_loading_number_exist(regular_loading_error_num,'regular_loading_error_num')
-   f.functions.wait_for_networkidle()
+   f.functions.check_if_loading_number_exist(regular_loading_sen_error_num,'regular_loading_sen_error_num')
+   #Dashboard
    f.workflow.navigation_to_loading_screen()
-   f.functions.search_loading(regular_loading_error_num)
 
+   #LoadingScreen
+   f.functions.search_loading(regular_loading_sen_error_num)
    f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
 
    ###########################################################################################################################################

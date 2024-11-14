@@ -8,12 +8,10 @@ from pages.loading_page import LoadingPage
 
 @pytest.mark.afterappeal_loading
 @pytest.mark.senior_evaluator
-@allure.story("Set Uncheck Notebook Test for AfterAppel Loading - Regular Evaluator")
+@allure.story("Set Uncheck Notebook Test for AfterAppel Loading - Senior Evaluator")
 @allure.description("Set Uncheck Notebook Process and Loading Discharge")
 def test_afterappeal_loading_set_uncheck_notebook(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(appeal_loading_set_unchecked_num, 'appeal_loading_set_unchecked_num')
-    f.functions.wait_for_networkidle()
-
     #Dashboard
     num_of_uncheck_notebooks_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_uncheck_notebooks())
     f.workflow.navigation_to_loading_screen()

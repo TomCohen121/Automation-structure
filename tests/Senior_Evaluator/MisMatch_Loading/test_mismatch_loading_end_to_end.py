@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.mismatch_loading
 @pytest.mark.senior_evaluator
-@allure.story("E2E Test for MisMatch Loading - Regular Evaluator")
+@allure.story("E2E Test for MisMatch Loading - Senior Evaluator")
 @allure.description("Notebook Checking and Loading Discharge Process")
 def test_mismatch_loading_end_to_end(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(misMatch_loading_E2E_num,'misMatch_loading_E2E_num')

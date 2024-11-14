@@ -8,16 +8,15 @@ from pages.loading_page import LoadingPage
 
 @pytest.mark.afterappeal_loading
 @pytest.mark.senior_evaluator
-@allure.story("Set Suspicious Notebook Test for AfterAppel Loading - Regular Evaluator")
+@allure.story("Set Suspicious Notebook Test for AfterAppel Loading - Senior Evaluator")
 @allure.description("Set Suspicious Notebook Process and Loading Discharge")
 def test_afterappeal_loading_set_suspicious_notebook(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(appeal_loading_set_suspicious_num, 'appeal_loading_set_suspicious_num')
-
-    f.functions.wait_for_networkidle()
+    #Dashboard
     f.workflow.navigation_to_loading_screen()
-    f.functions.search_loading(appeal_loading_set_suspicious_num)
 
     #LoadingScreen
+    f.functions.search_loading(appeal_loading_set_suspicious_num)
     f.functions.table_choose_a_row(2).click()
     stat_num_of_suspicious_notebook_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
     f.functions.table_choose_a_row(2).dblclick()

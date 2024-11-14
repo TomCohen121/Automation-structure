@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.suspicious_loading
 @pytest.mark.senior_evaluator
-@allure.story("E2E Test for Suspicious Loading - Denied Notebook Suspicion - Regular Evaluator")
+@allure.story("E2E Test for Suspicious Loading - Denied Notebook Suspicion - Senior Evaluator")
 @allure.description("Denied Notebook Suspicion And Loading Discharge Process")
 def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(suspicious_loading_denied_num,'suspicious_loading_denied_num')
@@ -15,7 +15,6 @@ def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
    num_of_discharged_loadings_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_loadings())
    num_of_discharged_portions_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_portions())
    num_of_discharged_notebooks_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_notebooks())
-
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen

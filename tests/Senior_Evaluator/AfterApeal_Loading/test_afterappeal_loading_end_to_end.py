@@ -6,11 +6,10 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.afterappeal_loading
 @pytest.mark.senior_evaluator
-@allure.story("E2E Test for AfterAppeal Loading - Regular Evaluator")
+@allure.story("E2E Test for AfterAppeal Loading - Senior Evaluator")
 @allure.description("Notebook Checking and Loading Discharge Process")
 def test_afterappeal_loading_end_to_end(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(appeal_loading_E2E_num,'appeal_loading_E2E_num')
-
    #Dashboard
    # num_of_discharged_loadings_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_loadings())
    # num_of_discharged_portions_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_portions())

@@ -2,42 +2,54 @@ browser: "chromium"           # Valid options are 'chromium', 'firefox', 'webkit
 headless: false               # Set to True for headless mode, False for normal mode.
 slow_motion: 300              # Adjust to slow down or speed up the actions, in milliseconds.
 url: "QA"                     # Choose either 'QA' or 'DEV'.
-token: "ronatoken"               # Choose either 'ronatoken' or 'RegularEvaluator'.
+token: "ronatoken"            # Choose either 'ronatoken' or 'RegularEvaluator'.
 maximize_window: true         # Set True for maximize window, False for normal window
 
 
 loading_numbers:
+#Regular Evaluator
   # Regular Loading
-  regular_loading_E2E_num: "0046709"
-  regular_loading_error_num: "0046707"
-  regular_loading_half_discharge_num: "0045580"
-  regular_loading_set_suspicious_num: "0045561"
-  regular_loading_set_unchecked_num: "0045587"
+  regular_loading_reg_E2E_num: "0046709"
+  regular_loading_reg_error_num: "0046707"
+  regular_loading_reg_half_discharge_num: "0045580"
+  regular_loading_reg_set_suspicious_num: "0045561"
+  regular_loading_reg_set_unchecked_num: "0045587"
+  # Sample After Evaluation Loading
+  sample_loading_reg_E2E_num: "0045260"
+  sample_loading_reg_set_suspicious_num: "0045561"
+  sample_loading_reg_error_num: "0045543"
+  sample_loading_reg_half_discharge_num: "0002963"
+  sample_loading_reg_set_unchecked_num: "0002963"
 
+#Senior Evaluator
   # After Appeal Loading
   appeal_loading_E2E_num: "0045295"
   appeal_loading_error_num: "0045295"
   appeal_loading_half_discharge_num: "0045583"
   appeal_loading_set_suspicious_num: "0045295"
   appeal_loading_set_unchecked_num: "0045295"
-
   # Suspicious Loading
   suspicious_loading_approve_num: "0045543"
   suspicious_loading_denied_num: "0045543"
   suspicious_loading_error_num: "0045543"
   suspicious_loading_half_discharge_num: "0002963"
   suspicious_loading_set_unchecked_num: "0002963"
-
   # MisMatch Loading
   misMatch_loading_E2E_num: "0045517"
   misMatch_loading_set_suspicious_num: "0045561"
   misMatch_loading_error_num: "0045517"
   misMatch_loading_half_discharge_num: "0002963"
   misMatch_loading_set_unchecked_num: "0045517"
-
+  # Regular Loading
+  regular_loading_sen_E2E_num: "0046709"
+  regular_loading_sen_error_num: "0046707"
+  regular_loading_sen_half_discharge_num: "0045580"
+  regular_loading_sen_set_suspicious_num: "0045561"
+  regular_loading_sen_set_unchecked_num: "0045587"
   # Sample After Evaluation Loading
-  sample_loading_E2E_num: "0045260"
-  sample_loading_set_suspicious_num: "0045561"
-  sample_loading_error_num: "0045543"
-  sample_loading_half_discharge_num: "0002963"
-  sample_loading_set_unchecked_num: "0002963"
+  sample_loading_sen_E2E_num: "0045260"
+  sample_loading_sen_set_suspicious_num: "0045561"
+  sample_loading_sen_error_num: "0045543"
+  sample_loading_sen_half_discharge_num: "0002963"
+  sample_loading_sen_set_unchecked_num: "0002963"
+
