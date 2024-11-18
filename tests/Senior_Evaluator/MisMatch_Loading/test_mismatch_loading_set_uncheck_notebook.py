@@ -46,7 +46,6 @@ def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
     table_num_of_checked_notebooks_after = f.functions.number_to_int(f.portionPage.txt_table_num_of_checked_notebooks(2))
     f.functions.assert_equal_to(table_num_of_checked_notebooks_before + 1, table_num_of_checked_notebooks_after,"Number of checked Notebooks is incorrect")
     f.functions.assert_equal_to(f.portionPage.txt_table_portion_status(2), "מנה עם שאלון לא מתאים","the Portion status is not 'מנה עם שאלון לא מתאים'")
-
     f.breadcrumbs.btn_breadcrumbs_to_loadings_page().click()
 
     #LoadingScreen

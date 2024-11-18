@@ -32,13 +32,12 @@ def test_sample_loading_set_suspicious_notebook(f, add_allure_attach, page):
     #CheckNotebookScreen
     f.workflow.flow_set_suspicious_notebook()
     f.workflow.notebook_checking_process()
-    f.functions.popup_answer_law()
 
     #################################################################################################################################################
                                                                 #Testing
     #NotebookScreen
-    f.functions.table_choose_a_row(2).click()
-    f.functions.is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2),expected_state=True)
+    f.functions.popup_answer_law()
+    f.functions.is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2),expected_state=True,error_message="The Suspicious Evaluation Check box should be Marked")
     f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
     #PortionScreen

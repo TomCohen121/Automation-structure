@@ -54,6 +54,13 @@ sample_loading_sen_error_num = None
 sample_loading_sen_half_discharge_num = None
 sample_loading_sen_set_unchecked_num = None
 
+#Senior Evaluator - Senior Loading
+senior_loading_E2E_num = None
+senior_loading_set_suspicious_num = None
+senior_loading_error_num = None
+senior_loading_half_discharge_num = None
+senior_loading_set_unchecked_num = None
+
 def load_numbers_from_yaml(file_path):
     global regular_loading_reg_E2E_num, regular_loading_reg_error_num, regular_loading_reg_half_discharge_num
     global regular_loading_reg_set_suspicious_num, regular_loading_reg_set_unchecked_num
@@ -69,6 +76,9 @@ def load_numbers_from_yaml(file_path):
     global regular_loading_sen_set_suspicious_num, regular_loading_sen_set_unchecked_num
     global sample_loading_sen_E2E_num, sample_loading_sen_set_suspicious_num, sample_loading_sen_error_num
     global sample_loading_sen_half_discharge_num, sample_loading_sen_set_unchecked_num
+    global senior_loading_E2E_num, senior_loading_set_suspicious_num, senior_loading_error_num
+    global senior_loading_half_discharge_num, senior_loading_set_unchecked_num
+
 
     with open(file_path, 'r') as yaml_file:
         config = yaml.safe_load(yaml_file)
@@ -121,6 +131,13 @@ def load_numbers_from_yaml(file_path):
     sample_loading_sen_error_num = config["loading_numbers"]["sample_loading_sen_error_num"]
     sample_loading_sen_half_discharge_num = config["loading_numbers"]["sample_loading_sen_half_discharge_num"]
     sample_loading_sen_set_unchecked_num = config["loading_numbers"]["sample_loading_sen_set_unchecked_num"]
+
+    senior_loading_E2E_num = config["loading_numbers"]["senior_loading_E2E_num"]
+    senior_loading_set_suspicious_num = config["loading_numbers"]["senior_loading_set_suspicious_num"]
+    senior_loading_error_num = config["loading_numbers"]["senior_loading_error_num"]
+    senior_loading_half_discharge_num = config["loading_numbers"]["senior_loading_half_discharge_num"]
+    senior_loading_set_unchecked_num = config["loading_numbers"]["senior_loading_set_unchecked_num"]
+
 
 yaml_file_path = path_from_project_root('resources/Configuration.yml')
 load_numbers_from_yaml(yaml_file_path)  # קריאה לפונקציה עם קובץ YAML

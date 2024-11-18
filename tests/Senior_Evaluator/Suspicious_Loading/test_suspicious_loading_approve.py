@@ -10,7 +10,6 @@ from helper.soft_assert import soft_assert
 @allure.description("Approve Notebook Suspicion and Loading Discharge Process")
 def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(suspicious_loading_approve_num,'suspicious_loading_approve_num')
-
    #Dashboard
    num_of_discharged_loadings_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_loadings())
    num_of_discharged_portions_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_portions())
@@ -25,7 +24,6 @@ def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
    stat_num_of_checked_notebooks_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_checked_notebooks()))
    stat_num_of_unchecked_notebooks_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_unchecked_notebooks()))
    stat_num_of_suspicious_notebooks_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
-
    f.functions.table_choose_a_row(2).dblclick()
 
    #PortionScreen
@@ -46,13 +44,12 @@ def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
    f.functions.is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_approved(2),expected_state=True,error_message="The Suspicious Approved Check box should be Marked")
    f.functions.is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_denied(2), expected_state=False , error_message="The Suspicious Denied Check box should be Unmarked")
    f.functions.assert_equal_to(f.suspiciousLoadingNotebookPage.txt_suspicious_notebook_status(2),"מחברת נבדקה", "the Notebook status is not 'מחברת נבדקה'")
+   f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
    #PortionScreen
-   f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
    f.functions.assert_equal_to(f.suspiciousLoadingPortionPage.txt_table_sus_portion_status(2),"מנה תקינה ממתינה למשיכת תפוקה","the Portion status is not 'מנה תקינה ממתינה למשיכת תפוקה'")
    table_num_of_suspicion_approved_after = f.functions.number_to_int(f.suspiciousLoadingPortionPage.txt_table_num_of_suspicion_approved(2))
    f.functions.assert_equal_to(table_num_of_suspicion_approved_before+1,table_num_of_suspicion_approved_after , "Number of Suspicion Approved Notebooks is incorrect")
-
    f.breadcrumbs.btn_breadcrumbs_to_loadings_page().click()
 
    #LoadingScreen
@@ -72,7 +69,6 @@ def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
    f.workflow.loading_discharge_and_navigate_to_archive()
    f.functions.search_loading(suspicious_loading_approve_num)
    soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
-
    f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
 
    #Dashboard

@@ -35,8 +35,8 @@ loading_numbers:
   suspicious_loading_half_discharge_num: "0002963"
   suspicious_loading_set_unchecked_num: "0002963"
   # MisMatch Loading
-  misMatch_loading_E2E_num: "0045517"
-  misMatch_loading_set_suspicious_num: "0045561"
+  misMatch_loading_E2E_num: "0045513"
+  misMatch_loading_set_suspicious_num: "0045517"
   misMatch_loading_error_num: "0045517"
   misMatch_loading_half_discharge_num: "0002963"
   misMatch_loading_set_unchecked_num: "0045517"
@@ -52,4 +52,10 @@ loading_numbers:
   sample_loading_sen_error_num: "0045543"
   sample_loading_sen_half_discharge_num: "0002963"
   sample_loading_sen_set_unchecked_num: "0002963"
+  # Senior Loading
+  senior_loading_E2E_num: "0045517"
+  senior_loading_set_suspicious_num: "0045517"
+  senior_loading_error_num: "0045517"
+  senior_loading_half_discharge_num: "0002963"
+  senior_loading_set_unchecked_num: "0045517"
 

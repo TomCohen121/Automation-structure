@@ -28,6 +28,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process_with_grade(self):
        self.checkNotebookPage.field_question_number().fill('1')
+       self.checkNotebookPage.field_question_number().press('Enter')
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('6')
        self.checkNotebookPage.btn_maximum_grade().click()
@@ -42,6 +43,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process(self):
        self.checkNotebookPage.field_question_number().fill('1')
+       self.checkNotebookPage.field_question_number().press('Enter')
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('6')
        self.checkNotebookPage.btn_maximum_grade().click()
@@ -146,51 +148,20 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
        self.functions.wait_for_domcontentloaded()
 
+    # --------------------------- Half Discharge Flow ---------------------------
+
    def assert_and_perform_half_discharge(self):
        self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
        self.portionPage.btn_save_loading_half_discharge_popup().click()
        self.page.reload()
        self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")
 
+    # --------------------------- Senior/Mismatch Notebook Checking Process ---------------------------
 
-   def answer_all_questions(self):
-       for question_number in range(1, 15):
-           question_field = self.checkNotebookPage.field_question_number()
-           if question_field.is_disabled():
-               return
-           self.checkNotebookPage.field_question_number().fill(str(question_number))
-           subquestion_field = self.checkNotebookPage.field_subquestion()
-           if subquestion_field.count() == 0 or not subquestion_field.is_enabled():
-               self.checkNotebookPage.field_question_score().fill('6')
-               under_field_error_message = self.page.locator("div.error.show").first
-               error_text = under_field_error_message.text_content().strip()
-               if "שאלה" in error_text:
-                   continue
-               self.checkNotebookPage.btn_maximum_grade().click()
-               self.checkNotebookPage.btn_save_question_score().click()
-               time.sleep(5)
-               popup_error = self.page.get_by_role("button", name="סגור")
-               if popup_error.count() > 0:
-                   close_button = self.page.get_by_role("button", name="סגור")
-                   close_button.click()
-           else:
-               for subquestion_number in range(1, 5):  # עד 4 תתי שאלות
-                   subquestion_field = self.checkNotebookPage.field_subquestion()
-                   if subquestion_field.count() > 0 and subquestion_field.is_enabled():
-                       subquestion_field.fill(str(subquestion_number))
-                       self.checkNotebookPage.field_question_score().fill('6')
-                       under_field_error_message = self.page.locator("div.error.show")
-                       if under_field_error_message.count() > 0:  # אם יש שגיאה
-                           continue
-                       self.checkNotebookPage.btn_maximum_grade().click()
-                       self.checkNotebookPage.btn_save_question_score().click()
-                       time.sleep(5)
-                       popup_error = self.page.get_by_role("button", name="סגור")
-                       if popup_error.count() > 0:  # אם הפופאפ קיים
-                           close_button = self.page.get_by_role("button", name="סגור")
-                           close_button.click()
-                       self.checkNotebookPage.field_question_number().fill(str(question_number))
-                   else:
-                       break
-
-
+   def unique_notebook_checking_process(self):
+       self.functions.answer_all_questions()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())

@@ -58,7 +58,7 @@ class CheckNotebookPage(BasePage):
        return self.page.locator(".options-wrapper")
 
    def btn_choose_suspicious_dropdown_options(self):
-       return self.page.get_by_role("button", name="select")
+       return self.page.get_by_role("button", name="בחר")
 
    def field_suspicious_text(self):
        return self.page.locator('.ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline')
