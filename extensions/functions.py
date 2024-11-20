@@ -129,42 +129,25 @@ class Functions(BasePage):
             close_button = self.page.get_by_role("button", name="סגור")
             close_button.click()
 
-    # def answer_all_questions(self):
-    #     for question_number in range(1, 15):
-    #         # question_field = self.checkNotebookPage.field_question_number()
-    #         # if question_field.is_disabled():
-    #         #     return
-    #         self.checkNotebookPage.field_question_number().fill(str(question_number))
-    #         self.page.keyboard.press('Enter')
-    #         subquestion_field = self.checkNotebookPage.field_subquestion()
-    #         if subquestion_field.count() == 0 or not subquestion_field.is_enabled():
-    #             under_field_error_message = self.page.locator("div.error.show").first
-    #             if under_field_error_message.count() > 0:
-    #                 error_text = under_field_error_message.text_content().strip()
-    #                 if "שאלה" in error_text:
-    #                     continue
-    #             self.checkNotebookPage.field_question_score().fill('6')
-    #             self.checkNotebookPage.btn_maximum_grade().click()
-    #             self.checkNotebookPage.btn_save_question_score().click()
-    #             time.sleep(1)
-    #             self.is_question_popup_error_exist()
-    #         else:
-    #             for subquestion_number in range(1, 5):
-    #                 subquestion_field = self.checkNotebookPage.field_subquestion()
-    #                 if subquestion_field.count() > 0 and subquestion_field.is_enabled():
-    #                     subquestion_field.fill(str(subquestion_number))
-    #                     self.page.keyboard.press('Enter')
-    #                     under_field_error_message = self.page.locator("div.error.show")
-    #                     if under_field_error_message.count() > 0:  # אם יש שגיאה
-    #                         continue
-    #                     self.checkNotebookPage.field_question_score().fill('6')
-    #                     self.checkNotebookPage.btn_maximum_grade().click()
-    #                     self.checkNotebookPage.btn_save_question_score().click()
-    #                     time.sleep(1)
-    #                     self.is_question_popup_error_exist()
-    #                 else:
-    #                     break
-
+    def fill_question_numbers(self, question_numbers, api_data):
+        for number in question_numbers:
+            question_data = api_data["data"].get(str(number), {})
+            locator = self.checkNotebookPage.field_question_number()
+            locator.fill(str(number))
+            self.page.keyboard.press('Enter')
+            subquestion_numbers = self.extract_subquestion_numbers(question_data)
+            if subquestion_numbers:
+                for sub_number in subquestion_numbers:
+                    child_locator = self.checkNotebookPage.field_subquestion()
+                    child_locator.fill(str(sub_number))
+                    self.page.keyboard.press('Enter')
+                    self.checkNotebookPage.field_question_score().fill('6')
+                    self.checkNotebookPage.btn_maximum_grade().click()
+                    self.checkNotebookPage.btn_save_question_score().click()
+            else:
+                self.checkNotebookPage.field_question_score().fill('6')
+                self.checkNotebookPage.btn_maximum_grade().click()
+                self.checkNotebookPage.btn_save_question_score().click()
 
     # --------------------------- Data Extraction Functions ---------------------------
 
@@ -245,7 +228,7 @@ class Functions(BasePage):
             raise Exception(error_message)
 
 
-    # --------------------------- API Functions ---------------------------
+    # ---------------------------  API Fetch Data Functions ---------------------------
 
     def fetch_api_data_mismatch(self, params=None):
         current_url = self.page.url
@@ -257,7 +240,7 @@ class Functions(BasePage):
         data = response.json()
         return data
 
-    def fetch_api_data_expert(self, params=None):
+    def fetch_api_data_senior(self, params=None):
         current_url = self.page.url
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
@@ -266,6 +249,8 @@ class Functions(BasePage):
         response = requests.get(api_url, params=params, verify=False)
         data = response.json()
         return data
+
+    # ---------------------------  Extract From API Functions ---------------------------
 
     def extract_keys(self, data):
         # Extract numeric keys from the "data" field
@@ -286,27 +271,25 @@ class Functions(BasePage):
                     subquestion_numbers.append(subquestion_number)
         return subquestion_numbers
 
-    def fill_question_numbers(self, question_numbers, api_data):
-        for number in question_numbers:
-            question_data = api_data["data"].get(str(number), {})
-            locator = self.checkNotebookPage.field_question_number()
-            locator.fill(str(number))
-            self.page.keyboard.press('Enter')
-            subquestion_numbers = self.extract_subquestion_numbers(question_data)
-            if subquestion_numbers:
-                for sub_number in subquestion_numbers:
-                    child_locator = self.checkNotebookPage.field_subquestion()
-                    child_locator.fill(str(sub_number))
-                    self.page.keyboard.press('Enter')
-                    self.checkNotebookPage.field_question_score().fill('6')
-                    self.checkNotebookPage.btn_maximum_grade().click()
-                    self.checkNotebookPage.btn_save_question_score().click()
-            else:
-                self.checkNotebookPage.field_question_score().fill('6')
-                self.checkNotebookPage.btn_maximum_grade().click()
-                self.checkNotebookPage.btn_save_question_score().click()
+    def extract_unanswered_descriptions(self, data):
+        unanswered_descriptions = []
+        def traverse_questions(questions):
+            if not isinstance(questions, dict):  # בדוק אם זה מילון
+                return
+            for question in questions.values():
+                if not question.get("isAnswered", True):
+                    unanswered_descriptions.append(question.get("description"))
+                if question.get("children"):
+                    traverse_questions(question["children"])
+        root_data = data.get("data", {})
+        traverse_questions(root_data)
+        formatted_output = ','.join(unanswered_descriptions)
+        return formatted_output
+
+    # ---------------------------  API Process Functions ---------------------------
 
     def process_api_data(self, fetch_function):
         api_data = fetch_function()
         question_numbers = self.extract_keys(api_data)
         self.fill_question_numbers(question_numbers, api_data)
+

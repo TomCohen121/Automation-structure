@@ -24,7 +24,7 @@ class WorkFlow(BasePage):
        self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
        self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
 
-    # --------------------------- Regular Notebook Checking Process ---------------------------
+    # --------------------------- Notebooks Checking Process ---------------------------
 
    def notebook_checking_process_with_grade(self):
        self.checkNotebookPage.field_question_number().fill('1')
@@ -62,15 +62,14 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
-   def expert_notebook_checking_process(self):
-       self.functions.process_api_data(self.functions.fetch_api_data_expert)
+   def senior_notebook_checking_process(self):
+       self.functions.process_api_data(self.functions.fetch_api_data_senior)
        self.checkNotebookPage.btn_save_gap_successfully_closed().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
-
 
     # --------------------------- Navigation Flows ---------------------------
 
@@ -112,7 +111,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לאשר / לבטל חשד לפני סיום בדיקה")
 
-   def assert_and_validate_popup_and_error_messages_mismatch_loading(self):
+   def assert_and_validate_popup_and_error_messages_senior_loading(self):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
@@ -120,6 +119,18 @@ class WorkFlow(BasePage):
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לסגור את הפער לפני סיום בדיקה")
+
+   def assert_and_validate_popup_and_error_messages_mismatch_loading(self):
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
+       self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
+       self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
+       self.functions.notebook_pagination_loop()
+       notebook_data = self.functions.fetch_api_data_mismatch()
+       unanswered_questions = self.functions.extract_unanswered_descriptions(notebook_data)
+       print(f"the queistons is {unanswered_questions}")
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), f"לא הוזן ציון לכל השאלות, יש להזין ציון לשאלות: {unanswered_questions}")
 
     # --------------------------- Suspicious Notebook Flows ---------------------------
 
@@ -163,7 +174,6 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
-       self.functions.wait_for_domcontentloaded()
 
     # --------------------------- Half Discharge Flow ---------------------------
 

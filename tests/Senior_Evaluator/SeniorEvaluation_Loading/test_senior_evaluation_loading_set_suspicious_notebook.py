@@ -6,17 +6,17 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.mismatch_loading
+@pytest.mark.senior_loading
 @pytest.mark.senior_evaluator
-@allure.story("Set Suspicious Notebook Test for MisMatch Loading - Senior Evaluator")
+@allure.story("Set Suspicious Notebook Test for Senior Loading - Senior Evaluator")
 @allure.description("Set Suspicious Notebook Process and Loading Discharge")
-def test_mismatch_loading_set_suspicious_notebook(f, add_allure_attach, page):
-    f.functions.check_if_loading_number_exist(misMatch_loading_set_suspicious_num, 'misMatch_loading_set_suspicious_num')
+def test_senior_loading_set_suspicious_notebook(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(senior_loading_set_suspicious_num, 'senior_loading_set_suspicious_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 
     #LoadingScreen
-    f.functions.search_loading(misMatch_loading_set_suspicious_num)
+    f.functions.search_loading(senior_loading_set_suspicious_num)
     f.functions.table_choose_a_row(2).click()
     stat_num_of_suspicious_notebooks_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_suspicious_notebooks())
     f.functions.table_choose_a_row(2).dblclick()
@@ -31,7 +31,7 @@ def test_mismatch_loading_set_suspicious_notebook(f, add_allure_attach, page):
 
     #CheckNotebookScreen
     f.workflow.flow_set_suspicious_notebook()
-    f.workflow.mismatch_notebook_checking_process()
+    f.workflow.senior_notebook_checking_process()
 
     #################################################################################################################################################
                                                                 #Testing
@@ -51,7 +51,7 @@ def test_mismatch_loading_set_suspicious_notebook(f, add_allure_attach, page):
 
     # #ArchiveScreen
     # f.workflow.loading_discharge_and_navigate_to_archive()
-    # f.functions.search_loading(regular_loading_sen_set_suspicious_num)
+    # f.functions.search_loading(senior_loading_set_suspicious_num)
     # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()
