@@ -129,41 +129,41 @@ class Functions(BasePage):
             close_button = self.page.get_by_role("button", name="סגור")
             close_button.click()
 
-    def answer_all_questions(self):
-        for question_number in range(1, 15):
-            # question_field = self.checkNotebookPage.field_question_number()
-            # if question_field.is_disabled():
-            #     return
-            self.checkNotebookPage.field_question_number().fill(str(question_number))
-            self.page.keyboard.press('Enter')
-            subquestion_field = self.checkNotebookPage.field_subquestion()
-            if subquestion_field.count() == 0 or not subquestion_field.is_enabled():
-                under_field_error_message = self.page.locator("div.error.show").first
-                if under_field_error_message.count() > 0:
-                    error_text = under_field_error_message.text_content().strip()
-                    if "שאלה" in error_text:
-                        continue
-                self.checkNotebookPage.field_question_score().fill('6')
-                self.checkNotebookPage.btn_maximum_grade().click()
-                self.checkNotebookPage.btn_save_question_score().click()
-                time.sleep(1)
-                self.is_question_popup_error_exist()
-            else:
-                for subquestion_number in range(1, 5):
-                    subquestion_field = self.checkNotebookPage.field_subquestion()
-                    if subquestion_field.count() > 0 and subquestion_field.is_enabled():
-                        subquestion_field.fill(str(subquestion_number))
-                        self.page.keyboard.press('Enter')
-                        under_field_error_message = self.page.locator("div.error.show")
-                        if under_field_error_message.count() > 0:  # אם יש שגיאה
-                            continue
-                        self.checkNotebookPage.field_question_score().fill('6')
-                        self.checkNotebookPage.btn_maximum_grade().click()
-                        self.checkNotebookPage.btn_save_question_score().click()
-                        time.sleep(1)
-                        self.is_question_popup_error_exist()
-                    else:
-                        break
+    # def answer_all_questions(self):
+    #     for question_number in range(1, 15):
+    #         # question_field = self.checkNotebookPage.field_question_number()
+    #         # if question_field.is_disabled():
+    #         #     return
+    #         self.checkNotebookPage.field_question_number().fill(str(question_number))
+    #         self.page.keyboard.press('Enter')
+    #         subquestion_field = self.checkNotebookPage.field_subquestion()
+    #         if subquestion_field.count() == 0 or not subquestion_field.is_enabled():
+    #             under_field_error_message = self.page.locator("div.error.show").first
+    #             if under_field_error_message.count() > 0:
+    #                 error_text = under_field_error_message.text_content().strip()
+    #                 if "שאלה" in error_text:
+    #                     continue
+    #             self.checkNotebookPage.field_question_score().fill('6')
+    #             self.checkNotebookPage.btn_maximum_grade().click()
+    #             self.checkNotebookPage.btn_save_question_score().click()
+    #             time.sleep(1)
+    #             self.is_question_popup_error_exist()
+    #         else:
+    #             for subquestion_number in range(1, 5):
+    #                 subquestion_field = self.checkNotebookPage.field_subquestion()
+    #                 if subquestion_field.count() > 0 and subquestion_field.is_enabled():
+    #                     subquestion_field.fill(str(subquestion_number))
+    #                     self.page.keyboard.press('Enter')
+    #                     under_field_error_message = self.page.locator("div.error.show")
+    #                     if under_field_error_message.count() > 0:  # אם יש שגיאה
+    #                         continue
+    #                     self.checkNotebookPage.field_question_score().fill('6')
+    #                     self.checkNotebookPage.btn_maximum_grade().click()
+    #                     self.checkNotebookPage.btn_save_question_score().click()
+    #                     time.sleep(1)
+    #                     self.is_question_popup_error_exist()
+    #                 else:
+    #                     break
 
 
     # --------------------------- Data Extraction Functions ---------------------------
@@ -247,14 +247,21 @@ class Functions(BasePage):
 
     # --------------------------- API Functions ---------------------------
 
-    def fetch_api_data(self, params=None):
+    def fetch_api_data_mismatch(self, params=None):
         current_url = self.page.url
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
-        if not notebook_id:
-            print("Notebooks ID not found in the URL.")
-            return None
+        api_url = f"https://marvad-test.mrvd.education.gov.il:4433/api/NotebookEvaluation/mismatch/questions?notebookInLoadingId={notebook_id}"
+        response = requests.get(api_url, params=params, verify=False)
+        data = response.json()
+        return data
+
+    def fetch_api_data_expert(self, params=None):
+        current_url = self.page.url
+        parsed_url = urlparse(current_url)
+        segments = parsed_url.path.split('/')
+        notebook_id = segments[segments.index('notebooks') + 1]
         api_url = f"https://marvad-test.mrvd.education.gov.il:4433/api/NotebookEvaluation/expert/questions?notebookInLoadingId={notebook_id}"
         response = requests.get(api_url, params=params, verify=False)
         data = response.json()
@@ -288,7 +295,6 @@ class Functions(BasePage):
             subquestion_numbers = self.extract_subquestion_numbers(question_data)
             if subquestion_numbers:
                 for sub_number in subquestion_numbers:
-                    print(f"Filling subquestion: {sub_number}")
                     child_locator = self.checkNotebookPage.field_subquestion()
                     child_locator.fill(str(sub_number))
                     self.page.keyboard.press('Enter')
@@ -300,7 +306,7 @@ class Functions(BasePage):
                 self.checkNotebookPage.btn_maximum_grade().click()
                 self.checkNotebookPage.btn_save_question_score().click()
 
-    def process_api_data(self):
-        api_data = self.fetch_api_data()
+    def process_api_data(self, fetch_function):
+        api_data = fetch_function()
         question_numbers = self.extract_keys(api_data)
         self.fill_question_numbers(question_numbers, api_data)

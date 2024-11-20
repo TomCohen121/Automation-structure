@@ -20,7 +20,7 @@ def test_regular_loading_half_discharge(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
 
     #CheckNotebookScreen
-    f.workflow.unique_notebook_checking_process()
+    f.workflow.mismatch_notebook_checking_process()
 
     ###########################################################################################################################################
                                                                     # Testing

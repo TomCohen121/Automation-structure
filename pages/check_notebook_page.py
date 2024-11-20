@@ -26,6 +26,8 @@ class CheckNotebookPage(BasePage):
    def btn_maximum_grade(self):
        return self.page.get_by_role("button", name="ציון מקסימלי")
 
+   def btn_save_gap_successfully_closed(self):
+       return self.page.locator('mat-dialog-container >> button[mat-dialog-close]')
 
 
     # --------------------------- Notebook Page Locators ---------------------------

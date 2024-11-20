@@ -54,6 +54,23 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   def mismatch_notebook_checking_process(self):
+       self.functions.process_api_data(self.functions.fetch_api_data_mismatch)
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
+   def expert_notebook_checking_process(self):
+       self.functions.process_api_data(self.functions.fetch_api_data_expert)
+       self.checkNotebookPage.btn_save_gap_successfully_closed().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
 
     # --------------------------- Navigation Flows ---------------------------
 
@@ -156,12 +173,5 @@ class WorkFlow(BasePage):
        self.page.reload()
        self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")
 
-    # --------------------------- Senior/Mismatch Notebook Checking Process ---------------------------
 
-   def unique_notebook_checking_process(self):
-       self.functions.answer_all_questions()
-       self.functions.notebook_pagination_loop()
-       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
-       self.checkNotebookPage.btn_save_notebook_popup().click()
-       self.functions.wait_for_loader()
-       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+

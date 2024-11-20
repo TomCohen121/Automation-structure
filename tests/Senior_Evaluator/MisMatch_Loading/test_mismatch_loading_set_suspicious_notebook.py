@@ -31,7 +31,7 @@ def test_regular_loading_set_suspicious_notebook(f, add_allure_attach, page):
 
     #CheckNotebookScreen
     f.workflow.flow_set_suspicious_notebook()
-    f.workflow.unique_notebook_checking_process()
+    f.workflow.mismatch_notebook_checking_process()
 
     #################################################################################################################################################
                                                                 #Testing
