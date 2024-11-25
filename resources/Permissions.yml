@@ -1,0 +1,12 @@
+Admin:
+  - senior_loading
+  - mismatch_loading
+  - afterappeal_loading
+  - regular_loading
+  - suspicious_loading
+  - sample_loading
+
+Regular Evaluator:
+  - regular_loading
+
+

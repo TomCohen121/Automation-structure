@@ -1,3 +1,4 @@
+
 import os
 import smtplib
 import subprocess
@@ -54,7 +55,8 @@ class ReportingManager:
     @staticmethod
     def attach_screenshot(page, name):
         allure.attach(page.screenshot(), name=name, attachment_type=allure.attachment_type.PNG)
-    #
+
     # @staticmethod
     # def send_report_after_tests(report_path):
     #     ReportingManager.send_report(report_path)
+

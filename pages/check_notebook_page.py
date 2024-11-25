@@ -34,6 +34,12 @@ class CheckNotebookPage(BasePage):
    def btn_notebook_pagination(self):
        return self.page.locator(".pagination-buttons > app-icon-button:nth-child(3) > .icon-button")
 
+   def btn_delete_notebook_test(self):
+       return self.page.get_by_role("button", name="מחק בדיקת מחברת")
+
+   def btn_save_delete_notebook_test(self):
+       return self.page.locator('app-svg-icon[size="small"][ng-reflect-svg-icon="arrowLeft"] mat-icon')
+
 
     # --------------------------- End Notebook Review Locators ---------------------------
    def btn_save_and_end_notebook_test(self):

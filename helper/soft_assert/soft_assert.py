@@ -2,26 +2,21 @@ import types
 
 failed_conditions = []
 
-
 def clear_failures() -> None:
     global failed_conditions
     failed_conditions = []
-
 
 def get_failures() -> list:
     global failed_conditions
     return failed_conditions
 
-
 def get_last_failure() -> str | None:
     global failed_conditions
     return failed_conditions[-1] if failed_conditions else None
 
-
 def extract_last_failure() -> str | None:
     global failed_conditions
     return failed_conditions.pop() if failed_conditions else None
-
 
 def check(assert_condition, message=None):
     global failed_conditions
@@ -36,11 +31,9 @@ def check(assert_condition, message=None):
         except AssertionError:
             add_exception(message if message else "Failed by assertion!")
 
-
 def add_exception(message=None):
     global failed_conditions
     failed_conditions.append(f"Failure: {message}\n")
-
 
 def verify_expectations():
     global failed_conditions
@@ -53,7 +46,6 @@ def verify_expectations():
                 report.append(failure)
         failed_conditions = []
         raise AssertionError("\n".join(report))
-
 
 def assert_all():
     """מזהה ומדווח על כל השגיאות שנמצאו במהלך הטסט."""

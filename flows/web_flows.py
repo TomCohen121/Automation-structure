@@ -71,6 +71,12 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   def delete_notebook_test(self):
+       if self.checkNotebookPage.btn_delete_notebook_test().is_enabled():
+           self.checkNotebookPage.btn_delete_notebook_test().click()
+           self.checkNotebookPage.btn_save_delete_notebook_test().click()
+           self.functions.wait_for_loader()
+
     # --------------------------- Navigation Flows ---------------------------
 
    def navigation_from_loading_to_CheckNotebookPage(self,row_number,row_number1,row_number2):
