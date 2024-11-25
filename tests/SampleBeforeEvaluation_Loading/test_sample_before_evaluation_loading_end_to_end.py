@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.sample_loading
 @allure.story("E2E Test for Sample Before Evaluation Loading - Senior Evaluator")
-@allure.description("Notebook Checking and Loading Discharge Process")
+@allure.description("Sample Notebook Checking and Loading Discharge Process")
 def test_sample_loading_end_to_end(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(sample_loading_E2E_num,'sample_loading_E2E_num')
 

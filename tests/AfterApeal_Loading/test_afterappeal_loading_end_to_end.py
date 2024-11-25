@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.afterappeal_loading
 @allure.story("E2E Test for AfterAppeal Loading")
-@allure.description("Notebook Checking and Loading Discharge Process")
+@allure.description("AfterAppeal Notebook Checking and Loading Discharge Process")
 def test_afterappeal_loading_end_to_end(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(appeal_loading_E2E_num,'appeal_loading_E2E_num')
    #Dashboard

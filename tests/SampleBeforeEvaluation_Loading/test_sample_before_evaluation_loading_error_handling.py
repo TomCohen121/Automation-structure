@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.sample_loading
 @allure.story("Error Handling Test for Sample After Evaluation loading - Senior Evaluator")
-@allure.description("Error Handling Checking Process")
+@allure.description("Sample Notebook Error Handling Checking Process")
 def test_sample_loading_error_handling(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(sample_loading_error_num,'sample_loading_error_num')
    # Dashboard

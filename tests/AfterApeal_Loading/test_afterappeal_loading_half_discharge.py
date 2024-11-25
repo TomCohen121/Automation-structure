@@ -7,7 +7,7 @@ from pages.loading_page import LoadingPage
 
 @pytest.mark.afterappeal_loading
 @allure.story("Half Discharge Process AfterAppeal Loading")
-@allure.description("Half Discharge Process")
+@allure.description("AfterAppeal Notebook Half Discharge Process")
 def test_afterappeal_loading_half_discharge(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(appeal_loading_half_discharge_num, 'appeal_loading_half_discharge_num')
     #Dashboard

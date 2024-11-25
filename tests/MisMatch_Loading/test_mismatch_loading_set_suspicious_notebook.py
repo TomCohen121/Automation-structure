@@ -8,7 +8,7 @@ from pages.loading_page import LoadingPage
 
 @pytest.mark.mismatch_loading
 @allure.story("Set Suspicious Notebook Test for MisMatch Loading")
-@allure.description("Set Suspicious Notebook Process and Loading Discharge")
+@allure.description("Set Suspicious Notebook Process and Loading Discharge For Mismatch Notebook")
 def test_mismatch_loading_set_suspicious_notebook(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(misMatch_loading_set_suspicious_num, 'misMatch_loading_set_suspicious_num')
     #Dashboard

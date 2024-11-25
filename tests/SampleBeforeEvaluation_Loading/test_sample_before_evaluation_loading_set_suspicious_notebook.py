@@ -8,7 +8,7 @@ from pages.loading_page import LoadingPage
 
 @pytest.mark.sample_loading
 @allure.story("Set Suspicious Notebook Test for Sample Before Evaluation Loading - Senior Evaluator")
-@allure.description("Set Suspicious Notebook Process and Loading Discharge")
+@allure.description("Set Suspicious Notebook Process and Loading Discharge For Sample Notebook")
 def test_sample_loading_set_suspicious_notebook(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(sample_loading_set_suspicious_num, 'sample_loading_set_suspicious_num')
     #Dashboard

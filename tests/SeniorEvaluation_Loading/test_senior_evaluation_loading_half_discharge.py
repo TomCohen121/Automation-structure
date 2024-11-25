@@ -5,10 +5,9 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-
 @pytest.mark.senior_loading
-@allure.story("Half Discharge Process for Senior Loading - Senior Evaluator")
-@allure.description("Half Discharge Process")
+@allure.story("Half Discharge Process for Senior Loading")
+@allure.description("Half Discharge Process For Senior Notebook")
 def test_senior_loading_half_discharge(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(senior_loading_half_discharge_num, 'senior_loading_half_discharge_num')
     #Dashboard

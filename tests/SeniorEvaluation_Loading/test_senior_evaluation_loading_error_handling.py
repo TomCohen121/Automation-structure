@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.senior_loading
 @allure.story("Error Handling Test for Senior loading - Senior Evaluator")
-@allure.description("Error Handling Checking Process")
+@allure.description("Senior Notebook Error Handling Checking Process")
 def test_senior_loading_error_handling(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(senior_loading_E2E_num,'senior_loading_error_num')
    #Dashboard

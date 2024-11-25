@@ -5,8 +5,8 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 @pytest.mark.suspicious_loading
-@allure.story("E2E Test for Suspicious Loading - Approve Notebook Suspicion - Senior Evaluator")
-@allure.description("Approve Notebook Suspicion and Loading Discharge Process")
+@allure.story("E2E Test for Suspicious Loading - Approve Notebook Suspicion")
+@allure.description("Approve Notebook Suspicion and Loading Discharge Process For Suspicious Notebook")
 def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(suspicious_loading_approve_num,'suspicious_loading_approve_num')
    #Dashboard

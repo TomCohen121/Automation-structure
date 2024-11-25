@@ -7,7 +7,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.regular_loading
 @allure.story("E2E Test for Regular Loading")
-@allure.description("Notebook Checking and Loading Discharge Process")
+@allure.description("Regular Notebook Checking and Loading Discharge Process")
 def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(regular_loading_E2E_num,'regular_loading_E2E_num')
    #Dashboard

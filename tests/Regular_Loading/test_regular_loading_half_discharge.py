@@ -8,7 +8,7 @@ from pages.loading_page import LoadingPage
 
 # @pytest.mark.regular_loading
 @allure.story("Half Discharge Process for Regular Loading")
-@allure.description("Half Discharge Process")
+@allure.description("Regular Notebook Half Discharge Process")
 def test_regular_loading_half_discharge(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(regular_loading_half_discharge_num, 'regular_loading_half_discharge_num')
     #Dashboard

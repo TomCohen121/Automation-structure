@@ -6,8 +6,8 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 @pytest.mark.suspicious_loading
-@allure.story("Half Discharge Process for Suspicious Loading - Senior Evaluator")
-@allure.description("Half Discharge Process")
+@allure.story("Half Discharge Process for Suspicious Loading")
+@allure.description("Half Discharge Process For Suspicious Notebook")
 def test_suspicious_loading_half_discharge(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(suspicious_loading_half_discharge_num, 'suspicious_loading_half_discharge_num')
     #Dashboard

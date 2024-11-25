@@ -5,8 +5,8 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 @pytest.mark.suspicious_loading
-@allure.story("Error Handling Test for Suspicious Loading - Senior Evaluator")
-@allure.description("Error Handling Checking Process")
+@allure.story("Error Handling Test for Suspicious Loading")
+@allure.description("Error Handling Checking Process For Suspicious Notebook")
 def test_suspicious_loading_error_handling(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(suspicious_loading_error_num,'suspicious_loading_error_num')
    #Dashboard

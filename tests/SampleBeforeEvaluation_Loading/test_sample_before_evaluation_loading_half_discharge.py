@@ -7,7 +7,7 @@ from pages.loading_page import LoadingPage
 
 @pytest.mark.sample_loading
 @allure.story("Half Discharge Process for Sample Before Evaluation Loading - Senior Evaluator")
-@allure.description("Half Discharge Process")
+@allure.description("Sample Notebook Half Discharge Process")
 def test_sample_loading_half_discharge(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(sample_loading_set_suspicious_num, 'sample_loading_set_suspicious_num')
     #Dashboard

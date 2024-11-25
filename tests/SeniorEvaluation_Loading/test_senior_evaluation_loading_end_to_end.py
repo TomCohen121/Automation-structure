@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.senior_loading
 @allure.story("E2E Test for Senior Loading - Senior Evaluator")
-@allure.description("Notebook Checking and Loading Discharge Process")
+@allure.description("Senior Notebook Checking and Loading Discharge Process")
 def test_senior_loading_end_to_end(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(senior_loading_E2E_num,'senior_loading_E2E_num')
    #Dashboard

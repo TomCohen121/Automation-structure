@@ -7,7 +7,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.mismatch_loading
 @allure.story("Error Handling Test for MisMatch loading")
-@allure.description("Error Handling Checking Process")
+@allure.description("Mismatch Notebook Error Handling Checking Process")
 def test_mismatch_loading_error_handling(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(misMatch_loading_error_num,'misMatch_loading_error_num')
    #Dashboard
