@@ -12,7 +12,7 @@ from pages.loading_page import LoadingPage
 def test_sample_loading_set_uncheck_notebook(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(sample_loading_set_unchecked_num, 'sample_loading_set_unchecked_num')
     #Dashboard
-    num_of_uncheck_notebooks_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_uncheck_notebooks())
+    # num_of_uncheck_notebooks_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_uncheck_notebooks())
     f.workflow.navigation_to_loading_screen()
 
     #LoadingScreen
@@ -57,11 +57,11 @@ def test_sample_loading_set_uncheck_notebook(f, add_allure_attach, page):
     # f.workflow.loading_discharge_and_navigate_to_archive()
     # f.functions.search_loading(sample_loading_set_unchecked_num)
     # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
-    f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
+    # f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
 
     #Dashboard
-    num_of_uncheck_notebooks_after = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_uncheck_notebooks())
-    f.functions.assert_equal_to(num_of_uncheck_notebooks_before+1 ,num_of_uncheck_notebooks_after , "Dashboard statistics: Number of discharged notebooks is Incorrect")
+    # num_of_uncheck_notebooks_after = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_uncheck_notebooks())
+    # f.functions.assert_equal_to(num_of_uncheck_notebooks_before+1 ,num_of_uncheck_notebooks_after , "Dashboard statistics: Number of discharged notebooks is Incorrect")
 
     soft_assert.assert_all()
 

@@ -1,15 +1,13 @@
 from playwright.sync_api import Page
 from helper.configuration_manager import ConfigurationManager
 
-
-
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
         self.loadingPage = None
-        self.check_notebookPage = None
+        self.checkNotebookPage = None
         self.notebookPage = None
-        self.personal_areaPage = None
+        self.personalAreaPage = None
         self.portionPage = None
         self.functions = None
         self.workflow = None
@@ -34,9 +32,9 @@ class BasePage:
         from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 
         self.loadingPage = LoadingPage(self.page)
-        self.check_notebookPage = CheckNotebookPage(self.page)
+        self.checkNotebookPage = CheckNotebookPage(self.page)
         self.notebookPage = NotebookPage(self.page)
-        self.personal_areaPage = PersonalAreaPage(self.page)
+        self.personalAreaPage = PersonalAreaPage(self.page)
         self.portionPage = PortionPage(self.page)
         self.functions = Functions(self.page)
         self.workflow = WorkFlow(self.page)

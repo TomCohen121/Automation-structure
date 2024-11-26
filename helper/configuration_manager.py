@@ -11,7 +11,6 @@ class ConfigurationManager:
     def main():
         ConfigurationManager.run_tests()
 
-
     @staticmethod
     def load_config():
         # נתיב יחסי לקובץ ה-YAML
@@ -95,8 +94,6 @@ class ConfigurationManager:
         # מחזיר loading_number לפי סוג
         return ConfigurationManager._config["loading_numbers"].get(type_name)
 
-
-
 class BrowserManager:
     @staticmethod
     def __get_browser_type(playwright: Playwright) -> BrowserType:
@@ -121,7 +118,6 @@ class BrowserManager:
         context = browser.new_context(viewport={"width": 1920, "height": 1080} if ConfigurationManager.maximize_window() else {})
         page = context.new_page()
         return browser, page
-
 
 if __name__ == "__main__":
     print("Starting ConfigurationManager...")

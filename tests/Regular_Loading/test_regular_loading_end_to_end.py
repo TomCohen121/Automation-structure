@@ -35,7 +35,6 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
    f.functions.table_choose_a_row(2).dblclick()
 
    #CheckNotebookScreen
-   # f.workflow.delete_notebook_test()
    f.workflow.notebook_checking_process_with_grade()
 
    ##################################################################################################################################################################################

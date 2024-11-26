@@ -1,5 +1,4 @@
 import time
-
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -71,11 +70,11 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
-   def delete_notebook_test(self):
-       if self.checkNotebookPage.btn_delete_notebook_test().is_enabled():
-           self.checkNotebookPage.btn_delete_notebook_test().click()
-           self.checkNotebookPage.btn_save_delete_notebook_test().click()
-           self.functions.wait_for_loader()
+   # def delete_notebook_test(self):
+   #     if self.checkNotebookPage.btn_delete_notebook_test().is_enabled():
+   #         self.checkNotebookPage.btn_delete_notebook_test().click()
+   #         self.checkNotebookPage.btn_save_delete_notebook_test().click()
+   #         self.functions.wait_for_loader()
 
     # --------------------------- Navigation Flows ---------------------------
 

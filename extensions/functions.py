@@ -1,7 +1,6 @@
 import re
 import time
 from urllib.parse import urlparse
-
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
@@ -25,8 +24,6 @@ class Functions(BasePage):
         self.portionPage = PortionPage(self.page)
         self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
-
-
 
     # --------------------------- Check Functions ---------------------------
 

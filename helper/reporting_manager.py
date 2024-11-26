@@ -1,4 +1,5 @@
 import os
+import shutil
 import smtplib
 import subprocess
 from email import encoders
@@ -7,7 +8,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from datetime import datetime
 import allure
-
 
 class ReportingManager:
     @staticmethod
@@ -54,6 +54,13 @@ class ReportingManager:
     @staticmethod
     def attach_screenshot(page, name):
         allure.attach(page.screenshot(), name=name, attachment_type=allure.attachment_type.PNG)
+
+    @staticmethod
+    def clean_allure_results(allure_results_path):
+        """מנקה את תיקיית allure-results לפני כל הרצה."""
+        if os.path.exists(allure_results_path):
+            shutil.rmtree(allure_results_path)
+        os.makedirs(allure_results_path)
 
     # @staticmethod
     # def send_report_after_tests(report_path):

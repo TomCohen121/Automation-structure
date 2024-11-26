@@ -9,7 +9,6 @@ from helper.soft_assert import soft_assert
 @allure.description("Sample Notebook Checking and Loading Discharge Process")
 def test_sample_loading_end_to_end(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(sample_loading_E2E_num,'sample_loading_E2E_num')
-
    #Dashboard
    # num_of_discharged_loadings_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_loadings())
    # num_of_discharged_portions_before = f.functions.convert_to_int_from_str_or_number(f.personal_areaPage.txt_num_of_discharged_portions())

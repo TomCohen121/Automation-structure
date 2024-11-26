@@ -63,7 +63,6 @@ def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
    f.functions.assert_equal_to(stat_num_of_unchecked_notebooks_before -1, stat_num_of_unchecked_notebooks_after , "Statistics: Number of unchecked notebooks is incorrect")
    f.functions.assert_equal_to(stat_num_of_suspicious_notebooks_before + 1, stat_num_of_suspicious_notebooks_after, "Statistics: Number of Suspicious notebooks is incorrect")
 
-
    #ArchiveScreen
    f.workflow.loading_discharge_and_navigate_to_archive()
    f.functions.search_loading(suspicious_loading_approve_num)

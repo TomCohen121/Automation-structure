@@ -1,10 +1,10 @@
-browser: "chromium"           # Valid options are 'chromium', 'firefox', 'webkit'.
-headless: false               # Set to true for headless mode, false for normal mode.
-slow_motion: 300              # Adjust to slow down or speed up the actions, in milliseconds.
-environment: "DEV"             # Choose either 'QA' or 'DEV'.
-user_token: "Admin"                # Choose either 'Admin' or 'RegularEvaluator'.
+browser: "chromium"                     # options are 'chromium', 'firefox', 'webkit'.
+headless: false                         # true for headless mode, false for normal mode.
+slow_motion: 300                        # Adjust to slow down or speed up the actions, in milliseconds.
+environment: "DEV"                      # Choose either 'QA' or 'DEV'.
+user_token: "Admin"                     # Choose either 'Admin' or 'RegularEvaluator'.
 permissions: "Regular Evaluator"        # Choose either 'Regular Evaluator' or 'Admin'.
-maximize_window: true         # Set True for maximize window, False for normal window
+maximize_window: true                   # True for maximize window, False for normal window
 
 loading_numbers:
   # Regular Loading

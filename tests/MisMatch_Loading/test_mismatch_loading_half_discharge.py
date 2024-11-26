@@ -29,5 +29,4 @@ def test_mismatch_loading_half_discharge(f, add_allure_attach, page):
 
     # PortionScreen
     f.workflow.assert_and_perform_half_discharge()
-
     soft_assert.assert_all()
