@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-# @pytest.mark.regular_loading
+@pytest.mark.regular_loading
 @allure.story("Half Discharge Process for Regular Loading")
 @allure.description("Regular Notebook Half Discharge Process")
 def test_regular_loading_half_discharge(f, add_allure_attach, page):

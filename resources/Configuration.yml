@@ -2,19 +2,19 @@ browser: "chromium"                     # options are 'chromium', 'firefox', 'we
 headless: false                         # true for headless mode, false for normal mode.
 slow_motion: 300                        # Adjust to slow down or speed up the actions, in milliseconds.
 environment: "DEV"                      # Choose either 'QA' or 'DEV'.
-user_token: "Admin"                     # Choose either 'Admin' or 'RegularEvaluator'.
-permissions: "Regular Evaluator"        # Choose either 'Regular Evaluator' or 'Admin'.
+user_token: "Regular Evaluator"           # Choose either 'Senior Evaluator' or 'Regular Evaluator'.
+permissions: "Regular Evaluator"        # Choose either 'Regular Evaluator' or 'Senior Evaluator'.
 maximize_window: true                   # True for maximize window, False for normal window
 
 loading_numbers:
   # Regular Loading
-  regular_loading_E2E_num: "0045614"
+  regular_loading_E2E_num: "0045618"
   regular_loading_error_num: "0045612"
   regular_loading_half_discharge_num: "0045617"
   regular_loading_set_suspicious_num: "0045614"
   regular_loading_set_unchecked_num: "0045613"
   # MisMatch Loading
-  misMatch_loading_E2E_num: "0045527"
+  misMatch_loading_E2E_num: "fill"
   misMatch_loading_set_suspicious_num: "fill"
   misMatch_loading_error_num: "fill"
   misMatch_loading_half_discharge_num: "fill"

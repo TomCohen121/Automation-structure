@@ -76,8 +76,8 @@ class ConfigurationManager:
 
         selected_token = ConfigurationManager._config["user_token"]
         token_map = {
-            "RegularEvaluator": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
-            "Admin": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4"
+            "Regular Evaluator": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Senior Evaluator": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4"
         }
         token = token_map.get(selected_token)
 
@@ -112,12 +112,15 @@ class BrowserManager:
         browser_type = ConfigurationManager.get_browser()
         browser_options = {
             "headless": ConfigurationManager.is_headless(),
-            "slow_mo": ConfigurationManager.get_slow_motion()
+            "slow_mo": ConfigurationManager.get_slow_motion(),
+            "args": ["--start-maximized"]  # פותח את הדפדפן במצב מסך מלא
         }
         browser = getattr(playwright, browser_type).launch(**browser_options)
-        context = browser.new_context(viewport={"width": 1920, "height": 1080} if ConfigurationManager.maximize_window() else {})
+        context = browser.new_context(no_viewport=True)
         page = context.new_page()
+        page.evaluate("window.moveTo(0, 0); window.resizeTo(screen.width, screen.height);")
         return browser, page
+
 
 if __name__ == "__main__":
     print("Starting ConfigurationManager...")

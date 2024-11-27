@@ -26,6 +26,7 @@ class WorkFlow(BasePage):
     # --------------------------- Notebooks Checking Process ---------------------------
 
    def notebook_checking_process_with_grade(self):
+       """Process of checking a notebook with and saving the Notebook grade."""
        self.checkNotebookPage.field_question_number().fill('1')
        self.checkNotebookPage.field_question_number().press('Enter')
        self.functions.is_subquestion_exist()
@@ -70,11 +71,12 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
-   # def delete_notebook_test(self):
-   #     if self.checkNotebookPage.btn_delete_notebook_test().is_enabled():
-   #         self.checkNotebookPage.btn_delete_notebook_test().click()
-   #         self.checkNotebookPage.btn_save_delete_notebook_test().click()
-   #         self.functions.wait_for_loader()
+   def delete_notebook_test(self):
+       """Deletes the notebook test if the delete button is enabled."""
+       if self.checkNotebookPage.btn_delete_notebook_test().is_enabled():
+           self.checkNotebookPage.btn_delete_notebook_test().click()
+           self.checkNotebookPage.btn_save_delete_notebook_test().click()
+           self.functions.wait_for_loader()
 
     # --------------------------- Navigation Flows ---------------------------
 
@@ -183,6 +185,7 @@ class WorkFlow(BasePage):
     # --------------------------- Half Discharge Flow ---------------------------
 
    def assert_and_perform_half_discharge(self):
+       """Performs half discharge on the loading and verifies the action."""
        self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
        self.portionPage.btn_save_loading_half_discharge_popup().click()
        self.page.reload()

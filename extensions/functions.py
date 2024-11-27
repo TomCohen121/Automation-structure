@@ -13,7 +13,6 @@ from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
 import requests
 
-
 class Functions(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
@@ -28,6 +27,7 @@ class Functions(BasePage):
     # --------------------------- Check Functions ---------------------------
 
     def check_if_loading_number_exist(self, loading_number, variable_name):
+        """Checks if the loading number exists or if the loading number field is not fill."""
         if not loading_number or loading_number == "fill":
             raise ValueError(f"Error: The loading number '{variable_name}' is empty. Please check the configuration.")
 
@@ -42,6 +42,7 @@ class Functions(BasePage):
         return self.page.locator(f"tr:nth-child({row_number})")
 
     def check_row_disabled_soft_assert(self, row_locator, error_message="The row is not disabled as expected"):
+        """Uses soft assert to Checks if a row is disabled (for half discharge)."""
         row_class = row_locator.get_attribute("class")
         is_disabled = "disabled" in (row_class or "")
         soft_assert.check(is_disabled, error_message)
@@ -59,17 +60,26 @@ class Functions(BasePage):
     def wait_for_networkidle(self):
         self.page.wait_for_load_state("networkidle")
 
-    def wait_for_loader(self, timeout=35000):
+    def wait_for_loader(self, timeout=35000, timeout_for_second=5000):
+        """Waits for the loader to appear and finish."""
         try:
             self.page.wait_for_selector(".loading-bar-wrapper.show", timeout=timeout)
-            self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout)
+            self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout_for_second)
         except:
             pass
+
+    # def wait_for_loader(self, timeout=35000):
+    #     try:
+    #         self.page.wait_for_selector(".loading-bar-wrapper.show", timeout=timeout)
+    #         self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout)
+    #     except:
+    #         pass
 
 
     # --------------------------- Popup Functions ---------------------------
 
     def popup_answer_law(self, timeout=3000, interval=0.5):
+        """Verifies if the Popup 'Answer Law' exists and closes it."""
         start_time = time.time()
         try:
             while (time.time() - start_time) * 1000 < timeout:
@@ -90,6 +100,7 @@ class Functions(BasePage):
         soft_assert.check(popup_text == expected_text, f'Expected popup text: "{expected_text}", but got: "{popup_text}".')
 
     def verify_correct_popup_appeared(self,locator, error_message="The Popup Error Message did not appear as expected", timeout=5000):
+        """Verifies that the Correct popup appears within the specified timeout."""
         try:
             if not locator.is_visible(timeout=timeout):
                 raise AssertionError(error_message)
@@ -120,13 +131,8 @@ class Functions(BasePage):
             self.checkNotebookPage.field_subquestion().fill("1")
             self.page.keyboard.press('Enter')
 
-    def is_question_popup_error_exist(self):
-        popup_error = self.page.get_by_role("button", name="סגור")
-        if popup_error.count() > 0:
-            close_button = self.page.get_by_role("button", name="סגור")
-            close_button.click()
-
     def fill_question_numbers(self, question_numbers, api_data):
+        """fills in question numbers and sub-question numbers, sets scores for them, and saves the data."""
         for number in question_numbers:
             question_data = api_data["data"].get(str(number), {})
             locator = self.checkNotebookPage.field_question_number()
@@ -182,6 +188,7 @@ class Functions(BasePage):
     # --------------------------- Utility Functions ---------------------------
 
     def convert_to_int_from_str_or_number(self,value):
+        """function converts a string or number to an integer, Convert to 0 if it's not a Number."""
         if isinstance(value, str):
             value = value.strip() if value.strip() else '0'
         try:
@@ -218,6 +225,7 @@ class Functions(BasePage):
             pass
 
     def check_if_button_enabled_and_click(self, button_locator, error_message):
+        """Waits for a button to be visible, clicks it if enabled."""
         button_locator.wait_for(state="visible", timeout=5000)
         if button_locator.is_enabled():
             button_locator.click()
@@ -228,6 +236,7 @@ class Functions(BasePage):
     # ---------------------------  API Fetch Data Functions ---------------------------
 
     def fetch_api_data_mismatch(self, params=None):
+        """Fetches API data related to mismatched questions for the notebook."""
         current_url = self.page.url
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
@@ -238,6 +247,7 @@ class Functions(BasePage):
         return data
 
     def fetch_api_data_senior(self, params=None):
+        """Fetches API data related to expert evaluation questions for the notebook."""
         current_url = self.page.url
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
@@ -250,7 +260,7 @@ class Functions(BasePage):
     # ---------------------------  Extract From API Functions ---------------------------
 
     def extract_keys(self, data):
-        # Extract numeric keys from the "data" field
+        """Extract numeric keys from the "data" field."""
         if "data" in data and isinstance(data["data"], dict):
             numeric_keys = [key for key in data["data"].keys() if key.isdigit()]
             return numeric_keys
@@ -259,6 +269,7 @@ class Functions(BasePage):
             return []
 
     def extract_subquestion_numbers(self,question_data):
+        """Extracts subquestion numbers from question data."""
         children = question_data.get("children", None)
         subquestion_numbers = []
         if children:
@@ -269,6 +280,7 @@ class Functions(BasePage):
         return subquestion_numbers
 
     def extract_unanswered_descriptions(self, data):
+        """Extracts descriptions of unanswered questions from the API data."""
         unanswered_descriptions = []
         def traverse_questions(questions):
             if not isinstance(questions, dict):  # בדוק אם זה מילון
@@ -286,6 +298,7 @@ class Functions(BasePage):
     # ---------------------------  API Process Functions ---------------------------
 
     def process_api_data(self, fetch_function):
+        """Processes API data by calling the fetch function and filling the questions."""
         api_data = fetch_function()
         question_numbers = self.extract_keys(api_data)
         self.fill_question_numbers(question_numbers, api_data)
