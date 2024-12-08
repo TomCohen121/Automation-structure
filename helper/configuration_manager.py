@@ -1,7 +1,11 @@
 import os
+import shutil
+import sys
+
 import pytest
 import yaml
 from playwright.sync_api import Playwright, BrowserType
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 class ConfigurationManager:
     _config = None
@@ -9,6 +13,7 @@ class ConfigurationManager:
 
     @staticmethod
     def main():
+        ConfigurationManager.cleanup_allure_results()  # הוספתי את קריאת הפונקציה למחיקת התיקייה
         ConfigurationManager.run_tests()
 
     @staticmethod
@@ -18,6 +23,14 @@ class ConfigurationManager:
         with open(config_file_path, 'r') as config_file:
             ConfigurationManager._config = yaml.safe_load(config_file)  # טוען את קובץ ה-YAML
         return ConfigurationManager._config
+
+    @staticmethod
+    def cleanup_allure_results():
+        allure_results_dir = os.path.join(os.path.dirname(__file__), '..', 'allure-results')
+        # מחיקת תיקיית allure-results אם קיימת
+        if os.path.exists(allure_results_dir):
+            shutil.rmtree(allure_results_dir)
+            print("Deleted allure-results folder")
 
     @staticmethod
     def load_permissions():

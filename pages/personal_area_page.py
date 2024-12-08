@@ -10,10 +10,10 @@ class PersonalAreaPage(BasePage):
         return self.page.get_by_role("button", name="הערכת שאלון")
 
     def btn_reception_screens(self):
-        return self.page.locator('//div[@class="menuItem" and contains(text(), "מסכי קליטה")]')
+        return self.page.locator(".menuItem:has-text('מסכי קליטה')")
 
     def btn_loading_for_the_evaluator(self):
-        return self.page.locator('//div[@class="menuItem" and contains(text(), "טעינה למעריך")]')
+        return self.page.locator(".menuItem:has-text('טעינה למעריך')")
 
 
     # --------------------------- Dashboard Statistics Locators ---------------------------

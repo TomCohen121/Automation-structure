@@ -20,4 +20,5 @@ def test_regular_loading_error_handling(f, add_allure_attach, page):
                                                                     # Testing
 
    f.workflow.assert_and_validate_popup_and_error_messages_regular_loading()
+   f.functions.assert_verify_popup_error_message()
    soft_assert.assert_all()

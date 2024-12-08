@@ -5,8 +5,12 @@ Senior Evaluator:
   - regular_loading
   - suspicious_loading
   - sample_loading
+  - answer_law
 
 Regular Evaluator:
   - regular_loading
+  - sample_loading
+  - answer_law
+
 
 

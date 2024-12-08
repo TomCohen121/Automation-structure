@@ -152,6 +152,15 @@ class Functions(BasePage):
                 self.checkNotebookPage.btn_maximum_grade().click()
                 self.checkNotebookPage.btn_save_question_score().click()
 
+
+    def answer_law_questions_loop(self):
+        for i in range(1, 6):
+            self.checkNotebookPage.field_question_number().fill(str(i))
+            self.checkNotebookPage.field_question_number().press('Enter')
+            self.checkNotebookPage.field_question_score().fill('6')
+            self.checkNotebookPage.btn_maximum_grade().click()
+            self.checkNotebookPage.btn_save_question_score().click()
+
     # --------------------------- Data Extraction Functions ---------------------------
 
     def extracting_value_from_statistics(self, locator):

@@ -11,6 +11,7 @@ regular_loading_error_num = None
 regular_loading_half_discharge_num = None
 regular_loading_set_suspicious_num = None
 regular_loading_set_unchecked_num = None
+answer_law = None
 
 #Sample After Evaluation Loading
 sample_loading_E2E_num = None
@@ -60,6 +61,7 @@ def load_numbers_from_yaml(file_path):
     global misMatch_loading_half_discharge_num, misMatch_loading_set_unchecked_num
     global senior_loading_E2E_num, senior_loading_set_suspicious_num, senior_loading_error_num
     global senior_loading_half_discharge_num, senior_loading_set_unchecked_num
+    global answer_law
 
 
     with open(file_path, 'r') as yaml_file:
@@ -71,6 +73,7 @@ def load_numbers_from_yaml(file_path):
     regular_loading_half_discharge_num = config["loading_numbers"]["regular_loading_half_discharge_num"]
     regular_loading_set_suspicious_num = config["loading_numbers"]["regular_loading_set_suspicious_num"]
     regular_loading_set_unchecked_num = config["loading_numbers"]["regular_loading_set_unchecked_num"]
+    answer_law = config["loading_numbers"]["answer_law"]
 
     #After Appeal Loading
     appeal_loading_E2E_num = config["loading_numbers"]["appeal_loading_E2E_num"]

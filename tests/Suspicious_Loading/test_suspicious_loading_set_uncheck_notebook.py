@@ -5,7 +5,6 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-
 @pytest.mark.suspicious_loading
 @allure.story("Set Uncheck Notebook Test for Suspicious Loading")
 @allure.description("Set Uncheck Notebook Process and Loading Discharge for Suspicious Notebook")
