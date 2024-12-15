@@ -107,6 +107,11 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש להזין ציון לפחות לשאלה אחת")
 
+   def assert_and_validate_popup_and_error_messages_answer_law(self):
+       self.functions.answer_law_questions_loop()
+       self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
+       self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"אין אפשרות לקלוט שאלה - הפרת חוקי מענה!")
+
    def assert_and_validate_popup_and_error_messages_suspicious_loading(self):
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())

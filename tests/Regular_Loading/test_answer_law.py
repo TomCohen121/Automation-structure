@@ -19,8 +19,7 @@ def test_answer_law(f, add_allure_attach, page):
 
    ###########################################################################################################################################
                                                                     # Testing
-   f.functions.answer_law_questions_loop()
-   f.functions.verify_correct_popup_appeared(f.checkNotebookPage.popup_saving_notebook_error_message())
-   f.functions.assert_verify_popup_error_message(f.checkNotebookPage.popup_saving_notebook_error_message(),"אין אפשרות לקלוט שאלה - הפרת חוקי מענה!")
+
+   f.workflow.assert_and_validate_popup_and_error_messages_answer_law()
 
    soft_assert.assert_all()
