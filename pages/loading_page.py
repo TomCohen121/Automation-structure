@@ -9,7 +9,7 @@ class LoadingPage(BasePage):
 
     # --------------------------- Loading Discharge Locators ---------------------------
    def btn_loading_discharge(self):
-       return self.page.get_by_role("button", name="סיום בדיקה ושליחה למרב\"ד")
+       return self.page.get_by_role("button", name="סיום בדיקה ושליחה למרב\"ד ")
 
    def btn_save_loading_discharge_popup(self):
        return self.page.get_by_role("button", name="שמור")

@@ -1,6 +1,10 @@
 import re
 import time
+from asyncio import wait_for
 from urllib.parse import urlparse
+
+from pymongo import timeout
+
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
@@ -36,6 +40,11 @@ class Functions(BasePage):
         return locator.text_content() == number
 
     # --------------------------- Table Interaction Functions ---------------------------
+
+    def choose_filter_option(self, option_name):
+        self.page.locator("app-loadings-for-evaluator-page app-icon-button").get_by_role("button").click()
+        checkbox_locator = self.page.locator(f"label:has-text('{option_name}')")
+        checkbox_locator.click()
 
     def table_choose_a_row(self, row_number):
         """Selects a specific row in a table based on the row number."""
@@ -241,6 +250,15 @@ class Functions(BasePage):
         else:
             raise Exception(error_message)
 
+    def element_exists_and_disabled_or_visible(self, element, button_name: str):
+        try:
+            element.wait_for(timeout=15000)
+            is_visible = element.is_visible()
+            is_enabled = element.is_enabled()
+            if is_visible or not is_enabled:
+                print(f"{button_name} exists.")
+        except Exception:
+            print(f"{button_name} does NOT exist")
 
     # ---------------------------  API Fetch Data Functions ---------------------------
 
@@ -254,6 +272,14 @@ class Functions(BasePage):
         response = requests.get(api_url, params=params, verify=False)
         data = response.json()
         return data
+
+    def fetch_api_questions(self, params=None):
+        """Fetches API data related to mismatched questions for the notebook."""
+        api_url = "https://marvad-test.mrvd.education.gov.il:4434/api/User/buttons-permissions?webMenuId=1006"
+        response = requests.get(api_url, verify=False)
+        return response.json().get("data", [])
+
+
 
     def fetch_api_data_senior(self, params=None):
         """Fetches API data related to expert evaluation questions for the notebook."""
