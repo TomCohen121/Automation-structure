@@ -45,6 +45,7 @@ class Functions(BasePage):
         self.page.locator("app-loadings-for-evaluator-page app-icon-button").get_by_role("button").click()
         checkbox_locator = self.page.locator(f"label:has-text('{option_name}')")
         checkbox_locator.click()
+        self.page.get_by_role("button", name="שמור").click()
 
     def table_choose_a_row(self, row_number):
         """Selects a specific row in a table based on the row number."""
