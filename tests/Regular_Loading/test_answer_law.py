@@ -5,7 +5,6 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 
-@pytest.mark.answer_law
 @allure.story("Answer Law Test")
 @allure.description("Answer Law Checking Process")
 def test_answer_law(f, add_allure_attach, page):

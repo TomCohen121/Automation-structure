@@ -43,9 +43,10 @@ class Functions(BasePage):
 
     def choose_filter_option(self, option_name):
         self.page.locator("app-loadings-for-evaluator-page app-icon-button").get_by_role("button").click()
-        checkbox_locator = self.page.locator(f"label:has-text('{option_name}')")
+        checkbox_locator = self.page.locator(f"label:text-is('{option_name.strip()}')")
         checkbox_locator.click()
         self.page.get_by_role("button", name="שמור").click()
+
 
     def table_choose_a_row(self, row_number):
         """Selects a specific row in a table based on the row number."""
@@ -256,7 +257,9 @@ class Functions(BasePage):
             element.wait_for(timeout=15000)
             is_visible = element.is_visible()
             is_enabled = element.is_enabled()
-            if is_visible or not is_enabled:
+            condition = is_visible or not is_enabled
+            soft_assert.check(condition)
+            if condition:
                 print(f"{button_name} exists.")
         except Exception:
             print(f"{button_name} does NOT exist")

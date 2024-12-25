@@ -5,9 +5,10 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
+@pytest.mark.regular_loading
 @allure.story("E2E Test for MisMatch Loading")
 @allure.description("Mismatch Notebook Checking and Loading Discharge Process")
-def test_verify_permissions_for_regular_evaluator(f, add_allure_attach, page):
+def test_verify_permissions_for_regular_loading(f, add_allure_attach, page):
    permissions = ConfigurationManager.get_permission()
    if permissions == "Senior Evaluator":
       print("Running commands for Senior Evaluator")
@@ -20,7 +21,7 @@ def test_verify_permissions_for_regular_evaluator(f, add_allure_attach, page):
       f.workflow.navigation_to_loading_screen()
 
       #LoadingScreen
-      f.functions.choose_filter_option(" טעינה להערכה בכירה ")
+      f.functions.choose_filter_option("טעינה להערכה בכירה")
       f.functions.element_exists_and_disabled_or_visible(f.permissionsRegularEvaluator.btn_loading_archive(),"The Button - מעבר לארכיון טעינות")
       f.functions.element_exists_and_disabled_or_visible(f.permissionsRegularEvaluator.btn_loading_discharge(),"The Button - סיום בדיקה ושליחה למרבד")
       f.functions.table_choose_a_row(2).dblclick()
@@ -60,6 +61,7 @@ def test_verify_permissions_for_regular_evaluator(f, add_allure_attach, page):
       f.workflow.navigation_to_loading_screen()
 
       #LoadingScreen
+      f.functions.choose_filter_option("טעינה להערכה")
       f.functions.element_exists_and_disabled_or_visible(f.permissionsRegularEvaluator.btn_loading_archive(),"The Button - מעבר לארכיון טעינות")
       f.functions.element_exists_and_disabled_or_visible(f.permissionsRegularEvaluator.btn_loading_discharge(),"The Button - סיום בדיקה ושליחה למרבד")
       f.functions.table_choose_a_row(2).dblclick()

@@ -18,7 +18,6 @@ def test_regular_loading_end_to_end(f, add_allure_attach, page):
 
    #LoadingScreen
    f.functions.search_loading(regular_loading_E2E_num)
-   f.functions.table_choose_a_row(2).click()
    stat_num_of_checked_portions_before = f.functions.extracting_value_from_statistics(f.loadingPage.txt_stat_num_of_checked_portions())
    stat_num_of_unchecked_portions_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_num_of_unchecked_portions()))
    stat_num_of_checked_notebooks_before = f.functions.extracting_value_from_statistics((f.loadingPage.txt_stat_checked_notebooks()))

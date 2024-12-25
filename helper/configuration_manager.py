@@ -63,13 +63,13 @@ class ConfigurationManager:
         tag_expression = " or ".join(tags)  # מחבר את כל התגיות עם OR
         pytest.main([
             "-m", tag_expression,  # מריץ את הבדיקות עם התגיות
-            "--alluredir=allure-results"  # שמירת תוצאות Allure בתיקייה allure-results
+            # "--alluredir=allure-results",  # שמירת תוצאות Allure בתיקייה allure-results
+            "-n", "auto",
+            "-r", "a",
         ])
-
     @staticmethod
     def get_browser():
         return ConfigurationManager._config["browser"]
-
     @staticmethod
     def is_headless():
         return ConfigurationManager._config["headless"]

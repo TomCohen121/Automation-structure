@@ -31,7 +31,7 @@ class BasePage:
         from pages.breadcrumbs import Breadcrumbs
         from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
         from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
-        from pages.permissions_regular_evaluator import PermissionsRegularEvaluator
+        from pages.permissions import PermissionsRegularEvaluator
 
         self.loadingPage = LoadingPage(self.page)
         self.checkNotebookPage = CheckNotebookPage(self.page)
