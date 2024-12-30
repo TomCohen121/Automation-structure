@@ -64,7 +64,7 @@ class ConfigurationManager:
         pytest.main([
             "-m", tag_expression,  # מריץ את הבדיקות עם התגיות
             # "--alluredir=allure-results",  # שמירת תוצאות Allure בתיקייה allure-results
-            "-n", "auto",
+            # "-n", "auto",
             "-r", "a",
         ])
     @staticmethod
