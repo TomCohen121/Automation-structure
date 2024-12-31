@@ -42,6 +42,7 @@ class Functions(BasePage):
     # --------------------------- Table Interaction Functions ---------------------------
 
     def choose_filter_option(self, option_name):
+        """selecting a filter option and saving the selection."""
         self.page.locator("app-loadings-for-evaluator-page app-icon-button").get_by_role("button").click()
         checkbox_locator = self.page.locator(f"label:text-is('{option_name.strip()}')")
         checkbox_locator.click()
@@ -122,7 +123,7 @@ class Functions(BasePage):
 
     def is_checkbox_checked(self, checkbox_locator, expected_state, error_message):
         """Checks if a checkbox's state matches the expected state (checked/unchecked)."""
-        checkbox_locator.wait_for(state="visible", timeout=3000)  # זמן המתנה של 3 שניות
+        checkbox_locator.wait_for(state="visible", timeout=3000)
         is_checked = checkbox_locator.is_checked()
         if is_checked:
             soft_assert.check(is_checked == expected_state,error_message)
@@ -165,6 +166,7 @@ class Functions(BasePage):
 
 
     def answer_law_questions_loop(self):
+        """filling and saving scores for law-related questions 1 to 5."""
         for i in range(1, 6):
             self.checkNotebookPage.field_question_number().fill(str(i))
             self.checkNotebookPage.field_question_number().press('Enter')
@@ -253,6 +255,7 @@ class Functions(BasePage):
             raise Exception(error_message)
 
     def element_exists_and_disabled_or_visible(self, element, button_name: str):
+        """Checks if an element is existed."""
         try:
             element.wait_for(timeout=15000)
             is_visible = element.is_visible()

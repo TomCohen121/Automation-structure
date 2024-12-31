@@ -13,7 +13,7 @@ loading_numbers:
   regular_loading_half_discharge_num: "0045635"
   regular_loading_set_suspicious_num: "0045635"
   regular_loading_set_unchecked_num: "0045635"
-  answer_law: "0045635"
+  answer_law: "0045617"
   # MisMatch Loading
   misMatch_loading_E2E_num: "fill"
   misMatch_loading_set_suspicious_num: "fill"
@@ -32,17 +32,10 @@ loading_numbers:
   suspicious_loading_error_num: "fill"
   suspicious_loading_half_discharge_num: "fill"
   suspicious_loading_set_unchecked_num: "fill"
-  # Sample After Evaluation Loading
-  sample_loading_E2E_num: "fill"
-  sample_loading_set_suspicious_num: "fill"
-  sample_loading_error_num: "fill"
-  sample_loading_half_discharge_num: "fill"
-  sample_loading_set_unchecked_num: "fill"
   # After Appeal Loading
   appeal_loading_E2E_num: "fill"
   appeal_loading_error_num: "fill"
   appeal_loading_half_discharge_num: "fill"
-  appeal_loading_set_suspicious_num: "fill"
   appeal_loading_set_unchecked_num: "fill"
 
 

@@ -14,7 +14,7 @@ def test_senior_loading_error_handling(f, add_allure_attach, page):
 
    #LoadingScreen
    f.functions.search_loading(senior_loading_error_num)
-   f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
+   f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
    ###########################################################################################################################################
                                                                     # Testing

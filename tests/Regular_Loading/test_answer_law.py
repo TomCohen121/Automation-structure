@@ -14,7 +14,7 @@ def test_answer_law(f, add_allure_attach, page):
 
    # LoadingScreen
    f.functions.search_loading(answer_law)
-   f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
+   f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
    ###########################################################################################################################################
                                                                     # Testing

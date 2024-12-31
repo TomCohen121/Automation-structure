@@ -1,4 +1,3 @@
-import time
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -26,7 +25,7 @@ class WorkFlow(BasePage):
     # --------------------------- Notebooks Checking Process ---------------------------
 
    def notebook_checking_process_with_grade(self):
-       """Process of checking a notebook with and saving the Notebook grade."""
+       """Process of checking a notebook and saving the Notebook grade."""
        self.checkNotebookPage.field_question_number().fill('1')
        self.checkNotebookPage.field_question_number().press('Enter')
        self.functions.is_subquestion_exist()
@@ -42,6 +41,7 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
    def notebook_checking_process(self):
+       """Process of checking a notebook."""
        self.checkNotebookPage.field_question_number().fill('1')
        self.checkNotebookPage.field_question_number().press('Enter')
        self.functions.is_subquestion_exist()
@@ -55,6 +55,7 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
    def mismatch_notebook_checking_process(self):
+       """Process of checking a Mismatch notebook."""
        self.functions.process_api_data(self.functions.fetch_api_data_mismatch)
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -63,6 +64,7 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
    def senior_notebook_checking_process(self):
+       """Process of checking a Senior notebook."""
        self.functions.process_api_data(self.functions.fetch_api_data_senior)
        self.checkNotebookPage.btn_save_gap_successfully_closed().click()
        self.functions.notebook_pagination_loop()
@@ -80,7 +82,7 @@ class WorkFlow(BasePage):
 
     # --------------------------- Navigation Flows ---------------------------
 
-   def navigation_from_loading_to_CheckNotebookPage(self,row_number,row_number1,row_number2):
+   def navigation_from_loading_to_check_notebook_page(self, row_number, row_number1, row_number2):
        self.functions.table_choose_a_row(row_number).dblclick()
        self.functions.table_choose_a_row(row_number1).dblclick()
        self.functions.popup_answer_law()
@@ -92,13 +94,15 @@ class WorkFlow(BasePage):
        self.personalAreaPage.btn_loading_for_the_evaluator().click()
 
    def loading_discharge_and_navigate_to_archive(self):
-        self.loadingPage.btn_loading_discharge().click()
-        self.loadingPage.btn_save_loading_discharge_popup().click()
-        self.loadingPage.btn_loading_archive().click()
+       """Discharge a loading and navigate to archive screen."""
+       self.loadingPage.btn_loading_discharge().click()
+       self.loadingPage.btn_save_loading_discharge_popup().click()
+       self.loadingPage.btn_loading_archive().click()
 
     # --------------------------- Asserts Error Message Flows ---------------------------
 
    def assert_and_validate_popup_and_error_messages_regular_loading(self):
+       """Validate the correct error message for Regular loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
@@ -108,11 +112,13 @@ class WorkFlow(BasePage):
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש להזין ציון לפחות לשאלה אחת")
 
    def assert_and_validate_popup_and_error_messages_answer_law(self):
+       """Validate the correct error message for Answer Law."""
        self.functions.answer_law_questions_loop()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"אין אפשרות לקלוט שאלה - הפרת חוקי מענה!")
 
    def assert_and_validate_popup_and_error_messages_suspicious_loading(self):
+       """Validate the correct error message for Suspicious loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
@@ -122,6 +128,7 @@ class WorkFlow(BasePage):
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לאשר / לבטל חשד לפני סיום בדיקה")
 
    def assert_and_validate_popup_and_error_messages_senior_loading(self):
+       """Validate the correct error message for Senior loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
@@ -131,6 +138,7 @@ class WorkFlow(BasePage):
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לסגור את הפער לפני סיום בדיקה")
 
    def assert_and_validate_popup_and_error_messages_mismatch_loading(self):
+       """Validate the correct error message for Mismatch loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")

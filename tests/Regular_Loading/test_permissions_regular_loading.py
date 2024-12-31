@@ -6,8 +6,8 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 @pytest.mark.regular_loading
-@allure.story("E2E Test for MisMatch Loading")
-@allure.description("Mismatch Notebook Checking and Loading Discharge Process")
+@allure.story("Permissions for Regular Loading")
+@allure.description("Checking Permissions for Regular Loading")
 def test_verify_permissions_for_regular_loading(f, add_allure_attach, page):
    permissions = ConfigurationManager.get_permission()
    if permissions == "Senior Evaluator":

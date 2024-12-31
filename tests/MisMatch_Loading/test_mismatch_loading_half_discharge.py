@@ -16,7 +16,7 @@ def test_mismatch_loading_half_discharge(f, add_allure_attach, page):
 
     #LoadingScreen
     f.functions.search_loading(misMatch_loading_half_discharge_num)
-    f.workflow.navigation_from_loading_to_CheckNotebookPage(2,2,2)
+    f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
     #CheckNotebookScreen
     f.workflow.mismatch_notebook_checking_process()

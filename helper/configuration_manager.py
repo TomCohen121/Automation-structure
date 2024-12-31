@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 class ConfigurationManager:
     _config = None
-    _permissions = None  # הוספתי את המשתנה הזה
+    _permissions = None
 
     @staticmethod
     def main():
@@ -64,7 +64,7 @@ class ConfigurationManager:
         pytest.main([
             "-m", tag_expression,  # מריץ את הבדיקות עם התגיות
             # "--alluredir=allure-results",  # שמירת תוצאות Allure בתיקייה allure-results
-            # "-n", "auto",
+            # "-n", "auto", # מפעיל את התהליכים במקביל
             "-r", "a",
         ])
     @staticmethod
@@ -90,7 +90,15 @@ class ConfigurationManager:
         selected_token = ConfigurationManager._config["user_token"]
         token_map = {
             "Regular Evaluator": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
-            "Senior Evaluator": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4"
+            "Senior Evaluator": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4",
+            "Development_Worker":   "FILL",
+            "Assessment_Section_Manager":   "FILL",
+            "Marvad_CEO":   "FILL",
+            "System_Administrator":   "FILL",
+            "Mafmar":   "FILL",
+            "Professional_Manager":   "FILL",
+
+
         }
         token = token_map.get(selected_token)
 
