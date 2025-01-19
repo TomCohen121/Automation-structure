@@ -24,22 +24,6 @@ class WorkFlow(BasePage):
 
     # --------------------------- Notebooks Checking Process ---------------------------
 
-   def notebook_checking_process_with_grade(self):
-       """Process of checking a notebook and saving the Notebook grade."""
-       self.checkNotebookPage.field_question_number().fill('1')
-       self.checkNotebookPage.field_question_number().press('Enter')
-       self.functions.is_subquestion_exist()
-       self.checkNotebookPage.field_question_score().fill('6')
-       self.checkNotebookPage.btn_maximum_grade().click()
-       self.checkNotebookPage.btn_save_question_score().click()
-       self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
-       self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
-       self.functions.notebook_pagination_loop()
-       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
-       self.checkNotebookPage.btn_save_notebook_popup().click()
-       self.functions.wait_for_loader()
-       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
-
    def notebook_checking_process(self):
        """Process of checking a notebook."""
        self.checkNotebookPage.field_question_number().fill('1')
@@ -47,7 +31,21 @@ class WorkFlow(BasePage):
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('6')
        self.checkNotebookPage.btn_maximum_grade().click()
-       self.checkNotebookPage.btn_save_question_score().click()
+       self.functions.notebook_pagination_loop()
+       self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.btn_save_notebook_popup().click()
+       self.functions.wait_for_loader()
+       self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
+   def notebook_checking_process_with_grade(self):
+       """Process of checking a notebook and saving the Notebook grade."""
+       self.checkNotebookPage.field_question_number().fill('1')
+       self.checkNotebookPage.field_question_number().press('Enter')
+       self.functions.is_subquestion_exist()
+       self.checkNotebookPage.field_question_score().fill('6')
+       self.checkNotebookPage.btn_maximum_grade().click()
+       self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
+       self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -199,7 +197,7 @@ class WorkFlow(BasePage):
        """Performs half discharge on the loading and verifies the action."""
        self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
        self.portionPage.btn_save_loading_half_discharge_popup().click()
-       self.page.reload()
+       self.functions.reload_page()
        self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")
 
 

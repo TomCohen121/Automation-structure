@@ -50,7 +50,8 @@ def test_senior_loading_set_suspicious_notebook(f, add_allure_attach, page):
     # #ArchiveScreen
     # f.workflow.loading_discharge_and_navigate_to_archive()
     # f.functions.search_loading(senior_loading_set_suspicious_num)
-    # soft_assert.check(f.functions.table_choose_a_row(2).is_visible(),"The loading didn't appear in the archives")
+    # f.functions.reload_page()
+    # f.functions.assert_element_exists(f.functions.table_choose_a_row(2),"The loading didn't appear in the archives")
 
     soft_assert.assert_all()
 

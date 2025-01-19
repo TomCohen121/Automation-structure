@@ -14,7 +14,7 @@ class BasePage:
         self.breadcrumbs = None
         self.suspiciousLoadingPortionPage = None
         self.suspiciousLoadingNotebookPage = None
-        self.permissionsRegularEvaluator = None
+        self.permissions = None
 
     def goto(self, url=None):
         self.page.goto(url or ConfigurationManager.base_url())
@@ -31,7 +31,7 @@ class BasePage:
         from pages.breadcrumbs import Breadcrumbs
         from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
         from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
-        from pages.permissions import PermissionsRegularEvaluator
+        from pages.permissions import Permissions
 
         self.loadingPage = LoadingPage(self.page)
         self.checkNotebookPage = CheckNotebookPage(self.page)
@@ -43,7 +43,7 @@ class BasePage:
         self.breadcrumbs = Breadcrumbs(self.page)
         self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
-        self.permissionsRegularEvaluator = PermissionsRegularEvaluator(self.page)
+        self.permissions = Permissions(self.page)
 
     @staticmethod
     def goto_homepage(pages):

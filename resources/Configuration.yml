@@ -1,18 +1,18 @@
 browser: "chromium"                     # options are 'chromium', 'firefox', 'webkit'.
 headless: false                         # true for headless mode, false for normal mode.
-slow_motion: 300                        # Adjust to slow down or speed up the actions, in milliseconds.
+slow_motion: 700                        # Adjust to slow down or speed up the actions, in milliseconds.
 environment: "QA"                       # Choose either 'QA' or 'DEV'.
-user_token: "Senior Evaluator"         # Choose either 'Senior Evaluator' or 'Regular Evaluator'.
-permissions: "Regular Evaluator"        # Choose either 'Regular Evaluator' or 'Senior Evaluator'.
+user_token: "Senior Evaluator"          # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
+permissions: "Regular Evaluator"        # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
 maximize_window: true                   # True for maximize window, False for normal window
 
 loading_numbers:
   # Regular Loading
-  regular_loading_E2E_num: "0045635"
-  regular_loading_error_num: "0045635"
-  regular_loading_half_discharge_num: "0045635"
-  regular_loading_set_suspicious_num: "0045635"
-  regular_loading_set_unchecked_num: "0045635"
+  regular_loading_E2E_num: "0045664"
+  regular_loading_error_num: "0045664"
+  regular_loading_half_discharge_num: "0045664"
+  regular_loading_set_suspicious_num: "0045664"
+  regular_loading_set_unchecked_num: "0045664"
   answer_law: "0045617"
   # MisMatch Loading
   misMatch_loading_E2E_num: "fill"
@@ -33,7 +33,7 @@ loading_numbers:
   suspicious_loading_half_discharge_num: "fill"
   suspicious_loading_set_unchecked_num: "fill"
   # After Appeal Loading
-  appeal_loading_E2E_num: "fill"
+  appeal_loading_E2E_num: "0045664"
   appeal_loading_error_num: "fill"
   appeal_loading_half_discharge_num: "fill"
   appeal_loading_set_unchecked_num: "fill"

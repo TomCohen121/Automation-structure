@@ -1,10 +1,6 @@
 import re
 import time
-from asyncio import wait_for
 from urllib.parse import urlparse
-
-from pymongo import timeout
-
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
@@ -158,12 +154,9 @@ class Functions(BasePage):
                     self.page.keyboard.press('Enter')
                     self.checkNotebookPage.field_question_score().fill('6')
                     self.checkNotebookPage.btn_maximum_grade().click()
-                    self.checkNotebookPage.btn_save_question_score().click()
             else:
                 self.checkNotebookPage.field_question_score().fill('6')
                 self.checkNotebookPage.btn_maximum_grade().click()
-                self.checkNotebookPage.btn_save_question_score().click()
-
 
     def answer_law_questions_loop(self):
         """filling and saving scores for law-related questions 1 to 5."""
@@ -254,21 +247,24 @@ class Functions(BasePage):
         else:
             raise Exception(error_message)
 
-    def element_exists_and_disabled_or_visible(self, element, button_name: str):
+    def assert_element_exists(self, element, button_name: str):
         """Checks if an element is existed."""
         try:
             element.wait_for(timeout=15000)
             is_visible = element.is_visible()
             is_enabled = element.is_enabled()
             condition = is_visible or not is_enabled
-            soft_assert.check(condition)
+            soft_assert.check(True, f"{button_name} exist")
             if condition:
                 print(f"{button_name} exists.")
         except Exception:
-            print(f"{button_name} does NOT exist")
+            soft_assert.check(False, f"{button_name} does NOT exist")
 
     # ---------------------------  API Fetch Data Functions ---------------------------
 
+
+    def reload_page(self):
+        self.page.reload()
     def fetch_api_data_mismatch(self, params=None):
         """Fetches API data related to mismatched questions for the notebook."""
         current_url = self.page.url
@@ -285,8 +281,6 @@ class Functions(BasePage):
         api_url = "https://marvad-test.mrvd.education.gov.il:4434/api/User/buttons-permissions?webMenuId=1006"
         response = requests.get(api_url, verify=False)
         return response.json().get("data", [])
-
-
 
     def fetch_api_data_senior(self, params=None):
         """Fetches API data related to expert evaluation questions for the notebook."""

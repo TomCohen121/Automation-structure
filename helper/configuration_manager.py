@@ -1,7 +1,6 @@
 import os
 import shutil
 import sys
-
 import pytest
 import yaml
 from playwright.sync_api import Playwright, BrowserType
@@ -13,7 +12,7 @@ class ConfigurationManager:
 
     @staticmethod
     def main():
-        ConfigurationManager.cleanup_allure_results()  # הוספתי את קריאת הפונקציה למחיקת התיקייה
+        ConfigurationManager.cleanup_allure_results()  # הוספת קריאה לפונקציה למחיקת התיקייה
         ConfigurationManager.run_tests()
 
     @staticmethod
@@ -52,7 +51,7 @@ class ConfigurationManager:
 
     @staticmethod
     def run_tests():
-        # מקבל את ההרשאה (Admin או Regular)
+        # מקבל את ההרשאה
         permission = ConfigurationManager.get_permission()
         # טוען את התגיות לפי ההרשאה
         tags = ConfigurationManager.get_tags_for_permission(permission)
@@ -91,14 +90,12 @@ class ConfigurationManager:
         token_map = {
             "Regular Evaluator": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
             "Senior Evaluator": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4",
-            "Development_Worker":   "FILL",
-            "Assessment_Section_Manager":   "FILL",
-            "Marvad_CEO":   "FILL",
-            "System_Administrator":   "FILL",
-            "Mafmar":   "FILL",
-            "Professional_Manager":   "FILL",
-
-
+            "Development Worker": "ZjVTU089ZjVTU091c2VyPTIwNTQ1MzQ1OSZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Assessment Section Manager": "ZjVTU089ZjVTU091c2VyPTMxNjQ3NTgxMyZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ngo=",
+            "Marvad CEO": "ZjVTU089ZjVTU091c2VyPTMyOTMxMzcwNCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "System Administrator": "ZjVTU089ZjVTU091c2VyPTMzOTQzMjIzOSZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Mafmar": "ZjVTU089ZjVTU091c2VyPTAzNzMxMDM2NCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Professional Manager": "ZjVTU089ZjVTU091c2VyPTMxMjY2ODMyMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
         }
         token = token_map.get(selected_token)
 
