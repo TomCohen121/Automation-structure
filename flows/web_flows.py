@@ -64,7 +64,6 @@ class WorkFlow(BasePage):
    def senior_notebook_checking_process(self):
        """Process of checking a Senior notebook."""
        self.functions.process_api_data(self.functions.fetch_api_data_senior)
-       self.checkNotebookPage.btn_save_gap_successfully_closed().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -152,7 +151,6 @@ class WorkFlow(BasePage):
 
    def flow_set_suspicious_notebook(self):
        self.checkNotebookPage.btn_suspicious_notebook().click()
-       self.checkNotebookPage.checkbox_mark_suspicious_notebook().check()
        self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(),'div')
        self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
        self.checkNotebookPage.field_suspicious_text().fill('tom')

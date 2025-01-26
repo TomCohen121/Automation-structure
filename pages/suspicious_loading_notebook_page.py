@@ -12,4 +12,4 @@ class SuspiciousLoadingNotebookPage(BasePage):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(7) .mdc-checkbox__native-control").first
 
    def txt_suspicious_notebook_status(self, row_number):
-       return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(8) > .text-wrapper > .text-overflow > span").first.text_content().strip()
+       return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(8) .text-wrapper .text-overflow span").first.text_content().strip()

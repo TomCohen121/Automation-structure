@@ -1,6 +1,6 @@
 browser: "chromium"                     # options are 'chromium', 'firefox', 'webkit'.
 headless: false                         # true for headless mode, false for normal mode.
-slow_motion: 700                        # Adjust to slow down or speed up the actions, in milliseconds.
+slow_motion: 300                        # Adjust to slow down or speed up the actions, in milliseconds.
 environment: "QA"                       # Choose either 'QA' or 'DEV'.
 user_token: "Senior Evaluator"          # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
 permissions: "Regular Evaluator"        # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
@@ -8,27 +8,27 @@ maximize_window: true                   # True for maximize window, False for no
 
 loading_numbers:
   # Regular Loading
-  regular_loading_E2E_num: "0045664"
-  regular_loading_error_num: "0045664"
-  regular_loading_half_discharge_num: "0045664"
-  regular_loading_set_suspicious_num: "0045664"
-  regular_loading_set_unchecked_num: "0045664"
+  regular_loading_E2E_num: "0004455"
+  regular_loading_error_num: "0004455"
+  regular_loading_half_discharge_num: "0004455"
+  regular_loading_set_suspicious_num: "0004455"
+  regular_loading_set_unchecked_num: "0004455"
   answer_law: "0045617"
   # MisMatch Loading
-  misMatch_loading_E2E_num: "fill"
-  misMatch_loading_set_suspicious_num: "fill"
+  misMatch_loading_E2E_num: "0004449"
+  misMatch_loading_set_suspicious_num: "0004449"
   misMatch_loading_error_num: "fill"
   misMatch_loading_half_discharge_num: "fill"
   misMatch_loading_set_unchecked_num: "fill"
   # Senior Loading
-  senior_loading_E2E_num: "0045517"
+  senior_loading_E2E_num: "0004454"
   senior_loading_set_suspicious_num: "fill"
   senior_loading_error_num: "fill"
   senior_loading_half_discharge_num: "fill"
   senior_loading_set_unchecked_num: "fill"
   # Suspicious Loading
-  suspicious_loading_approve_num: "fill"
-  suspicious_loading_denied_num: "fill"
+  suspicious_loading_approve_num: "0000067"
+  suspicious_loading_denied_num: "0000067"
   suspicious_loading_error_num: "fill"
   suspicious_loading_half_discharge_num: "fill"
   suspicious_loading_set_unchecked_num: "fill"

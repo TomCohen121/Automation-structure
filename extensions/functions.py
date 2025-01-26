@@ -154,9 +154,21 @@ class Functions(BasePage):
                     self.page.keyboard.press('Enter')
                     self.checkNotebookPage.field_question_score().fill('6')
                     self.checkNotebookPage.btn_maximum_grade().click()
+                    if self.checkNotebookPage.field_question_score().is_disabled():
+                        popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
+                        if popup_locator.is_visible():
+                            popup_locator.click()
+                            return
             else:
                 self.checkNotebookPage.field_question_score().fill('6')
                 self.checkNotebookPage.btn_maximum_grade().click()
+                if self.checkNotebookPage.field_question_score().is_disabled():
+                    popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
+                    if popup_locator.is_visible():
+                        popup_locator.click()
+                        return
+
+
 
     def answer_law_questions_loop(self):
         """filling and saving scores for law-related questions 1 to 5."""
@@ -262,25 +274,19 @@ class Functions(BasePage):
 
     # ---------------------------  API Fetch Data Functions ---------------------------
 
-
     def reload_page(self):
         self.page.reload()
+
     def fetch_api_data_mismatch(self, params=None):
         """Fetches API data related to mismatched questions for the notebook."""
         current_url = self.page.url
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"https://marvad-test.mrvd.education.gov.il:4433/api/NotebookEvaluation/mismatch/questions?notebookInLoadingId={notebook_id}"
-        response = requests.get(api_url, params=params, verify=False)
+        api_url = f"https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/mismatch/questions?notebookInLoadingId={notebook_id}"
+        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOjQzNjc0MCwibmJmIjoxNzM3ODkwMzk1LCJleHAiOjE3Mzc5MTE5OTUsImlhdCI6MTczNzg5MDM5NSwiaXNzIjoibWFydmFkIiwiYXVkIjoibWFydmFkLXVzZXJzIn0.F90azGoizl55GtZ4dkSi8_WoKEn9Cdz7JwIqfm2hCHg"})
         data = response.json()
         return data
-
-    def fetch_api_questions(self, params=None):
-        """Fetches API data related to mismatched questions for the notebook."""
-        api_url = "https://marvad-test.mrvd.education.gov.il:4434/api/User/buttons-permissions?webMenuId=1006"
-        response = requests.get(api_url, verify=False)
-        return response.json().get("data", [])
 
     def fetch_api_data_senior(self, params=None):
         """Fetches API data related to expert evaluation questions for the notebook."""
@@ -288,8 +294,8 @@ class Functions(BasePage):
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"https://marvad-test.mrvd.education.gov.il:4433/api/NotebookEvaluation/expert/questions?notebookInLoadingId={notebook_id}"
-        response = requests.get(api_url, params=params, verify=False)
+        api_url = f"https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/expert/questions?notebookInLoadingId={notebook_id}"
+        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOjQzNjc0MCwibmJmIjoxNzM3ODc4ODQ3LCJleHAiOjE3Mzc5MDA0NDcsImlhdCI6MTczNzg3ODg0NywiaXNzIjoibWFydmFkIiwiYXVkIjoibWFydmFkLXVzZXJzIn0.SYBgOANTtvLc26-agreU6GjU366eP0dmMYxQ_pZ0gSI"})
         data = response.json()
         return data
 
