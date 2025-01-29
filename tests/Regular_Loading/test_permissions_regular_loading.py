@@ -5,7 +5,6 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
 @allure.story("Permissions for Regular Loading")
 @allure.description("Checking Permissions for Regular Loading")
 def test_verify_permissions_for_regular_loading(f, add_allure_attach, page):

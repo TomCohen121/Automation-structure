@@ -31,7 +31,7 @@ def test_afterappeal_loading_set_uncheck_notebook(f, add_allure_attach, page):
     f.functions.table_choose_a_row(2).dblclick()
 
     #CheckNotebookScreen
-    f.workflow.flow_set_uncheck_notebook()
+    f.workflow.flow_set_uncheck_notebook_and_save()
 
     ######################################################################################################################################################
                                                                 # Testing

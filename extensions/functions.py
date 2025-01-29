@@ -1,5 +1,6 @@
 import re
 import time
+from asyncio import timeout
 from urllib.parse import urlparse
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -61,12 +62,14 @@ class Functions(BasePage):
         self.loadingPage.field_search().press('Enter')
 
     # --------------------------- Loading Functions ---------------------------
+    def wait_for_element(self, locator, timeout=5000):
+        try:
+            locator.wait_for(timeout=timeout)
+        except Exception:
+            print("❌ The element does not exist")
 
-    def wait_for_domcontentloaded(self):
-        self.page.wait_for_load_state("domcontentloaded")
-
-    def wait_for_networkidle(self):
-        self.page.wait_for_load_state("networkidle")
+    def sleep(self , time_to_sleep):
+        time.sleep(time_to_sleep)
 
     def wait_for_loader(self, timeout=35000, timeout_for_second=5000):
         """Waits for the loader to appear and finish."""
@@ -168,17 +171,6 @@ class Functions(BasePage):
                         popup_locator.click()
                         return
 
-
-
-    def answer_law_questions_loop(self):
-        """filling and saving scores for law-related questions 1 to 5."""
-        for i in range(1, 6):
-            self.checkNotebookPage.field_question_number().fill(str(i))
-            self.checkNotebookPage.field_question_number().press('Enter')
-            self.checkNotebookPage.field_question_score().fill('6')
-            self.checkNotebookPage.btn_maximum_grade().click()
-            self.checkNotebookPage.btn_save_question_score().click()
-
     # --------------------------- Data Extraction Functions ---------------------------
 
     def extracting_value_from_statistics(self, locator):
@@ -250,6 +242,10 @@ class Functions(BasePage):
                 element.click()
         except Exception as e:
             pass
+
+    def click_if_btn_enable(self, button):
+        if button.is_enabled():
+            button.click()
 
     def check_if_button_enabled_and_click(self, button_locator, error_message):
         """Waits for a button to be visible, clicks it if enabled."""

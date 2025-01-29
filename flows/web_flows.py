@@ -1,3 +1,4 @@
+import re
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -26,11 +27,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process(self):
        """Process of checking a notebook."""
-       self.checkNotebookPage.field_question_number().fill('1')
-       self.checkNotebookPage.field_question_number().press('Enter')
-       self.functions.is_subquestion_exist()
-       self.checkNotebookPage.field_question_score().fill('6')
-       self.checkNotebookPage.btn_maximum_grade().click()
+       self.workflow.answer_one_question()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -39,11 +36,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process_with_grade(self):
        """Process of checking a notebook and saving the Notebook grade."""
-       self.checkNotebookPage.field_question_number().fill('1')
-       self.checkNotebookPage.field_question_number().press('Enter')
-       self.functions.is_subquestion_exist()
-       self.checkNotebookPage.field_question_score().fill('6')
-       self.checkNotebookPage.btn_maximum_grade().click()
+       self.workflow.answer_one_question()
        self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
        self.functions.notebook_pagination_loop()
@@ -70,14 +63,38 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   def answer_law_questions_loop(self):
+        """filling and saving scores for law-related questions 1 to 5."""
+        for i in range(1, 6):
+            self.checkNotebookPage.field_question_number().fill(str(i))
+            self.checkNotebookPage.field_question_number().press('Enter')
+            self.checkNotebookPage.field_question_score().fill('6')
+            self.checkNotebookPage.btn_maximum_grade().click()
+
+   def answer_one_question(self):
+       self.checkNotebookPage.field_question_number().fill('1')
+       self.checkNotebookPage.field_question_number().press('Enter')
+       self.functions.is_subquestion_exist()
+       self.checkNotebookPage.field_question_score().fill('6')
+       self.checkNotebookPage.btn_maximum_grade().click()
+
    def delete_notebook_test(self):
        """Deletes the notebook test if the delete button is enabled."""
        if self.checkNotebookPage.btn_delete_notebook_test().is_enabled():
            self.checkNotebookPage.btn_delete_notebook_test().click()
            self.checkNotebookPage.btn_save_delete_notebook_test().click()
-           self.functions.wait_for_loader()
 
-    # --------------------------- Navigation Flows ---------------------------
+   def assert_check_notebook_score_deleted(self):
+       notebook_grade = self.checkNotebookPage.txt_total_notebook_grade().text_content()
+       match = re.search(r'\d+', notebook_grade)
+       assert not match, f"Notebook grade was not deleted, The Grade is: {notebook_grade}."
+
+   def assert_check_notebook_uncheck_deleted(self):
+       self.checkNotebookPage.btn_uncheck_notebook().click()
+       uncheck_reason = self.functions.get_placeholder_text(self.checkNotebookPage.dropdown_uncheck_reason())
+       assert uncheck_reason== "חפש כאן...", f'The uncheck process was not deleted, The uncheck reason is: {uncheck_reason}'
+
+   # --------------------------- Navigation Flows ---------------------------
 
    def navigation_from_loading_to_check_notebook_page(self, row_number, row_number1, row_number2):
        self.functions.table_choose_a_row(row_number).dblclick()
@@ -110,7 +127,7 @@ class WorkFlow(BasePage):
 
    def assert_and_validate_popup_and_error_messages_answer_law(self):
        """Validate the correct error message for Answer Law."""
-       self.functions.answer_law_questions_loop()
+       self.workflow.answer_law_questions_loop()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"אין אפשרות לקלוט שאלה - הפרת חוקי מענה!")
 
@@ -157,11 +174,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
 
    def notebook_suspicion_approved_process(self):
-       self.checkNotebookPage.btn_suspicion_approved().click()
-       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(),'div')
-       self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
-       self.checkNotebookPage.field_suspicious_text().fill('tom')
-       self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
+       self.workflow.flow_set_suspicious_notebook()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -177,17 +190,27 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
-    # --------------------------- Uncheck Notebook Flows ---------------------------
+   def assert_check_notebook_suspicious_deleted(self):
+       self.checkNotebookPage.btn_suspicious_notebook().click()
+       badge_count = self.page.locator('div.badges-area > app-badge').count()
+       assert badge_count == 0, f'Unexpected badges found! {badge_count} badges exist.'
+       suspicious_text = self.checkNotebookPage.field_suspicious_text().text_content()
+       assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
 
-   def flow_set_uncheck_notebook(self):
-       self.checkNotebookPage.btn_uncheck_notebook().click()
-       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_uncheck_reason(),self.checkNotebookPage.dropdown_uncheck_reason_list(),'div')
-       self.uncheck_reason = self.functions.get_placeholder_text(self.checkNotebookPage.dropdown_uncheck_reason()).strip()
-       self.checkNotebookPage.btn_save_uncheck_notebook_popup().click()
+   # --------------------------- Uncheck Notebook Flows ---------------------------
+
+   def flow_set_uncheck_notebook_and_save(self):
+       self.workflow.flow_set_uncheck_notebook()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
+
+   def flow_set_uncheck_notebook(self):
+       self.checkNotebookPage.btn_uncheck_notebook().click()
+       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_uncheck_reason(),self.checkNotebookPage.dropdown_uncheck_reason_list(), 'div')
+       self.uncheck_reason = self.functions.get_placeholder_text(self.checkNotebookPage.dropdown_uncheck_reason()).strip()
+       self.checkNotebookPage.btn_save_uncheck_notebook_popup().click()
 
     # --------------------------- Half Discharge Flow ---------------------------
 

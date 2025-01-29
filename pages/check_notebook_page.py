@@ -30,7 +30,6 @@ class CheckNotebookPage(BasePage):
        return self.page.get_by_role("button", name="סגור")
 
 
-
     # --------------------------- Notebook Page Locators ---------------------------
    def btn_notebook_pagination(self):
        return self.page.locator(".pagination-buttons > app-icon-button:nth-child(3) > .icon-button")
@@ -39,10 +38,24 @@ class CheckNotebookPage(BasePage):
        return self.page.get_by_role("button", name="מחק בדיקת מחברת")
 
    def btn_save_delete_notebook_test(self):
-       return self.page.locator('app-svg-icon[size="small"][ng-reflect-svg-icon="arrowLeft"] mat-icon')
+       return self.page.get_by_role("button", name="שמור").nth(2)
 
+   def btn_add_comment(self):
+       return self.page.get_by_role("button", name="הוסף הערה")
 
-    # --------------------------- End Notebook Review Locators ---------------------------
+   def btn_all_comments(self):
+       return self.page.get_by_role("button", name="צפה בכל ההערות")
+
+   def field_comment_text(self):
+       return self.page.get_by_placeholder("הקלד את הטקסט שלך כאן...")
+
+   def btn_save_comment(self):
+       return self.page.locator("app-big-button").get_by_role("button", name="שמור")
+
+   def txt_first_comment(self):
+       return self.page.locator(".text-side p").first.text_content().strip()
+
+   # --------------------------- End Notebook Review Locators ---------------------------
    def btn_save_and_end_notebook_test(self):
        return self.page.get_by_role("button", name="שמור וסיים בדיקת מחברת")
 
