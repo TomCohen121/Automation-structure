@@ -27,7 +27,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process(self):
        """Process of checking a notebook."""
-       self.workflow.answer_one_question()
+       self.answer_one_question()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -36,7 +36,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process_with_grade(self):
        """Process of checking a notebook and saving the Notebook grade."""
-       self.workflow.answer_one_question()
+       self.answer_one_question()
        self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
        self.functions.notebook_pagination_loop()
@@ -77,6 +77,13 @@ class WorkFlow(BasePage):
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('6')
        self.checkNotebookPage.btn_maximum_grade().click()
+
+    # --------------------------- Notebooks Process ---------------------------
+   def add_notebook_comment(self):
+       self.checkNotebookPage.btn_add_comment().click()
+       self.checkNotebookPage.field_comment_text().fill("tom")
+       self.checkNotebookPage.btn_save_comment().click()
+       self.checkNotebookPage.btn_all_comments().click()
 
    def delete_notebook_test(self):
        """Deletes the notebook test if the delete button is enabled."""
@@ -127,7 +134,7 @@ class WorkFlow(BasePage):
 
    def assert_and_validate_popup_and_error_messages_answer_law(self):
        """Validate the correct error message for Answer Law."""
-       self.workflow.answer_law_questions_loop()
+       self.answer_law_questions_loop()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"אין אפשרות לקלוט שאלה - הפרת חוקי מענה!")
 
@@ -174,7 +181,11 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
 
    def notebook_suspicion_approved_process(self):
-       self.workflow.flow_set_suspicious_notebook()
+       self.checkNotebookPage.btn_suspicion_approved().click()
+       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(), 'div')
+       self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
+       self.checkNotebookPage.field_suspicious_text().fill('tom')
+       self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -200,7 +211,7 @@ class WorkFlow(BasePage):
    # --------------------------- Uncheck Notebook Flows ---------------------------
 
    def flow_set_uncheck_notebook_and_save(self):
-       self.workflow.flow_set_uncheck_notebook()
+       self.flow_set_uncheck_notebook()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
        self.functions.wait_for_loader()

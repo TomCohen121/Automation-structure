@@ -2,6 +2,12 @@ import re
 import time
 from asyncio import timeout
 from urllib.parse import urlparse
+
+import certifi
+from lxml.html.diff import token
+from pytest_base_url.plugin import base_url
+
+from helper.configuration_manager import ConfigurationManager
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from pages.check_notebook_page import CheckNotebookPage
@@ -15,6 +21,7 @@ from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
 import requests
 
 class Functions(BasePage):
+    user_token = None
     def __init__(self, page: Page):
         super().__init__(page)
         self.personalAreaPage = PersonalAreaPage(self.page)
@@ -24,7 +31,7 @@ class Functions(BasePage):
         self.portionPage = PortionPage(self.page)
         self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
-
+        self.user_token = self.authorization_token(ConfigurationManager.token_url())
     # --------------------------- Check Functions ---------------------------
 
     def check_if_loading_number_exist(self, loading_number, variable_name):
@@ -243,9 +250,22 @@ class Functions(BasePage):
         except Exception as e:
             pass
 
-    def click_if_btn_enable(self, button):
+    def click_button_if_enable(self, button):
         if button.is_enabled():
             button.click()
+
+    def click_delete_notebook_if_enable(self):
+        button = self.checkNotebookPage.btn_delete_notebook_test()
+        if button.is_enabled():
+            button.click()
+            self.checkNotebookPage.btn_save_delete_notebook_test().click()
+
+    def click_delete_notebook_if_enable_suspicious(self):
+        button = self.checkNotebookPage.btn_delete_notebook_test()
+        if button.is_enabled():
+            button.click()
+            self.checkNotebookPage.btn_save_delete_notebook_test_suspicious().click()
+
 
     def check_if_button_enabled_and_click(self, button_locator, error_message):
         """Waits for a button to be visible, clicks it if enabled."""
@@ -280,7 +300,7 @@ class Functions(BasePage):
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
         api_url = f"https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/mismatch/questions?notebookInLoadingId={notebook_id}"
-        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOjQzNjc0MCwibmJmIjoxNzM3ODkwMzk1LCJleHAiOjE3Mzc5MTE5OTUsImlhdCI6MTczNzg5MDM5NSwiaXNzIjoibWFydmFkIiwiYXVkIjoibWFydmFkLXVzZXJzIn0.F90azGoizl55GtZ4dkSi8_WoKEn9Cdz7JwIqfm2hCHg"})
+        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
         data = response.json()
         return data
 
@@ -291,7 +311,7 @@ class Functions(BasePage):
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
         api_url = f"https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/expert/questions?notebookInLoadingId={notebook_id}"
-        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOjQzNjc0MCwibmJmIjoxNzM3ODc4ODQ3LCJleHAiOjE3Mzc5MDA0NDcsImlhdCI6MTczNzg3ODg0NywiaXNzIjoibWFydmFkIiwiYXVkIjoibWFydmFkLXVzZXJzIn0.SYBgOANTtvLc26-agreU6GjU366eP0dmMYxQ_pZ0gSI"})
+        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
         data = response.json()
         return data
 
@@ -341,3 +361,11 @@ class Functions(BasePage):
         question_numbers = self.extract_keys(api_data)
         self.fill_question_numbers(question_numbers, api_data)
 
+
+    def authorization_token(self, token2):
+        url = 'https://marvad-test.mrvd.education.gov.il:4434/api/User/sso?sso=98'
+        headers = {
+            'SC': token2
+        }
+        response = requests.get(url, headers=headers, verify=False)
+        return response.json()['data']

@@ -9,6 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 class ConfigurationManager:
     _config = None
     _permissions = None
+    _token = None
 
     @staticmethod
     def main():
@@ -85,7 +86,6 @@ class ConfigurationManager:
             "DEV": "https://d1dltc9sqvdor1.cloudfront.net/?f5="
         }
         base_url = url_map.get(selected_url)
-
         selected_token = ConfigurationManager._config["user_token"]
         token_map = {
             "Regular Evaluator": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
@@ -98,10 +98,24 @@ class ConfigurationManager:
             "Professional Manager": "ZjVTU089ZjVTU091c2VyPTMxMjY2ODMyMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
         }
         token = token_map.get(selected_token)
-
         if base_url and token:
             return f"{base_url}{token}"  # מחבר את ה-URL וה-token
         return None
+
+    @staticmethod
+    def token_url():
+        selected_token = ConfigurationManager._config["user_token"]
+        token_map = {
+            "Regular Evaluator": "ZjVTU089ZjVTU091c2VyPTAyNDkwMDczMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Senior Evaluator": "ZjVTU089ZjVTU091c2VyPTMwMjI4ODk5OCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Njc4",
+            "Development Worker": "ZjVTU089ZjVTU091c2VyPTIwNTQ1MzQ1OSZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Assessment Section Manager": "ZjVTU089ZjVTU091c2VyPTMxNjQ3NTgxMyZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ngo=",
+            "Marvad CEO": "ZjVTU089ZjVTU091c2VyPTMyOTMxMzcwNCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "System Administrator": "ZjVTU089ZjVTU091c2VyPTMzOTQzMjIzOSZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Mafmar": "ZjVTU089ZjVTU091c2VyPTAzNzMxMDM2NCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+            "Professional Manager": "ZjVTU089ZjVTU091c2VyPTMxMjY2ODMyMCZmNVNTT3Bhc3N3b3JkPTEyMzQ1Ng==",
+        }
+        return token_map.get(selected_token)
 
     @staticmethod
     def maximize_window():

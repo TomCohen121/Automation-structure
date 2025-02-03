@@ -22,7 +22,7 @@ class PortionPage(BasePage):
    def txt_table_portion_status(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(7) .text-wrapper .text-overflow span").first.text_content().strip()
 
-    # --------------------------- Half Discharge Locators ---------------------------
+    # --------------------------- Buttons Locators ---------------------------
    def btn_half_discharge_loading(self):
        return self.page.get_by_role("button", name="פריקה חלקית")
 
@@ -35,4 +35,8 @@ class PortionPage(BasePage):
    def btn_cancel_portion_uncheck(self):
        return self.page.get_by_role("button", name="בטל אי בדיקה")
 
+   def btn_delete_portion_data(self):
+       return self.page.get_by_role("button", name="מחק כלל הערכות")
 
+   def btn_save_delete_portion_data(self):
+       return self.page.get_by_role("button", name="שמור")

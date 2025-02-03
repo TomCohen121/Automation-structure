@@ -32,13 +32,16 @@ class CheckNotebookPage(BasePage):
 
     # --------------------------- Notebook Page Locators ---------------------------
    def btn_notebook_pagination(self):
-       return self.page.locator(".pagination-buttons > app-icon-button:nth-child(3) > .icon-button")
+       return self.page.locator("div:nth-child(3) > app-icon-button:nth-child(2) > .icon-button")
 
    def btn_delete_notebook_test(self):
        return self.page.get_by_role("button", name="מחק בדיקת מחברת")
 
    def btn_save_delete_notebook_test(self):
        return self.page.get_by_role("button", name="שמור").nth(2)
+
+   def btn_save_delete_notebook_test_suspicious(self):
+       return self.page.get_by_role("button", name="שמור").nth(1)
 
    def btn_add_comment(self):
        return self.page.get_by_role("button", name="הוסף הערה")
