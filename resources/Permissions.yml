@@ -1,32 +1,68 @@
-
-
-
 Senior Evaluator:
   - senior_loading
   - mismatch_loading
   - regular_loading
   - suspicious_loading
+  - afterappeal_loading
   - permissions_senior_evaluator
+
+#  - regular_loading_discharge
+#  - afterappeal_loading_discharge
+#  - mismatch_loading_discharge
+#  - senior_loading_discharge
+#  - suspicious_loading_discharge
 
 Regular Evaluator:
   - regular_loading
   - permissions_regular_evaluator
+#  - regular_loading_discharge
 #  - answer_law #Questioneer 035481
 
 Development Worker:
   - permissions_development_worker
+#  - regular_loading_discharge
+#  - afterappeal_loading_discharge
+#  - mismatch_loading_discharge
+#  - senior_loading_discharge
+#  - suspicious_loading_discharge
 
 Assessment Section Manager:
   - permissions_assessment_section_manager
+#  - regular_loading_discharge
+#  - afterappeal_loading_discharge
+#  - mismatch_loading_discharge
+#  - senior_loading_discharge
+#  - suspicious_loading_discharge
 
 Marvad CEO:
   - permissions_maravad_ceo
+#  - regular_loading_discharge
+#  - afterappeal_loading_discharge
+#  - mismatch_loading_discharge
+#  - senior_loading_discharge
+#  - suspicious_loading_discharge
 
 System Administrator:
   - permissions_system_administrator
+#  - regular_loading_discharge
+#  - afterappeal_loading_discharge
+#  - mismatch_loading_discharge
+#  - senior_loading_discharge
+#  - suspicious_loading_discharge
 
 Mafmar:
   - permissions_mafmar
+#  - regular_loading_discharge
+#  - afterappeal_loading_discharge
+#  - mismatch_loading_discharge
+#  - senior_loading_discharge
+#  - suspicious_loading_discharge
 
 Professional Manager:
   - permissions_professional_manager
+#  - regular_loading_discharge
+#  - afterappeal_loading_discharge
+#  - mismatch_loading_discharge
+#  - senior_loading_discharge
+#  - suspicious_loading_discharge
+

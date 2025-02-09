@@ -19,9 +19,9 @@ def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
    # CheckNotebookScreen
    f.functions.click_delete_notebook_if_enable_suspicious()
    f.workflow.notebook_suspicion_denied_process()
+
    ##################################################################################################################################################################################
                                                                             #Testing
-
    # NotebookScreen
    f.functions.popup_answer_law()
    f.functions.is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_approved(2),expected_state=False,error_message="The Suspicious Approved Check box should be Unmarked")

@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-
+@pytest.mark.senior_loading_discharge
 @allure.story("Senior Evaluation loading discharge")
 @allure.description("Senior Evaluation Notebook Checking and Senior Evaluation Loading Discharge Process")
 def test_senior_loading_discharge(f, add_allure_attach, page):

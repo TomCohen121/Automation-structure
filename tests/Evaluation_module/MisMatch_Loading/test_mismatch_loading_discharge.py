@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-
+@pytest.mark.mismatch_loading_discharge
 @allure.story("MisMatch loading discharge")
 @allure.description("MisMatch Notebook Checking and MisMatch Loading Discharge Process")
 def test_mismatch_loading_discharge(f, add_allure_attach, page):
