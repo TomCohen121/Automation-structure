@@ -53,6 +53,8 @@ class LoadingPage(BasePage) :
    def btn_filter_saving(self):
        return self.page.get_by_role("button", name="שמור")
 
+   def btn_clean_all_filters(self):
+       return self.page.locator(".clean-btn")
 
     # --------------------------- Miscellaneous ---------------------------
    def btn_loading_archive(self):

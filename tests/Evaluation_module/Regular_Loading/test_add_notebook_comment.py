@@ -8,7 +8,7 @@ from helper.soft_assert import soft_assert
 
 @pytest.mark.regular_loading
 @allure.story("Add Comment to Notebook")
-@allure.description("Adding a Comment to notebook using the 'Add comment' buttn")
+@allure.description("Adding a Comment to notebook using the 'Add comment' button")
 def test_add_notebook_comment(f, add_allure_attach, page):
     #Dashboard
     f.workflow.navigation_to_loading_screen()

@@ -50,12 +50,10 @@ def verify_expectations():
 def assert_all():
     """מזהה ומדווח על כל השגיאות שנמצאו במהלך הטסט."""
     if failed_conditions:
-        report = ["Failed conditions count: [ {} ]\n".format(len(failed_conditions))]
-        for index, failure in enumerate(failed_conditions, start=1):
-            if len(failed_conditions) > 1:
-                report.append(f"{index}. {failure}")
-            else:
-                report.append(failure)
+        # בונה את הדוח עם הספירה ופרטי השגיאה
+        report = ["Failed conditions count: [ {} ]".format(len(failed_conditions))]
+        for failure in failed_conditions:
+            report.append(failure)  # מוסיף את השגיאה לדוח
         clear_failures()  # מנקה את השגיאות לאחר שהן דווחו
         raise AssertionError("\n".join(report))
 

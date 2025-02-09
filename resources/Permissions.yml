@@ -1,24 +1,32 @@
+
+
+
 Senior Evaluator:
   - senior_loading
   - mismatch_loading
-  - afterappeal_loading
   - regular_loading
   - suspicious_loading
-  - answer_law #Questioneer 035481
+  - permissions_senior_evaluator
 
 Regular Evaluator:
   - regular_loading
+  - permissions_regular_evaluator
 #  - answer_law #Questioneer 035481
 
 Development Worker:
+  - permissions_development_worker
 
 Assessment Section Manager:
+  - permissions_assessment_section_manager
 
 Marvad CEO:
+  - permissions_maravad_ceo
 
 System Administrator:
+  - permissions_system_administrator
 
 Mafmar:
+  - permissions_mafmar
 
 Professional Manager:
-
+  - permissions_professional_manager

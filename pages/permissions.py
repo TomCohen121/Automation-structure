@@ -30,7 +30,7 @@ class Permissions(BasePage):
    def btn_loading_archive(self):
        return self.page.get_by_role("button", name="מעבר לארכיון טעינות")
 
-   def btn_reset_to_starting_state(self):
+   def btn_reset_loading_to_starting_state(self):
        return self.page.get_by_role("button", name="החזר טעינה למצב התחלתי")
 
     # --------------------------- Portion Page Locators ---------------------------

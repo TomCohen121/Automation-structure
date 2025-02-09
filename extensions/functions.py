@@ -1,6 +1,7 @@
 import re
 import time
 from asyncio import timeout
+from faulthandler import is_enabled
 from urllib.parse import urlparse
 
 import certifi
@@ -48,10 +49,10 @@ class Functions(BasePage):
     def choose_filter_option(self, option_name):
         """selecting a filter option and saving the selection."""
         self.page.locator("app-loadings-for-evaluator-page app-icon-button").get_by_role("button").click()
+        self.loadingPage.btn_clean_all_filters().click()
         checkbox_locator = self.page.locator(f"label:text-is('{option_name.strip()}')")
         checkbox_locator.click()
         self.page.get_by_role("button", name="שמור").click()
-
 
     def table_choose_a_row(self, row_number):
         """Selects a specific row in a table based on the row number."""
@@ -85,14 +86,6 @@ class Functions(BasePage):
             self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout_for_second)
         except:
             pass
-
-    # def wait_for_loader(self, timeout=35000):
-    #     try:
-    #         self.page.wait_for_selector(".loading-bar-wrapper.show", timeout=timeout)
-    #         self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout)
-    #     except:
-    #         pass
-
 
     # --------------------------- Popup Functions ---------------------------
 
@@ -266,7 +259,6 @@ class Functions(BasePage):
             button.click()
             self.checkNotebookPage.btn_save_delete_notebook_test_suspicious().click()
 
-
     def check_if_button_enabled_and_click(self, button_locator, error_message):
         """Waits for a button to be visible, clicks it if enabled."""
         button_locator.wait_for(state="visible", timeout=5000)
@@ -278,15 +270,37 @@ class Functions(BasePage):
     def assert_element_exists(self, element, button_name: str):
         """Checks if an element is existed."""
         try:
-            element.wait_for(timeout=15000)
-            is_visible = element.is_visible()
-            is_enabled = element.is_enabled()
-            condition = is_visible or not is_enabled
+            element.wait_for(timeout=10000)
+            element_visible = element.is_visible()
+            element_enabled = element.is_enabled()
+            condition = element_visible or not element_enabled
             soft_assert.check(True, f"{button_name} exist")
             if condition:
-                print(f"{button_name} exists.")
+                print(f"{button_name} exists. ✅")
         except Exception:
-            soft_assert.check(False, f"{button_name} does NOT exist")
+            soft_assert.check(False,f"{button_name} does NOT exist ❌")
+
+    def assert_element_not_exists(self, element, button_name: str):
+        """Checks if an element does not exist or is not visible and enabled."""
+        try:
+            element.wait_for(timeout=3000)
+            element_visible = element.is_visible()
+            element_enabled = element.is_enabled()
+            condition = not element_visible or not element_enabled
+            soft_assert.check(condition, f"{button_name} should NOT exist ❌")
+            if not condition:
+                print(f"{button_name} should NOT exist, but it was found ❌")
+            else:
+                print(f"{button_name} does not exist, as expected.✅")
+        except Exception as e:
+            print(f"{button_name} does NOT exist as expected.✅")
+            soft_assert.check(True,f"{button_name} does not exist, as expected. ✅")
+
+    def assert_is_field_disabled(self, locator):
+        element = locator
+        is_disabled = element.is_disabled()
+        soft_assert.check(is_disabled, "The field is not disabled as expected.")
+        return is_disabled
 
     # ---------------------------  API Fetch Data Functions ---------------------------
 
