@@ -1,3 +1,5 @@
+import time
+
 from pages.base_page import BasePage
 from playwright.sync_api import Locator, Page
 
@@ -29,10 +31,13 @@ class CheckNotebookPage(BasePage):
    def btn_save_gap_successfully_closed(self):
        return self.page.get_by_role("button", name="סגור")
 
+   def btn_senior_total_gap(self):
+       time.sleep(3)
+       return self.page.locator("app-badge").first.text_content()
 
     # --------------------------- Notebook Page Locators ---------------------------
    def btn_notebook_pagination(self):
-       return self.page.locator("div:nth-child(3) > app-icon-button:nth-child(2) > .icon-button")
+       return self.page.locator("app-notebook-pager").get_by_role("button").nth(1)
 
    def btn_delete_notebook_test(self):
        return self.page.get_by_role("button", name="מחק בדיקת מחברת")
@@ -68,7 +73,6 @@ class CheckNotebookPage(BasePage):
    def btn_close_after_saving_notebook(self):
         return self.page.get_by_role("button", name="סגור")
 
-
     # --------------------------- Suspicious Notebook Locators ---------------------------
    def btn_suspicious_notebook(self):
        return self.page.get_by_role("button", name="מחברת חשודה")
@@ -87,6 +91,9 @@ class CheckNotebookPage(BasePage):
 
    def btn_save_suspicious_notebook_popup(self):
        return self.page.locator("app-big-button").get_by_role("button", name="שמור")
+
+   def btn_x_suspicious_notebook_popup(self):
+       return self.page.locator(".closeapproveSuspicionPopup .mat-icon svg")
 
 
     # --------------------------- Uncheck Notebook Locators ---------------------------
@@ -123,4 +130,8 @@ class CheckNotebookPage(BasePage):
 
    def btn_save_suspicion_denied_popup(self):
        return self.page.locator("app-small-button[ng-reflect-text='שמור'] button")
+
+   def txt_approve_and_denied_tag(self):
+       return self.page.locator("app-message-bar-square-row")
+
 

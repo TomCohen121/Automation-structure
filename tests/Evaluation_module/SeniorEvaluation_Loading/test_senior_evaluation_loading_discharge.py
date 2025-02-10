@@ -16,9 +16,11 @@ def test_senior_loading_discharge(f, add_allure_attach, page):
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen
+   f.functions.search_loading(senior_loading_for_discharge)
    f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
    #CheckNotebookScreen
+   f.functions.questions_numbers_finish_popup()
    f.functions.click_delete_notebook_if_enable()
    f.workflow.senior_notebook_checking_process()
 

@@ -11,9 +11,9 @@ def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(suspicious_loading_num,'suspicious_loading_num')
    # Dashboard
    f.workflow.navigation_to_loading_screen()
-   f.functions.search_loading(suspicious_loading_num)
 
    # LoadingScreen
+   f.functions.search_loading(suspicious_loading_num)
    f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
    # CheckNotebookScreen
@@ -24,8 +24,8 @@ def test_suspicious_loading_end_to_end_approve(f, add_allure_attach, page):
                                                                            # Testing
    #NotebookScreen
    f.functions.popup_answer_law()
-   f.functions.is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_approved(2),expected_state=True,error_message="The Suspicious Approved Check box should be Marked")
-   f.functions.is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_denied(2), expected_state=False , error_message="The Suspicious Denied Check box should be Unmarked")
+   f.functions.assert_is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_approved(2), expected_checked=True)
+   f.functions.assert_is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_denied(2), expected_checked=False)
    f.functions.assert_equal_to(f.suspiciousLoadingNotebookPage.txt_suspicious_notebook_status(2),"מחברת נבדקה", "the Notebook status is not 'מחברת נבדקה'")
    f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 

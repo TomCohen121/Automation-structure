@@ -12,12 +12,13 @@ def test_senior_loading_set_suspicious_notebook(f, add_allure_attach, page):
     f.functions.check_if_loading_number_exist(senior_loading_num, 'senior_loading_num')
     # Dashboard
     f.workflow.navigation_to_loading_screen()
-    f.functions.search_loading(senior_loading_num)
 
     # LoadingScreen
+    f.functions.search_loading(senior_loading_num)
     f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
     #CheckNotebookScreen
+    f.functions.questions_numbers_finish_popup()
     f.functions.click_delete_notebook_if_enable()
     f.workflow.flow_set_suspicious_notebook()
     f.workflow.senior_notebook_checking_process()
@@ -26,7 +27,7 @@ def test_senior_loading_set_suspicious_notebook(f, add_allure_attach, page):
                                                                 #Testing
     #NotebookScreen
     f.functions.popup_answer_law()
-    f.functions.is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2),expected_state=True,error_message="The Suspicious Evaluation Check box should be Marked")
+    f.functions.assert_is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2), expected_checked=True)
     f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
     #PortionScreen

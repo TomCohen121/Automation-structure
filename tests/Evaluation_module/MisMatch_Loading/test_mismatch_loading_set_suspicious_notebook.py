@@ -19,7 +19,6 @@ def test_mismatch_loading_set_suspicious_notebook(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
     #CheckNotebookScreen
-    f.functions.click_delete_notebook_if_enable()
     f.workflow.flow_set_suspicious_notebook()
     f.workflow.mismatch_notebook_checking_process()
 
@@ -27,7 +26,7 @@ def test_mismatch_loading_set_suspicious_notebook(f, add_allure_attach, page):
                                                                 #Testing
     #NotebookScreen
     f.functions.popup_answer_law()
-    f.functions.is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2),expected_state=True,error_message="The Suspicious Evaluation Check box should be Marked")
+    f.functions.assert_is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2), expected_state=True, error_message="The Suspicious Evaluation Check box should be Marked")
     f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
     #PortionScreen

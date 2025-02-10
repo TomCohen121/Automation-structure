@@ -9,17 +9,17 @@ maximize_window: true                   # True for maximize window, False for no
 
 loading_numbers:
   # Regular Loading
-  regular_loading_num: "0047671"
-  regular_loading_num_for_discharge: "0047671"
+  regular_loading_num: "0047675"
+  regular_loading_num_for_discharge: "0047675"
   answer_law: "0045617"
 
   # MisMatch Loading
-  misMatch_loading_num: "0004449"
-  misMatch_loading_for_discharge: "0004449"
+  misMatch_loading_num: "0005160"
+  misMatch_loading_for_discharge: "0005160"
 
   # Senior Loading
-  senior_loading_num: "0005144"
-  senior_loading_for_discharge: "0005144"
+  senior_loading_num: "0005154"
+  senior_loading_for_discharge: "0005154"
 
   # Suspicious Loading
   suspicious_loading_num: "0005146"

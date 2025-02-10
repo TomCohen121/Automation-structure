@@ -19,6 +19,6 @@ def test_mismatch_loading_error_handling(f, add_allure_attach, page):
 
    ###########################################################################################################################################
                                                                     # Testing
-   f.functions.click_delete_notebook_if_enable()
+
    f.workflow.assert_and_validate_popup_and_error_messages_mismatch_loading()
    soft_assert.assert_all()

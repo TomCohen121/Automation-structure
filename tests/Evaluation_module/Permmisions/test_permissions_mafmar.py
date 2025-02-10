@@ -168,7 +168,6 @@ def test_permissions_for_mafmar(f, add_allure_attach, page):
 
     # LoadingScreen
     f.functions.choose_filter_option("טעינה למדגם לפני הערכה")
-    f.functions.search_loading(appeal_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
     # PortionScreen

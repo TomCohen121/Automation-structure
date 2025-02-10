@@ -16,6 +16,7 @@ def test_afterappeal_loading_discharge(f, add_allure_attach, page):
    f.workflow.navigation_to_loading_screen()
 
    #LoadingScreen
+   f.functions.search_loading(appeal_loading_for_discharge)
    f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
    #CheckNotebookScreen

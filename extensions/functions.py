@@ -3,11 +3,8 @@ import time
 from asyncio import timeout
 from faulthandler import is_enabled
 from urllib.parse import urlparse
-
 import certifi
-from lxml.html.diff import token
 from pytest_base_url.plugin import base_url
-
 from helper.configuration_manager import ConfigurationManager
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -80,12 +77,13 @@ class Functions(BasePage):
         time.sleep(time_to_sleep)
 
     def wait_for_loader(self, timeout=35000, timeout_for_second=5000):
-        """Waits for the loader to appear and finish."""
+        """Waits for the loader to appear (if exists) and then disappear."""
         try:
-            self.page.wait_for_selector(".loading-bar-wrapper.show", timeout=timeout)
-            self.page.wait_for_selector(".loading-bar-wrapper", timeout=timeout_for_second)
-        except:
-            pass
+            if self.page.query_selector(".loading-bar-wrapper.show"):
+                self.page.wait_for_selector(".loading-bar-wrapper.show", timeout=timeout)
+                self.page.wait_for_selector(".loading-bar-wrapper", state="hidden", timeout=timeout_for_second)
+        except Exception as e:
+            print(f"Loader wait skipped or failed: {e}")
 
     # --------------------------- Popup Functions ---------------------------
 
@@ -120,15 +118,14 @@ class Functions(BasePage):
 
     # --------------------------- Checkbox Functions ---------------------------
 
-    def is_checkbox_checked(self, checkbox_locator, expected_state, error_message):
+    def assert_is_checkbox_checked(self, locator, expected_checked):
         """Checks if a checkbox's state matches the expected state (checked/unchecked)."""
-        checkbox_locator.wait_for(state="visible", timeout=3000)
-        is_checked = checkbox_locator.is_checked()
-        if is_checked:
-            soft_assert.check(is_checked == expected_state,error_message)
-        else:
-            return error_message
-
+        checkbox = locator
+        is_checked = checkbox.get_attribute("ng-reflect-checked") == "true"
+        assert is_checked == expected_checked, (
+            f"Checkbox state is wrong: Expected {'checked' if expected_checked else 'unchecked'}, "
+            f"but found {'checked' if is_checked else 'unchecked'}."
+        )
     # --------------------------- Notebook Functions ---------------------------
 
     def notebook_pagination_loop(self):
@@ -141,6 +138,12 @@ class Functions(BasePage):
         if self.checkNotebookPage.field_subquestion().count() > 0 and self.checkNotebookPage.field_subquestion().is_enabled():
             self.checkNotebookPage.field_subquestion().fill("1")
             self.page.keyboard.press('Enter')
+
+    def questions_numbers_finish_popup(self):
+        popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
+        if popup_locator.is_visible():
+            popup_locator.click()
+            return
 
     def fill_question_numbers(self, question_numbers, api_data):
         """fills in question numbers and sub-question numbers, sets scores for them, and saves the data."""

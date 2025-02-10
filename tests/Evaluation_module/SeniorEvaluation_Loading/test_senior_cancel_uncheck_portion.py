@@ -7,15 +7,15 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
-@allure.story("Cancel Uncheck Portion")
+@pytest.mark.senior_loading
+@allure.story("Cancel Uncheck Portion - Senior Loading")
 @allure.description("Cancel notebook UnCheck using the 'Cancel uncheck button")
-def test_cancel_notebook_uncheck(f, add_allure_attach, page):
+def test_senior_cancel_notebook_uncheck(f, add_allure_attach, page):
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 
     #LoadingScreen
-    f.functions.choose_filter_option("טעינה להערכה")
+    f.functions.search_loading(senior_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
     #PortionScreen

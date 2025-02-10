@@ -99,7 +99,7 @@ class WorkFlow(BasePage):
    def assert_check_notebook_uncheck_deleted(self):
        self.checkNotebookPage.btn_uncheck_notebook().click()
        uncheck_reason = self.functions.get_placeholder_text(self.checkNotebookPage.dropdown_uncheck_reason())
-       assert uncheck_reason== "חפש כאן...", f'The uncheck process was not deleted, The uncheck reason is: {uncheck_reason}'
+       assert uncheck_reason == "חפש כאן...", f'The uncheck process was not deleted, The uncheck reason is: {uncheck_reason}'
 
    # --------------------------- Navigation Flows ---------------------------
 
@@ -207,6 +207,14 @@ class WorkFlow(BasePage):
        assert badge_count == 0, f'Unexpected badges found! {badge_count} badges exist.'
        suspicious_text = self.checkNotebookPage.field_suspicious_text().text_content()
        assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
+
+   def assert_check_notebook_approve_suspicious_deleted(self):
+       self.checkNotebookPage.btn_suspicion_approved().click()
+       badge_count = self.page.locator('div.badges-area > app-badge').count()
+       assert badge_count == 0, f'Unexpected badges found! {badge_count} badges exist.'
+       suspicious_text = self.checkNotebookPage.field_suspicious_text().text_content()
+       assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
+       self.checkNotebookPage.btn_x_suspicious_notebook_popup().click()
 
    # --------------------------- Uncheck Notebook Flows ---------------------------
 
