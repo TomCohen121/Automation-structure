@@ -29,7 +29,7 @@ def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
     f.functions.assert_equal_to(notebook_status,f.workflow.uncheck_reason,"The Notebook Status is not equal to the Uncheck reason")
     f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
-    # PortionScreen
+    #PortionScreen
     table_num_of_checked_notebooks_after = f.functions.number_to_int(f.portionPage.txt_table_num_of_checked_notebooks(2))
     f.functions.assert_equal_to(table_num_of_checked_notebooks_after,1, "Number of checked Notebooks is incorrect")
     f.functions.assert_equal_to(f.portionPage.txt_table_portion_status(2), "מנה עם שאלון לא מתאים","the Portion status is not 'מנה עם שאלון לא מתאים'")

@@ -17,7 +17,7 @@ def test_suspicious_add_notebook_comment(f, add_allure_attach, page):
     f.functions.search_loading(suspicious_loading_num)
     f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
-    #CheckNotebook
+    #CheckNotebookScreen
     f.workflow.add_notebook_comment()
     notebook_comment = f.checkNotebookPage.txt_first_comment()
     assert notebook_comment == "tom"

@@ -25,4 +25,6 @@ def test_suspicious_delete_approve(f, add_allure_attach, page):
    assert f.checkNotebookPage.txt_approve_and_denied_tag().count() == 0
    f.workflow.assert_check_notebook_approve_suspicious_deleted()
    f.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()
+
+   #NotebookScreen
    f.functions.assert_is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_approved(2), expected_checked=False)

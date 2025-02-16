@@ -18,7 +18,7 @@ def test_suspicious_loading_error_handling(f, add_allure_attach, page):
 
    ###########################################################################################################################################
                                                                     # Testing
-
+   #CheckNotebookScreen
    f.functions.click_delete_notebook_if_enable_suspicious()
    f.workflow.assert_and_validate_popup_and_error_messages_suspicious_loading()
    soft_assert.assert_all()

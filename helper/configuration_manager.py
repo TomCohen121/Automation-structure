@@ -118,6 +118,16 @@ class ConfigurationManager:
         return token_map.get(selected_token)
 
     @staticmethod
+    def server_url(self):
+        selected_environment = ConfigurationManager._config["environment"]
+        if selected_environment == "DEV":
+            selected_server_url = ConfigurationManager._config["server_url_DEV"]
+        else:
+            selected_server_url = ConfigurationManager._config["server_url_QA"]
+
+        return selected_server_url
+
+    @staticmethod
     def maximize_window():
         return ConfigurationManager._config["maximize_window"]
 

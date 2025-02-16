@@ -21,7 +21,7 @@ def test_regular_approve_notebook_uncheck(f, add_allure_attach, page):
     f.functions.table_choose_a_row(2).dblclick()
 
     #PortionScreen
-    f.functions.click_button_if_enable(f.portionPage.btn_cancel_portion_uncheck())
+    f.functions.click_delete_portion_if_enable()
     f.portionPage.btn_approve_portion_uncheck().click()
     f.functions.reload_page()
     checked_notebook_percent = f.portionPage.txt_table_percent_of_checked_notebooks(2)

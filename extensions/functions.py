@@ -262,6 +262,12 @@ class Functions(BasePage):
             button.click()
             self.checkNotebookPage.btn_save_delete_notebook_test_suspicious().click()
 
+    def click_delete_portion_if_enable(self):
+        button = self.portionPage.btn_delete_portion_data()
+        if button.is_enabled():
+            button.click()
+            self.portionPage.btn_save_delete_portion_data().click()
+
     def check_if_button_enabled_and_click(self, button_locator, error_message):
         """Waits for a button to be visible, clicks it if enabled."""
         button_locator.wait_for(state="visible", timeout=5000)
@@ -316,7 +322,7 @@ class Functions(BasePage):
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/mismatch/questions?notebookInLoadingId={notebook_id}"
+        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/mismatch/questions?notebookInLoadingId={notebook_id}"
         response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
         data = response.json()
         return data
@@ -327,7 +333,7 @@ class Functions(BasePage):
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/expert/questions?notebookInLoadingId={notebook_id}"
+        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/expert/questions?notebookInLoadingId={notebook_id}"
         response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
         data = response.json()
         return data
@@ -380,7 +386,7 @@ class Functions(BasePage):
 
 
     def authorization_token(self, token2):
-        url = 'https://marvad-test.mrvd.education.gov.il:4434/api/User/sso?sso=98'
+        url = f'{ConfigurationManager.server_url(self)}User/sso?sso=DEV'
         headers = {
             'SC': token2
         }

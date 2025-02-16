@@ -27,6 +27,8 @@ def test_suspicious_delete_portion_data(f, add_allure_attach, page):
     # NotebookScreen
     f.functions.popup_answer_law()
     f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
+
+    # PortionScreen
     f.portionPage.btn_delete_portion_data().click()
     f.portionPage.btn_save_delete_portion_data().click()
     table_num_of_suspicion_approved_after = f.functions.number_to_int(f.suspiciousLoadingPortionPage.txt_table_num_of_suspicion_approved(2))

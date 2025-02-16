@@ -6,21 +6,21 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
-@allure.story("Delete Portion Data - Regular Loading")
+@pytest.mark.suspicious_loading
+@allure.story("Delete Portion Data - Suspicious Loading")
 @allure.description("Deleting the Portion Data using the 'Delete Portion data' button")
-def test_regular_delete_portion_data(f, add_allure_attach, page):
-    f.functions.check_if_loading_number_exist(regular_loading_num, 'regular_loading_num')
+def test_suspicious_delete_portion_data(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(suspicious_loading_num, 'suspicious_loading_num')
     # Dashboard
     f.workflow.navigation_to_loading_screen()
 
     #LoadingScreen
-    f.functions.search_loading(regular_loading_num)
+    f.functions.search_loading(suspicious_loading_num)
     f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
     #CheckNotebookScreen
-    f.functions.click_delete_notebook_if_enable()
-    f.workflow.notebook_checking_process()
+    f.functions.click_delete_notebook_if_enable_suspicious()
+    f.workflow.notebook_suspicion_approved_process()
 
     ##################################################################################################################################################################################
                                                                  # Testing
@@ -31,10 +31,10 @@ def test_regular_delete_portion_data(f, add_allure_attach, page):
     # PortionScreen
     f.portionPage.btn_delete_portion_data().click()
     f.portionPage.btn_save_delete_portion_data().click()
-    table_num_of_checked_notebooks_after = f.functions.number_to_int(f.portionPage.txt_table_num_of_checked_notebooks(2))
-    f.functions.assert_equal_to(table_num_of_checked_notebooks_after,0, "Number of checked Notebooks is incorrect")
-    table_avg_grade_after = f.functions.number_to_int(f.portionPage.txt_table_avg_grade(2))
-    f.functions.assert_equal_to(table_avg_grade_after,0, "The Portion Average grade incorrect")
+    table_num_of_suspicion_approved = f.functions.number_to_int(f.suspiciousLoadingPortionPage.txt_table_num_of_suspicion_approved(2))
+    f.functions.assert_equal_to(table_num_of_suspicion_approved,0, "Number of Suspicion Approved Notebooks is incorrect")
+    table_num_of_suspicion_denied = f.functions.number_to_int(f.suspiciousLoadingPortionPage.txt_table_num_of_suspicion_denied(2))
+    f.functions.assert_equal_to(table_num_of_suspicion_denied,0,"Number of Suspicion Denied Notebooks is incorrect")
     f.functions.assert_equal_to(f.portionPage.txt_table_portion_status(2), "מנה נשלחה לבדיקה","the Portion status is not 'מנה נשלחה לבדיקה'")
 
 
