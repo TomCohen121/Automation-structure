@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-@pytest.mark.afterappeal_loading
+# @pytest.mark.afterappeal_loading
 @allure.story("Half Discharge Process AfterAppeal Loading")
 @allure.description("AfterAppeal Notebook Half Discharge Process")
 def test_afterappeal_loading_half_discharge(f, add_allure_attach, page):

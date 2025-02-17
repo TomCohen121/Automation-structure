@@ -26,6 +26,8 @@ misMatch_loading_for_discharge = None
 senior_loading_num = None
 senior_loading_for_discharge = None
 
+# Assessment_Loading
+assessment_loading_num = None
 
 def load_numbers_from_yaml(file_path):
     global regular_loading_num, regular_loading_for_discharge, answer_law
@@ -33,6 +35,7 @@ def load_numbers_from_yaml(file_path):
     global suspicious_loading_num, suspicious_loading_for_discharge
     global misMatch_loading_num, misMatch_loading_for_discharge
     global senior_loading_num, senior_loading_for_discharge
+    global assessment_loading_num
 
     with open(file_path, 'r') as yaml_file:
         config = yaml.safe_load(yaml_file)
@@ -59,6 +62,9 @@ def load_numbers_from_yaml(file_path):
     # Senior Loading
     senior_loading_num = loading_numbers.get("senior_loading_num")
     senior_loading_for_discharge = loading_numbers.get("senior_loading_for_discharge")
+
+    # Assessment_Loading
+    assessment_loading_num = loading_numbers.get("assessment_loading_num")
 
 
 yaml_file_path = path_from_project_root('resources/Configuration.yml')

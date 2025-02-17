@@ -6,7 +6,6 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.mismatch_loading
 @allure.story("Set Uncheck Notebook Test for MisMatch Loading")
 @allure.description("Set Uncheck Notebook Process and Loading Discharge For Mismatch Notebook")
 def test_mismatch_loading_set_uncheck_notebook(f, add_allure_attach, page):

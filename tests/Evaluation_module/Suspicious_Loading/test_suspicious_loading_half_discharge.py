@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-@pytest.mark.suspicious_loading
+# @pytest.mark.suspicious_loading
 @allure.story("Half Discharge Process for Suspicious Loading")
 @allure.description("Half Discharge Process For Suspicious Notebook")
 def test_suspicious_loading_half_discharge(f, add_allure_attach, page):

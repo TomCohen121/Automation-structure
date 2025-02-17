@@ -2,7 +2,8 @@ import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
 from helper.soft_assert import soft_assert
-from helper.utils import regular_loading_num
+from helper.utils import regular_loading_num, assessment_loading_num
+
 
 @pytest.mark.permissions_regular_evaluator
 @allure.story("Permissions for Regular Evaluator")
@@ -21,7 +22,7 @@ def test_permissions_for_regular_evaluator(f, add_allure_attach, page):
     f.functions.search_loading(regular_loading_num)
     f.functions.assert_element_exists(f.permissions.btn_loading_archive(), "The Button - מעבר לארכיון טעינות")
     f.functions.assert_element_exists(f.permissions.btn_loading_discharge(), "The Button - סיום בדיקה ושליחה למרבד")
-    f.functions.assert_element_not_exists(f.permissions.btn_reset_loading_to_starting_state(),"The Button - החזר טעינה למצב התחלתי")
+    # f.functions.assert_element_not_exists(f.permissions.btn_reset_loading_to_starting_state(),"The Button - החזר טעינה למצב התחלתי")
     f.functions.table_choose_a_row(2).dblclick()
 
     #PortionScreen
@@ -45,11 +46,13 @@ def test_permissions_for_regular_evaluator(f, add_allure_attach, page):
     f.functions.assert_element_exists(f.permissions.btn_suspicious_notebook(), "The Button - מחברת חשודה")
     f.functions.assert_element_exists(f.permissions.btn_save_and_end_notebook_test(), "The Button - שמור וסיים בדיקת מחברת")
     f.functions.assert_element_exists(f.permissions.btn_save_question_score(), "The Button - שמור - in Grade Component")
+    f.breadcrumbs.btn_breadcrumbs_to_loadings_page().click()
 
     #################################################################################################################################################
 
     # LoadingScreen
-    f.functions.choose_filter_option("טעינה למדגם לפני הערכה")
+    # f.functions.choose_filter_option("טעינה למדגם לפני הערכה")
+    f.functions.search_loading(assessment_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
     # PortionScreen

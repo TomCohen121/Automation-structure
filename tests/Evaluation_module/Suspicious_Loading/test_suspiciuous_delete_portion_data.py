@@ -29,12 +29,12 @@ def test_suspicious_delete_portion_data(f, add_allure_attach, page):
     f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
 
     # PortionScreen
-    f.portionPage.btn_delete_portion_data().click()
-    f.portionPage.btn_save_delete_portion_data().click()
+    f.workflow.delete_portion_data()
     table_num_of_suspicion_approved_after = f.functions.number_to_int(f.suspiciousLoadingPortionPage.txt_table_num_of_suspicion_approved(2))
     f.functions.assert_equal_to(table_num_of_suspicion_approved_after, 0,"Number of Suspicion Approved Notebooks is incorrect")
     f.functions.assert_equal_to(f.portionPage.txt_table_portion_status(2), "מנה נשלחה לבדיקה","the Portion status is not 'מנה נשלחה לבדיקה'")
 
+    soft_assert.assert_all()
 
 
 

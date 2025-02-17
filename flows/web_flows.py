@@ -1,4 +1,6 @@
 import re
+from xmlrpc.client import Error
+
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -38,6 +40,7 @@ class WorkFlow(BasePage):
        """Process of checking a notebook and saving the Notebook grade."""
        self.answer_one_question()
        self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
+       self.page.wait_for_function("document.querySelector('.summary-scores p') && document.querySelector('.summary-scores p').textContent.match(/\\d+/)",timeout=5000)
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -78,20 +81,28 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_question_score().fill('6')
        self.checkNotebookPage.btn_maximum_grade().click()
 
+    # --------------------------- Delete Flows ---------------------------
+
+   def delete_notebook_test(self):
+       self.checkNotebookPage.btn_delete_notebook_test().click()
+       self.checkNotebookPage.btn_save_delete_notebook_test().click()
+       self.page.wait_for_timeout(1000)
+
+   def delete_portion_data(self):
+       self.portionPage.btn_delete_portion_data().click()
+       self.portionPage.btn_save_delete_portion_data().click()
+       self.page.wait_for_timeout(1000)
+
     # --------------------------- Notebooks Process ---------------------------
+
    def add_notebook_comment(self):
        self.checkNotebookPage.btn_add_comment().click()
        self.checkNotebookPage.field_comment_text().fill("tom")
        self.checkNotebookPage.btn_save_comment().click()
        self.checkNotebookPage.btn_all_comments().click()
 
-   def delete_notebook_test(self):
-       """Deletes the notebook test if the delete button is enabled."""
-       if self.checkNotebookPage.btn_delete_notebook_test().is_enabled():
-           self.checkNotebookPage.btn_delete_notebook_test().click()
-           self.checkNotebookPage.btn_save_delete_notebook_test().click()
-
    def assert_check_notebook_score_deleted(self):
+       self.page.wait_for_function("document.querySelector('.summary-scores p') && !document.querySelector('.summary-scores p').textContent.match(/\\d+/)",timeout=5000)
        notebook_grade = self.checkNotebookPage.txt_total_notebook_grade().text_content()
        match = re.search(r'\d+', notebook_grade)
        assert not match, f"Notebook grade was not deleted, The Grade is: {notebook_grade}."
@@ -104,6 +115,7 @@ class WorkFlow(BasePage):
    # --------------------------- Navigation Flows ---------------------------
 
    def navigation_from_loading_to_check_notebook_page(self, row_number, row_number1, row_number2):
+       self.functions.table_choose_a_row(row_number).click()
        self.functions.table_choose_a_row(row_number).dblclick()
        self.functions.table_choose_a_row(row_number1).dblclick()
        self.functions.popup_answer_law()
@@ -125,42 +137,51 @@ class WorkFlow(BasePage):
    def assert_and_validate_popup_and_error_messages_regular_loading(self):
        """Validate the correct error message for Regular loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
        self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש להזין ציון לפחות לשאלה אחת")
 
    def assert_and_validate_popup_and_error_messages_answer_law(self):
        """Validate the correct error message for Answer Law."""
        self.answer_law_questions_loop()
+       self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"אין אפשרות לקלוט שאלה - הפרת חוקי מענה!")
 
    def assert_and_validate_popup_and_error_messages_suspicious_loading(self):
        """Validate the correct error message for Suspicious loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
        self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לאשר / לבטל חשד לפני סיום בדיקה")
 
    def assert_and_validate_popup_and_error_messages_senior_loading(self):
        """Validate the correct error message for Senior loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
        self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message()
+       self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לסגור את הפער לפני סיום בדיקה")
 
    def assert_and_validate_popup_and_error_messages_mismatch_loading(self):
        """Validate the correct error message for Mismatch loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message()
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
        self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
@@ -169,6 +190,7 @@ class WorkFlow(BasePage):
        unanswered_questions = self.functions.extract_unanswered_descriptions(notebook_data)
        print(f"the queistons is {unanswered_questions}")
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
+       self.checkNotebookPage.popup_saving_notebook_error_message()
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), f"לא הוזן ציון לכל השאלות, יש להזין ציון לשאלות: {unanswered_questions}")
 
     # --------------------------- Suspicious Notebook Flows ---------------------------
@@ -182,8 +204,12 @@ class WorkFlow(BasePage):
 
    def notebook_suspicion_approved_process(self):
        self.checkNotebookPage.btn_suspicion_approved().click()
-       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(), 'div')
-       self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
+       badge_count = self.page.locator('div.badges-area > app-badge').count()
+       if badge_count == 0:
+          self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(), 'div')
+          self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
+       else:
+            pass
        self.checkNotebookPage.field_suspicious_text().fill('tom')
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
        self.functions.notebook_pagination_loop()
@@ -215,6 +241,7 @@ class WorkFlow(BasePage):
        suspicious_text = self.checkNotebookPage.field_suspicious_text().text_content()
        assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
        self.checkNotebookPage.btn_x_suspicious_notebook_popup().click()
+
 
    # --------------------------- Uncheck Notebook Flows ---------------------------
 

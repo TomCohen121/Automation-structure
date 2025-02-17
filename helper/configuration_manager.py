@@ -63,7 +63,7 @@ class ConfigurationManager:
         tag_expression = " or ".join(tags)  # מחבר את כל התגיות עם OR
         pytest.main([
             "-m", tag_expression,  # מריץ את הבדיקות עם התגיות
-            # "--alluredir=allure-results",  # שמירת תוצאות Allure בתיקייה allure-results
+            "--alluredir=allure-results",  # שמירת תוצאות Allure בתיקייה allure-results
             # "-n", "auto", # מפעיל את התהליכים במקביל
             "-r", "a",
         ])

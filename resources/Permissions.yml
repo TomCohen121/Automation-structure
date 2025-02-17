@@ -1,11 +1,10 @@
 Senior Evaluator:
-  - senior_loading
-  - mismatch_loading
+#  - senior_loading
+#  - mismatch_loading
   - regular_loading
-  - suspicious_loading
-  - afterappeal_loading
-  - permissions_senior_evaluator
-
+#  - suspicious_loading
+#  - afterappeal_loading
+#  - permissions_senior_evaluator
 #  - regular_loading_discharge
 #  - afterappeal_loading_discharge
 #  - mismatch_loading_discharge
@@ -20,6 +19,11 @@ Regular Evaluator:
 
 Development Worker:
   - permissions_development_worker
+  - senior_loading
+  - mismatch_loading
+  - regular_loading
+  - suspicious_loading
+  - afterappeal_loading
 #  - regular_loading_discharge
 #  - afterappeal_loading_discharge
 #  - mismatch_loading_discharge
@@ -28,6 +32,11 @@ Development Worker:
 
 Assessment Section Manager:
   - permissions_assessment_section_manager
+  - senior_loading
+  - mismatch_loading
+  - regular_loading
+  - suspicious_loading
+  - afterappeal_loading
 #  - regular_loading_discharge
 #  - afterappeal_loading_discharge
 #  - mismatch_loading_discharge
@@ -36,6 +45,11 @@ Assessment Section Manager:
 
 Marvad CEO:
   - permissions_maravad_ceo
+  - senior_loading
+  - mismatch_loading
+  - regular_loading
+  - suspicious_loading
+  - afterappeal_loading
 #  - regular_loading_discharge
 #  - afterappeal_loading_discharge
 #  - mismatch_loading_discharge
@@ -44,6 +58,11 @@ Marvad CEO:
 
 System Administrator:
   - permissions_system_administrator
+  - senior_loading
+  - mismatch_loading
+  - regular_loading
+  - suspicious_loading
+  - afterappeal_loading
 #  - regular_loading_discharge
 #  - afterappeal_loading_discharge
 #  - mismatch_loading_discharge
@@ -52,14 +71,18 @@ System Administrator:
 
 Mafmar:
   - permissions_mafmar
-#  - regular_loading_discharge
+  - senior_loading
+  - afterappeal_loading
 #  - afterappeal_loading_discharge
-#  - mismatch_loading_discharge
 #  - senior_loading_discharge
-#  - suspicious_loading_discharge
 
 Professional Manager:
   - permissions_professional_manager
+  - senior_loading
+  - mismatch_loading
+  - regular_loading
+  - suspicious_loading
+  - afterappeal_loading
 #  - regular_loading_discharge
 #  - afterappeal_loading_discharge
 #  - mismatch_loading_discharge

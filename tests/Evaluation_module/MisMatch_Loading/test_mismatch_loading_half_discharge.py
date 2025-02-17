@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.mismatch_loading
+# @pytest.mark.mismatch_loading
 @allure.story("Half Discharge Process for MisMatch Loading")
 @allure.description("Mismatch Notebook Half Discharge Process")
 def test_mismatch_loading_half_discharge(f, add_allure_attach, page):

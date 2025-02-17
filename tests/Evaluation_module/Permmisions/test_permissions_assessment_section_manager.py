@@ -166,6 +166,7 @@ def test_permissions_for_assessment_section_manager(f, add_allure_attach, page):
 
     # LoadingScreen
     f.functions.choose_filter_option("טעינה למדגם לפני הערכה")
+    f.functions.search_loading(assessment_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
     # PortionScreen

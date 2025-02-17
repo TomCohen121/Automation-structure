@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 @pytest.mark.suspicious_loading_discharge
-@allure.story("Ssuspicious loading discharge")
+@allure.story("Suspicious loading discharge")
 @allure.description("SuspiciousNotebook Checking and Suspicious Loading Discharge Process")
 def test_suspicious_loading_discharge(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(suspicious_loading_for_discharge,'suspicious_loading_for_discharge')

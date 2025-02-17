@@ -73,9 +73,6 @@ class Functions(BasePage):
         except Exception:
             print("❌ The element does not exist")
 
-    def sleep(self , time_to_sleep):
-        time.sleep(time_to_sleep)
-
     def wait_for_loader(self, timeout=35000, timeout_for_second=5000):
         """Waits for the loader to appear (if exists) and then disappear."""
         try:
@@ -84,6 +81,9 @@ class Functions(BasePage):
                 self.page.wait_for_selector(".loading-bar-wrapper", state="hidden", timeout=timeout_for_second)
         except Exception as e:
             print(f"Loader wait skipped or failed: {e}")
+
+    def reload_page(self):
+        self.page.reload()
 
     # --------------------------- Popup Functions ---------------------------
 
@@ -140,10 +140,17 @@ class Functions(BasePage):
             self.page.keyboard.press('Enter')
 
     def questions_numbers_finish_popup(self):
-        popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
-        if popup_locator.is_visible():
-            popup_locator.click()
-            return
+        try:
+            popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
+            try:
+                popup_locator.wait_for(timeout=2000)
+            except TimeoutError:
+                pass
+            if popup_locator.is_visible():
+                popup_locator.click()
+                return
+        except Exception as e:
+            pass
 
     def fill_question_numbers(self, question_numbers, api_data):
         """fills in question numbers and sub-question numbers, sets scores for them, and saves the data."""
@@ -160,19 +167,35 @@ class Functions(BasePage):
                     self.page.keyboard.press('Enter')
                     self.checkNotebookPage.field_question_score().fill('6')
                     self.checkNotebookPage.btn_maximum_grade().click()
-                    if self.checkNotebookPage.field_question_score().is_disabled():
-                        popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
-                        if popup_locator.is_visible():
-                            popup_locator.click()
-                            return
+                    try:
+                        if self.checkNotebookPage.field_question_score().is_disabled():
+                            popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
+                            try:
+                                popup_locator.wait_for(timeout=2000)
+                            except TimeoutError:
+                                pass
+                            if popup_locator.is_visible():
+                                popup_locator.click()
+                                return
+                    except Exception as e:
+                        pass
             else:
                 self.checkNotebookPage.field_question_score().fill('6')
                 self.checkNotebookPage.btn_maximum_grade().click()
                 if self.checkNotebookPage.field_question_score().is_disabled():
-                    popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
-                    if popup_locator.is_visible():
-                        popup_locator.click()
-                        return
+                    self.checkNotebookPage.btn_save_gap_successfully_closed().wait_for(timeout=2000)
+                    try:
+                        if self.checkNotebookPage.field_question_score().is_disabled():
+                            popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
+                            try:
+                                popup_locator.wait_for(timeout=2000)
+                            except TimeoutError:
+                                pass
+                            if popup_locator.is_visible():
+                                popup_locator.click()
+                                return
+                    except Exception as e:
+                        pass
 
     # --------------------------- Data Extraction Functions ---------------------------
 
@@ -255,12 +278,14 @@ class Functions(BasePage):
         if button.is_enabled():
             button.click()
             self.checkNotebookPage.btn_save_delete_notebook_test().click()
+            self.page.wait_for_timeout(1000)
 
     def click_delete_notebook_if_enable_suspicious(self):
         button = self.checkNotebookPage.btn_delete_notebook_test()
         if button.is_enabled():
             button.click()
             self.checkNotebookPage.btn_save_delete_notebook_test_suspicious().click()
+            self.page.wait_for_timeout(1000)
 
     def click_delete_portion_if_enable(self):
         button = self.portionPage.btn_delete_portion_data()
@@ -312,9 +337,6 @@ class Functions(BasePage):
         return is_disabled
 
     # ---------------------------  API Fetch Data Functions ---------------------------
-
-    def reload_page(self):
-        self.page.reload()
 
     def fetch_api_data_mismatch(self, params=None):
         """Fetches API data related to mismatched questions for the notebook."""
