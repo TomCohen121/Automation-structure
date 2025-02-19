@@ -23,10 +23,3 @@ def add_allure_attach(request, setup_page):
     yield
     allure.attach(setup_page.screenshot(), name="After Test", attachment_type=allure.attachment_type.PNG)
 
-# @pytest.hookimpl(tryfirst=True, hookwrapper=True)
-# def pytest_runtest_makereport(item, call):
-#     """Send report after test execution"""
-#     yield
-#     if call.when == "teardown":
-#         report_path = r'allure-report/index.html'
-#         ReportingManager.send_report(report_path)

@@ -22,4 +22,11 @@ def test_regular_delete_notebook_grade(f, add_allure_attach, page):
     f.workflow.answer_one_question()
     f.workflow.delete_notebook_test()
     f.workflow.assert_check_notebook_score_deleted()
+    f.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()
 
+    # NotebookPage
+    f.functions.popup_answer_law()
+    table_notebook_grade_after = f.functions.number_to_int(f.notebookPage.txt_table_notebook_grade(2))
+    f.functions.assert_equal_to(table_notebook_grade_after, 0, "The Notebook grade is incorrect")
+
+    soft_assert.assert_all()

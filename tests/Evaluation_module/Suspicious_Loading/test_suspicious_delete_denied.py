@@ -27,3 +27,6 @@ def test_suspicious_delete_approve(f, add_allure_attach, page):
 
    # NotebookScreen
    f.functions.assert_is_checkbox_checked(f.suspiciousLoadingNotebookPage.checkbox_notebook_suspicious_denied(2), expected_checked=False)
+   f.functions.assert_equal_to(f.suspiciousLoadingNotebookPage.txt_suspicious_notebook_status(2),"מחברת נשלחה לבדיקה", "the Notebook status is not 'מחברת נשלחה לבדיקה'")
+
+   soft_assert.assert_all()

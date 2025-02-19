@@ -19,8 +19,34 @@ def test_regular_delete_notebook_uncheck(f, add_allure_attach, page):
 
     #CheckNotebookScreen
     f.functions.click_delete_notebook_if_enable()
-    f.workflow.flow_set_uncheck_notebook()
+    f.workflow.flow_set_uncheck_notebook_and_save()
+    f.functions.popup_answer_law()
+    f.functions.table_choose_a_row(2).dblclick()
     f.workflow.delete_notebook_test()
     f.workflow.assert_check_notebook_uncheck_deleted()
+    f.checkNotebookPage.btn_x_uncheck_notebook_popup().click()
+    f.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()
+
+    #NotebookScreen
+    f.functions.popup_answer_law()
+    table_num_of_checked_questions_after = f.functions.number_to_int(f.notebookPage.txt_table_num_of_checked_questions(2))
+    table_notebook_grade_after = f.functions.number_to_int(f.notebookPage.txt_table_notebook_grade(2))
+    f.functions.assert_equal_to(table_num_of_checked_questions_after,0, "Number of checked Questions is incorrect")
+    f.functions.assert_equal_to(f.notebookPage.txt_table_notebook_status(2), "מחברת נשלחה לבדיקה","the Notebook status is not 'מחברת נשלחה לבדיקה'")
+    f.functions.assert_equal_to(table_notebook_grade_after,0, "The Notebook grade is incorrect")
+    f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
+
+    #PortionScreen
+    table_num_of_checked_notebooks_after = f.functions.number_to_int(f.portionPage.txt_table_num_of_checked_notebooks(2))
+    f.functions.assert_equal_to(table_num_of_checked_notebooks_after,0, "Number of checked Notebooks is incorrect")
+    f.functions.assert_equal_to(f.portionPage.txt_table_portion_status(2), "מנה נשלחה לבדיקה","the Portion status is not 'מנה נשלחה לבדיקה'")
+
+    soft_assert.assert_all()
+
+
+
+
+
+
 
 

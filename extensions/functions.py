@@ -65,6 +65,7 @@ class Functions(BasePage):
         """Fills the loading number in the search field and submits it."""
         self.loadingPage.field_search().fill(loadingNumber)
         self.loadingPage.field_search().press('Enter')
+        self.page.wait_for_timeout(1000)
 
     # --------------------------- Loading Functions ---------------------------
     def wait_for_element(self, locator, timeout=5000):
@@ -317,7 +318,7 @@ class Functions(BasePage):
     def assert_element_not_exists(self, element, button_name: str):
         """Checks if an element does not exist or is not visible and enabled."""
         try:
-            element.wait_for(timeout=3000)
+            element.wait_for(timeout=2000)
             element_visible = element.is_visible()
             element_enabled = element.is_enabled()
             condition = not element_visible or not element_enabled

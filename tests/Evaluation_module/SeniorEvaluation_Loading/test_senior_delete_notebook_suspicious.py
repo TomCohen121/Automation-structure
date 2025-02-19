@@ -25,3 +25,17 @@ def test_senior_delete_notebook_suspicious(f, add_allure_attach, page):
     f.functions.wait_for_element(f.checkNotebookPage.btn_delete_notebook_test())
     f.workflow.delete_notebook_test()
     f.workflow.assert_check_notebook_suspicious_deleted()
+    f.checkNotebookPage.btn_x_suspicious_notebook_popup().click()
+    f.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()
+
+    #NotebookScreen
+    f.functions.popup_answer_law()
+    f.functions.assert_is_checkbox_checked(f.notebookPage.checkbox_notebook_suspicious_evaluation(2), expected_checked=False)
+    f.breadcrumbs.btn_breadcrumbs_to_portions_page().click()
+
+    #PortionScreen
+    table_num_of_suspicion_approved_after = f.functions.number_to_int(f.suspiciousLoadingPortionPage.txt_table_num_of_suspicion_approved(2))
+    f.functions.assert_equal_to(table_num_of_suspicion_approved_after, 0,"Number of Suspicion Approved Notebooks is incorrect")
+
+    soft_assert.assert_all()
+

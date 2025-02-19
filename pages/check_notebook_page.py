@@ -93,10 +93,10 @@ class CheckNotebookPage(BasePage):
        return self.page.locator("app-big-button").get_by_role("button", name="שמור")
 
    def btn_x_suspicious_notebook_popup(self):
-       return self.page.locator(".closeapproveSuspicionPopup .mat-icon svg")
-
+       return self.page.locator(".closeSuspiciousNotebookPopup > .mat-icon > svg")
 
     # --------------------------- Uncheck Notebook Locators ---------------------------
+
    def btn_uncheck_notebook(self):
        return self.page.get_by_role("button", name="אי בדיקת מחברת")
 
@@ -109,6 +109,8 @@ class CheckNotebookPage(BasePage):
    def btn_save_uncheck_notebook_popup(self):
        return self.page.locator("app-big-button").get_by_role("button", name="שמור")
 
+   def btn_x_uncheck_notebook_popup(self):
+       return self.page.locator(".closeRequiredUnableToCheckPopup > .mat-icon > svg")
 
     # --------------------------- Error Locators ---------------------------
    def popup_saving_notebook_error_message(self):

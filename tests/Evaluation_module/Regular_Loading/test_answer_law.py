@@ -24,3 +24,4 @@ def test_answer_law(f, add_allure_attach, page):
 
    soft_assert.assert_all()
 
+

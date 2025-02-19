@@ -6,7 +6,7 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-# @pytest.mark.suspicious_loading
+@pytest.mark.suspicious_loading
 @allure.story("Add Comment to Notebook - Suspicious Loading")
 @allure.description("Adding a Comment to notebook using the 'Add comment' button")
 def test_suspicious_add_notebook_comment(f, add_allure_attach, page):

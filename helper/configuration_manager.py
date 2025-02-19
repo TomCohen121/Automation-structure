@@ -1,9 +1,13 @@
 import os
 import shutil
+import subprocess
 import sys
 import pytest
 import yaml
 from playwright.sync_api import Playwright, BrowserType
+
+from pytest_playwright.pytest_playwright import playwright
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 class ConfigurationManager:
@@ -67,6 +71,8 @@ class ConfigurationManager:
             # "-n", "auto", # מפעיל את התהליכים במקביל
             "-r", "a",
         ])
+        subprocess.run([r"C:\Automation\allure-2.30.0\bin\allure.bat", "serve", "allure-results"])
+
     @staticmethod
     def get_browser():
         return ConfigurationManager._config["browser"]
