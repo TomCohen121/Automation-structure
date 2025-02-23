@@ -63,6 +63,9 @@ class CheckNotebookPage(BasePage):
    def txt_first_comment(self):
        return self.page.locator(".text-side p").first.text_content().strip()
 
+   def btn_close_comment(self):
+       return self.page.get_by_role("button", name="סגור")
+
    # --------------------------- End Notebook Review Locators ---------------------------
    def btn_save_and_end_notebook_test(self):
        return self.page.get_by_role("button", name="שמור וסיים בדיקת מחברת")
@@ -135,5 +138,3 @@ class CheckNotebookPage(BasePage):
 
    def txt_approve_and_denied_tag(self):
        return self.page.locator("app-message-bar-square-row")
-
-

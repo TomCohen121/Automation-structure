@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-# @pytest.mark.senior_loading
+# @pytest.mark.senior_loading #C22677
 @allure.story("Half Discharge Process for Senior Loading")
 @allure.description("Half Discharge Process For Senior Notebook")
 def test_senior_loading_half_discharge(f, add_allure_attach, page):

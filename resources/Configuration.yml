@@ -11,8 +11,8 @@ server_url_DEV: "https://marvad-test.mrvd.education.gov.il:4433/api/"
 
 loading_numbers:
   # Regular Loading
-  regular_loading_num: "0047675"
-  regular_loading_num_for_discharge: "0047680"
+  regular_loading_num: "0047680"
+  regular_loading_num_for_discharge: "0005172"
   answer_law: "0045617"
 
   # MisMatch Loading

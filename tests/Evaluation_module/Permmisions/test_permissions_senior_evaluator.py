@@ -4,7 +4,6 @@ from pytest_playwright.pytest_playwright import page
 from helper.soft_assert import soft_assert
 from helper.utils import *
 
-
 @pytest.mark.permissions_senior_evaluator
 @allure.story("Permissions for Senior Evaluator")
 @allure.description("Checking Permissions for Senior Evaluator")
@@ -13,7 +12,6 @@ def test_permissions_for_senior_evaluator(f, add_allure_attach, page):
     f.workflow.navigation_to_loading_screen()
 
     # LoadingScreen
-    f.functions.choose_filter_option("טעינה להערכה")
     f.functions.search_loading(regular_loading_num)
     f.functions.assert_element_exists(f.permissions.btn_loading_archive(), "The Button - מעבר לארכיון טעינות")
     f.functions.assert_element_exists(f.permissions.btn_loading_discharge(), "The Button - סיום בדיקה ושליחה למרבד")
@@ -46,7 +44,6 @@ def test_permissions_for_senior_evaluator(f, add_allure_attach, page):
     #################################################################################################################################################
 
     #LoadingScreen
-    f.functions.choose_filter_option("טעינה להערכה בכירה")
     f.functions.search_loading(senior_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
@@ -76,7 +73,6 @@ def test_permissions_for_senior_evaluator(f, add_allure_attach, page):
     #################################################################################################################################################
 
     # LoadingScreen
-    f.functions.choose_filter_option("טעינה לאי התאמה")
     f.functions.search_loading(misMatch_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
@@ -106,7 +102,6 @@ def test_permissions_for_senior_evaluator(f, add_allure_attach, page):
     #################################################################################################################################################
 
     # LoadingScreen
-    f.functions.choose_filter_option("טעינה לחשודים")
     f.functions.search_loading(suspicious_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
@@ -137,7 +132,6 @@ def test_permissions_for_senior_evaluator(f, add_allure_attach, page):
     #################################################################################################################################################
 
     # LoadingScreen
-    f.functions.choose_filter_option("טעינה לאחר ערעור")
     f.functions.search_loading(appeal_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 
@@ -167,7 +161,6 @@ def test_permissions_for_senior_evaluator(f, add_allure_attach, page):
     #################################################################################################################################################
 
     # LoadingScreen
-    f.functions.choose_filter_option("טעינה למדגם לפני הערכה")
     f.functions.search_loading(assessment_loading_num)
     f.functions.table_choose_a_row(2).dblclick()
 

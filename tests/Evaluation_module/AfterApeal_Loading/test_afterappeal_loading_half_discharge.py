@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-# @pytest.mark.afterappeal_loading
+# @pytest.mark.afterappeal_loading #C22674
 @allure.story("Half Discharge Process AfterAppeal Loading")
 @allure.description("AfterAppeal Notebook Half Discharge Process")
 def test_afterappeal_loading_half_discharge(f, add_allure_attach, page):
@@ -18,6 +18,7 @@ def test_afterappeal_loading_half_discharge(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_checknotebookpage(2,2,2)
 
     #CheckNotebookScreen
+    f.functions.click_delete_notebook_if_enable()
     f.workflow.notebook_checking_process()
 
     ###########################################################################################################################################

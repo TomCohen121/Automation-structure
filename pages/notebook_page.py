@@ -18,3 +18,6 @@ class NotebookPage(BasePage):
 
    def checkbox_notebook_suspicious_evaluation(self, row_number):
        return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(5) app-checkbox").first
+
+   def txt_table_notebook_comment(self, row_number):
+       return self.page.locator(f"tr:nth-child({row_number}) td:nth-child(8) .text-wrapper .text-overflow span").first

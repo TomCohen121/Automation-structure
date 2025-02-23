@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.senior_loading_discharge
+@pytest.mark.senior_loading_discharge #C25305
 @allure.story("Senior Evaluation loading discharge")
 @allure.description("Senior Evaluation Notebook Checking and Senior Evaluation Loading Discharge Process")
 def test_senior_loading_discharge(f, add_allure_attach, page):
@@ -34,7 +34,7 @@ def test_senior_loading_discharge(f, add_allure_attach, page):
    f.workflow.loading_discharge_and_navigate_to_archive()
    f.functions.search_loading(senior_loading_for_discharge)
    f.functions.reload_page()
-   f.functions.assert_element_exists(f.functions.table_choose_a_row(2),"the loading exist")
+   f.functions.assert_element_exists(f.functions.table_choose_a_row(2),"Loading in Archive")
    f.breadcrumbs.btn_breadcrumbs_to_personal_area_page().click()
 
    #Dashboard

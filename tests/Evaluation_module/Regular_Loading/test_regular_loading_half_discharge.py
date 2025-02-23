@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-# @pytest.mark.regular_loading
+# @pytest.mark.regular_loading #C22673
 @allure.story("Half Discharge Process for Regular Loading")
 @allure.description("Regular Notebook Half Discharge Process")
 def test_regular_loading_half_discharge(f, add_allure_attach, page):
@@ -18,6 +18,7 @@ def test_regular_loading_half_discharge(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
     #CheckNotebookScreen
+    f.functions.click_delete_notebook_if_enable()
     f.workflow.notebook_checking_process()
 
     ###########################################################################################################################################

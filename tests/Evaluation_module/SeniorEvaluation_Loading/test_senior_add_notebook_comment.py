@@ -6,7 +6,7 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.senior_loading
+@pytest.mark.senior_loading #C20768
 @allure.story("Add Comment to Notebook - Senior Loading")
 @allure.description("Adding a Comment to notebook using the 'Add comment' button")
 def test_senior_add_notebook_comment(f, add_allure_attach, page):
@@ -19,6 +19,4 @@ def test_senior_add_notebook_comment(f, add_allure_attach, page):
 
     #CheckNotebook
     f.functions.questions_numbers_finish_popup()
-    f.workflow.add_notebook_comment()
-    notebook_comment = f.checkNotebookPage.txt_first_comment()
-    assert notebook_comment == "tom"
+    f.workflow.assert_add_notebook_comment_and_check()

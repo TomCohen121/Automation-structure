@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.suspicious_loading
+@pytest.mark.suspicious_loading #C22639
 @allure.story("E2E Test for Suspicious Loading - Denied Notebook Suspicion")
 @allure.description("Denied Notebook Suspicion And Loading Discharge Process For Suspicious Notebook")
 def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):

@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-@pytest.mark.senior_loading
+@pytest.mark.senior_loading #C22664
 @allure.story("Set Suspicious Notebook Test for Senior Loading")
 @allure.description("Set Suspicious Notebook Process and Loading Discharge For Senior Notebook")
 def test_senior_loading_set_suspicious_notebook(f, add_allure_attach, page):

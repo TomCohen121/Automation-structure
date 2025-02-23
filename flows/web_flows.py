@@ -1,9 +1,10 @@
 import re
 from xmlrpc.client import Error
-
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
+
+from pages.breadcrumbs import Breadcrumbs
 from pages.check_notebook_page import CheckNotebookPage
 from pages.loading_page import LoadingPage
 from pages.notebook_page import NotebookPage
@@ -11,7 +12,6 @@ from pages.personal_area_page import PersonalAreaPage
 from pages.portion_page import PortionPage
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
-
 
 class WorkFlow(BasePage):
    def __init__(self, page: Page):
@@ -24,6 +24,7 @@ class WorkFlow(BasePage):
        self.functions = Functions(self.page)
        self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
        self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
+       self.breadcrumbs = Breadcrumbs(self.page)
 
     # --------------------------- Notebooks Checking Process ---------------------------
 
@@ -75,6 +76,7 @@ class WorkFlow(BasePage):
             self.checkNotebookPage.btn_maximum_grade().click()
 
    def answer_one_question(self):
+       """Answer one Question."""
        self.checkNotebookPage.field_question_number().fill('1')
        self.checkNotebookPage.field_question_number().press('Enter')
        self.functions.is_subquestion_exist()
@@ -84,30 +86,42 @@ class WorkFlow(BasePage):
     # --------------------------- Delete Flows ---------------------------
 
    def delete_notebook_test(self):
+       """Deletes a notebook test by clicking the delete button and confirming the action."""
        self.checkNotebookPage.btn_delete_notebook_test().click()
        self.checkNotebookPage.btn_save_delete_notebook_test().click()
        self.page.wait_for_timeout(1000)
 
    def delete_portion_data(self):
+       """Deletes portion data by clicking the delete button and confirming the action."""
        self.portionPage.btn_delete_portion_data().click()
        self.portionPage.btn_save_delete_portion_data().click()
        self.page.wait_for_timeout(1000)
 
     # --------------------------- Notebooks Process ---------------------------
 
-   def add_notebook_comment(self):
+   def assert_add_notebook_comment_and_check(self):
+       """Adds a comment to the notebook and opens the comments list."""
        self.checkNotebookPage.btn_add_comment().click()
        self.checkNotebookPage.field_comment_text().fill("tom")
        self.checkNotebookPage.btn_save_comment().click()
        self.checkNotebookPage.btn_all_comments().click()
+       notebook_comment = self.checkNotebookPage.txt_first_comment()
+       assert notebook_comment == "tom"
+       self.checkNotebookPage.btn_close_comment().click()
+       self.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()
+       self.notebookPage.txt_table_notebook_comment(2).click()
+       notebook_table_comment = self.checkNotebookPage.txt_first_comment()
+       assert notebook_table_comment == "tom"
 
    def assert_check_notebook_score_deleted(self):
+       """Verifies that the notebook score has been deleted."""
        self.page.wait_for_function("document.querySelector('.summary-scores p') && !document.querySelector('.summary-scores p').textContent.match(/\\d+/)",timeout=5000)
        notebook_grade = self.checkNotebookPage.txt_total_notebook_grade().text_content()
        match = re.search(r'\d+', notebook_grade)
        assert not match, f"Notebook grade was not deleted, The Grade is: {notebook_grade}."
 
    def assert_check_notebook_uncheck_deleted(self):
+       """Verifies that the notebook uncheck process has been deleted."""
        self.checkNotebookPage.btn_uncheck_notebook().click()
        uncheck_reason = self.functions.get_placeholder_text(self.checkNotebookPage.dropdown_uncheck_reason())
        assert uncheck_reason == "חפש כאן...", f'The uncheck process was not deleted, The uncheck reason is: {uncheck_reason}'
@@ -115,6 +129,7 @@ class WorkFlow(BasePage):
    # --------------------------- Navigation Flows ---------------------------
 
    def navigation_from_loading_to_check_notebook_page(self, row_number, row_number1, row_number2):
+       """Navigates from the loading screen to the checkNotebookPage by selecting and interacting with table rows."""
        self.functions.table_choose_a_row(row_number).click()
        self.functions.table_choose_a_row(row_number).dblclick()
        self.functions.table_choose_a_row(row_number1).dblclick()
@@ -122,6 +137,7 @@ class WorkFlow(BasePage):
        self.functions.table_choose_a_row(row_number2).dblclick()
 
    def navigation_to_loading_screen(self):
+       """Navigates to the loading screen from the personal area."""
        self.personalAreaPage.btn_questionnaire_evaluation().click()
        self.personalAreaPage.btn_reception_screens().click()
        self.personalAreaPage.btn_loading_for_the_evaluator().click()
@@ -196,6 +212,7 @@ class WorkFlow(BasePage):
     # --------------------------- Suspicious Notebook Flows ---------------------------
 
    def flow_set_suspicious_notebook(self):
+       """Marks the notebook as suspicious."""
        self.checkNotebookPage.btn_suspicious_notebook().click()
        self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(),'div')
        self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
@@ -219,6 +236,7 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
    def notebook_suspicion_denied_process(self):
+       """Denies the suspicion process for the notebook and saves it."""
        self.checkNotebookPage.btn_suspicion_denied().click()
        self.checkNotebookPage.btn_save_suspicion_denied_popup().click()
        self.functions.notebook_pagination_loop()
@@ -228,6 +246,7 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
    def assert_check_notebook_suspicious_deleted(self):
+       """Asserts that suspicion details are removed from the notebook."""
        self.checkNotebookPage.btn_suspicious_notebook().click()
        badge_count = self.page.locator('div.badges-area > app-badge').count()
        assert badge_count == 0, f'Unexpected badges found! {badge_count} badges exist.'
@@ -235,6 +254,7 @@ class WorkFlow(BasePage):
        assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
 
    def assert_check_notebook_approve_suspicious_deleted(self):
+       """Asserts that suspicion approval details are removed from the notebook."""
        self.checkNotebookPage.btn_suspicion_approved().click()
        badge_count = self.page.locator('div.badges-area > app-badge').count()
        assert badge_count == 0, f'Unexpected badges found! {badge_count} badges exist.'
@@ -242,10 +262,10 @@ class WorkFlow(BasePage):
        assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
        self.checkNotebookPage.btn_x_suspicious_notebook_popup().click()
 
-
    # --------------------------- Uncheck Notebook Flows ---------------------------
 
    def flow_set_uncheck_notebook_and_save(self):
+       """Marks the notebook as unchecked and saves the changes."""
        self.flow_set_uncheck_notebook()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -253,6 +273,7 @@ class WorkFlow(BasePage):
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
    def flow_set_uncheck_notebook(self):
+       """Marks the notebook as unchecked and selects a reason."""
        self.checkNotebookPage.btn_uncheck_notebook().click()
        self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_uncheck_reason(),self.checkNotebookPage.dropdown_uncheck_reason_list(), 'div')
        self.uncheck_reason = self.functions.get_placeholder_text(self.checkNotebookPage.dropdown_uncheck_reason()).strip()

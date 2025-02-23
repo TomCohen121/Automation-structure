@@ -6,7 +6,7 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.suspicious_loading
+@pytest.mark.suspicious_loading #C17639
 @allure.story("Delete Portion Data - Suspicious Loading")
 @allure.description("Deleting the Portion Data using the 'Delete Portion data' button")
 def test_suspicious_delete_portion_data(f, add_allure_attach, page):

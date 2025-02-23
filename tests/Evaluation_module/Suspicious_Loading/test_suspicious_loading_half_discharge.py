@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-# @pytest.mark.suspicious_loading
+# @pytest.mark.suspicious_loading #C22676
 @allure.story("Half Discharge Process for Suspicious Loading")
 @allure.description("Half Discharge Process For Suspicious Notebook")
 def test_suspicious_loading_half_discharge(f, add_allure_attach, page):
@@ -18,6 +18,7 @@ def test_suspicious_loading_half_discharge(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
     #CheckNotebookScreen
+    f.functions.click_delete_notebook_if_enable_suspicious()
     f.workflow.notebook_suspicion_denied_process()
 
     ###########################################################################################################################################

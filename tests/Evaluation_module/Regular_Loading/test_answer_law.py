@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 
-@allure.story("Answer Law Test")
+@allure.story("Answer Law Test") #C21870
 @allure.description("Answer Law Checking Process")
 def test_answer_law(f, add_allure_attach, page):
    f.functions.check_if_loading_number_exist(answer_law,'answer_law')

@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.suspicious_loading
+@pytest.mark.suspicious_loading #C22672
 @allure.story("Error Handling Test for Suspicious Loading")
 @allure.description("Error Handling Checking Process For Suspicious Notebook")
 def test_suspicious_loading_error_handling(f, add_allure_attach, page):

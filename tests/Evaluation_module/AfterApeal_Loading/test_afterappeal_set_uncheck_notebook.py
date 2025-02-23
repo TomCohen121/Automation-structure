@@ -6,7 +6,7 @@ from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
 
-@pytest.mark.afterappeal_loading
+@pytest.mark.afterappeal_loading #C22658
 @allure.story("Set Uncheck Notebook Test for AfterAppel Loading")
 @allure.description("Set Uncheck Notebook Process and Loading Discharge For AfterAppeal Notebook")
 def test_afterappeal_loading_set_uncheck_notebook(f, add_allure_attach, page):

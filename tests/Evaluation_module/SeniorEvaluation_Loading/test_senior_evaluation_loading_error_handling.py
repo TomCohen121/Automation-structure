@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.senior_loading
+@pytest.mark.senior_loading #C22670
 @allure.story("Error Handling Test for Senior loading - Senior Evaluator")
 @allure.description("Senior Notebook Error Handling Checking Process")
 def test_senior_loading_error_handling(f, add_allure_attach, page):

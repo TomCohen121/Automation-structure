@@ -6,7 +6,7 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.afterappeal_loading
+@pytest.mark.afterappeal_loading #C20996
 @allure.story("Delete Notebook UnCheck - AfterAppeal Loading")
 @allure.description("Deleting the notebook's UnCheck using the 'Delete Notebook Check' button")
 def test_afterappeal_delete_notebook_uncheck(f, add_allure_attach, page):

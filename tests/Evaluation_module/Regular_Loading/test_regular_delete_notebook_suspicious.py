@@ -6,7 +6,7 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
+@pytest.mark.regular_loading #C20694
 @allure.story("Delete Notebook Suspicious - Regular Loading")
 @allure.description("Deleting the notebook's Suspicious using the 'Delete Notebook Check' button")
 def test_regular_delete_notebook_suspicious(f, add_allure_attach, page):

@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.suspicious_loading
+@pytest.mark.suspicious_loading #C20750
 @allure.story("Delete Notebook Suspicious Denied - Suspicious Loading")
 @allure.description("Delete Notebook Suspicious Denied For Suspicious Notebook Using the 'Delete Notebook Check' button")
 def test_suspicious_delete_approve(f, add_allure_attach, page):

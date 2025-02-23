@@ -10,7 +10,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 
 
-@pytest.mark.afterappeal_loading
+@pytest.mark.afterappeal_loading #C17638
 @allure.story("Approve Uncheck Portion - AfterAppeal Loading")
 @allure.description("Approve notebook UnCheck using the 'Approve uncheck' button")
 def test_afterappeal_approve_notebook_uncheck(f, add_allure_attach, page):

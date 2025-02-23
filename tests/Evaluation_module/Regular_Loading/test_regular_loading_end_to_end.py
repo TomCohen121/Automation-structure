@@ -1,12 +1,11 @@
 import sys
-
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
+@pytest.mark.regular_loading #C22545
 @allure.story("E2E Test for Regular Loading")
 @allure.description("Regular Notebook Checking and Loading Discharge Process")
 def test_regular_loading_end_to_end(f, add_allure_attach, page):

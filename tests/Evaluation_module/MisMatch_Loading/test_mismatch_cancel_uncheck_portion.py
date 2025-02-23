@@ -7,7 +7,7 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.mismatch_loading
+@pytest.mark.mismatch_loading #C17638
 @allure.story("Cancel Uncheck Portion - Mismatch Loading")
 @allure.description("Cancel notebook UnCheck using the 'Cancel uncheck button")
 def test_mismatch_cancel_notebook_uncheck(f, add_allure_attach, page):

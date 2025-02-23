@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.configuration_manager import ConfigurationManager
 from helper.soft_assert import soft_assert
 
-@pytest.mark.senior_loading
+@pytest.mark.senior_loading #C22620
 @allure.story("E2E Test for Senior Loading - Senior Evaluator")
 @allure.description("Senior Notebook Checking and Loading Discharge Process")
 def test_senior_loading_end_to_end(f, add_allure_attach, page):

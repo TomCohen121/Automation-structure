@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.regular_loading
+@pytest.mark.regular_loading #C22667
 @allure.story("Error Handling Test for Regular loading")
 @allure.description("Regular Notebook Error Handling Checking Process")
 def test_regular_loading_error_handling(f, add_allure_attach, page):

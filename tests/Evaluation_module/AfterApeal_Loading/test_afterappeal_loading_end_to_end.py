@@ -4,7 +4,7 @@ from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.afterappeal_loading
+@pytest.mark.afterappeal_loading #C22656
 @allure.story("E2E Test for AfterAppeal Loading")
 @allure.description("AfterAppeal Notebook Checking and Loading Discharge Process")
 def test_afterappeal_loading_end_to_end(f, add_allure_attach, page):

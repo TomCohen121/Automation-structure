@@ -5,7 +5,7 @@ from helper.utils import *
 from helper.soft_assert import soft_assert
 from pages.loading_page import LoadingPage
 
-@pytest.mark.regular_loading
+@pytest.mark.regular_loading #C22655
 @allure.story("Set Uncheck Notebook Test for Regular Loading")
 @allure.description("Set Uncheck Notebook Process and Loading Discharge For Regular Notebook")
 def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
