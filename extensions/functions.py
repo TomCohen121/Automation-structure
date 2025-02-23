@@ -259,6 +259,9 @@ class Functions(BasePage):
         placeholder_text = locator.get_attribute("placeholder")
         return placeholder_text
 
+    def get_current_url(self, page):
+        return page.url
+
     # --------------------------- Element Interaction Functions ---------------------------
 
     def click_element_if_visible(self, element_locator_function, timeout=1200):

@@ -29,3 +29,12 @@ class PersonalAreaPage(BasePage):
     def txt_num_of_uncheck_notebooks(self):
         return self.page.locator('.finished').nth(3).text_content()
 
+    # --------------------------- Dashboard Buttons ---------------------------
+    def btn_view_update_user_data(self):
+        return self.page.get_by_role("button", name="צפייה ועדכון כל הנתונים")
+
+    def btn_move_to_archive(self):
+        return self.page.get_by_role("button", name="מעבר לארכיון טעינות שנפרקו")
+
+    def btn_messages(self):
+        return self.page.locator('.messagesBar-title button')
