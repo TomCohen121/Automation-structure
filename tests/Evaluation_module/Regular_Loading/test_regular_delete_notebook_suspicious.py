@@ -20,7 +20,7 @@ def test_regular_delete_notebook_suspicious(f, add_allure_attach, page):
     #CheckNotebookScreen
     f.functions.click_delete_notebook_if_enable()
     f.workflow.flow_set_suspicious_notebook()
-    f.workflow.answer_one_question()
+    f.workflow.answer_one_question("1")
     f.functions.wait_for_element(f.checkNotebookPage.btn_delete_notebook_test())
     f.workflow.delete_notebook_test()
     f.workflow.assert_check_notebook_suspicious_deleted()

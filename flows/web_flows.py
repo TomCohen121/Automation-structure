@@ -30,7 +30,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process(self):
        """Process of checking a notebook."""
-       self.answer_one_question()
+       self.answer_one_question("1")
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -39,7 +39,7 @@ class WorkFlow(BasePage):
 
    def notebook_checking_process_with_grade(self):
        """Process of checking a notebook and saving the Notebook grade."""
-       self.answer_one_question()
+       self.answer_one_question("1")
        self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
        self.page.wait_for_function("document.querySelector('.summary-scores p') && document.querySelector('.summary-scores p').textContent.match(/\\d+/)",timeout=5000)
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
@@ -75,15 +75,15 @@ class WorkFlow(BasePage):
             self.checkNotebookPage.field_question_score().fill('6')
             self.checkNotebookPage.btn_maximum_grade().click()
 
-   def answer_one_question(self):
+   def answer_one_question(self, question_number: str):
        """Answer one Question."""
-       self.checkNotebookPage.field_question_number().fill('1')
+       self.checkNotebookPage.field_question_number().fill(question_number)
        self.checkNotebookPage.field_question_number().press('Enter')
        self.functions.is_subquestion_exist()
        self.checkNotebookPage.field_question_score().fill('6')
        self.checkNotebookPage.btn_maximum_grade().click()
 
-    # --------------------------- Delete Flows ---------------------------
+   # --------------------------- Delete Flows ---------------------------
 
    def delete_notebook_test(self):
        """Deletes a notebook test by clicking the delete button and confirming the action."""
@@ -262,6 +262,21 @@ class WorkFlow(BasePage):
        assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
        self.checkNotebookPage.btn_x_suspicious_notebook_popup().click()
 
+   def assert_remove_suspicion_button(self):
+       self.checkNotebookPage.btn_suspicious_notebook().click()
+       badge_count = self.page.locator('div.badges-area > app-badge').count()
+       if badge_count == 0:
+          self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(), 'div')
+          self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
+       else:
+            pass
+       self.checkNotebookPage.field_suspicious_text().fill('tom')
+       self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
+       self.checkNotebookPage.btn_suspicious_notebook().click()
+       self.checkNotebookPage.btn_remove_suspicion().click()
+       self.checkNotebookPage.btn_remove_suspicion_approve().click()
+       self.assert_check_notebook_suspicious_deleted()
+
    # --------------------------- Uncheck Notebook Flows ---------------------------
 
    def flow_set_uncheck_notebook_and_save(self):
@@ -287,6 +302,52 @@ class WorkFlow(BasePage):
        self.portionPage.btn_save_loading_half_discharge_popup().click()
        self.functions.reload_page()
        self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")
+
+    # --------------------------- Notebook Error Flows ---------------------------
+
+   def assert_invalid_question_number_error(self):
+       self.checkNotebookPage.field_question_number().fill("20")
+       self.checkNotebookPage.field_question_number().press('Enter')
+       expected_text = "מס' שאלה לא תקין"
+       actual_text = self.checkNotebookPage.txt_error_question_number()
+       assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
+
+   def assert_invalid_comment_error(self):
+       self.checkNotebookPage.btn_add_comment().click()
+       self.checkNotebookPage.btn_save_comment().click()
+       expected_text = "עליך להזין תוכן בכתיבת הערה"
+       actual_text = self.checkNotebookPage.txt_error_comment()
+       assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
+
+   def assert_invalid_grade_score_error(self):
+       self.checkNotebookPage.field_question_number().fill("1")
+       self.checkNotebookPage.field_question_number().press('Enter')
+       self.functions.is_subquestion_exist()
+       self.checkNotebookPage.field_question_score().fill('101')
+       self.checkNotebookPage.btn_save_question_score().press('Enter')
+       expected_text = "ניקוד לא תקין"
+       actual_text = self.checkNotebookPage.txt_error_grade_score()
+       assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
+
+   def assert_invalid_uncheck_reason_error(self):
+       self.checkNotebookPage.btn_uncheck_notebook().click()
+       self.checkNotebookPage.btn_save_uncheck_notebook_popup().click()
+       locator = self.checkNotebookPage.dropdown_uncheck_reason()
+       dropdown_classes = locator.get_attribute("class")
+       assert "error" in dropdown_classes, "The uncheck dropdown didn't get an error"
+
+   def assert_invalid_suspicious_reason_error(self):
+       self.checkNotebookPage.btn_suspicious_notebook().click()
+       self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
+       expected_text = "אנא מלא את השדות"
+       actual_text = self.checkNotebookPage.txt_error_suspicious_notebook()
+       assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
+       self.functions.select_first_option_from_dropdown(self.checkNotebookPage.dropdown_suspicious_reason(),self.checkNotebookPage.dropdown_suspicious_reason_list(),'div')
+       self.checkNotebookPage.btn_choose_suspicious_dropdown_options().click()
+       self.checkNotebookPage.field_suspicious_text().fill('tom')
+       self.checkNotebookPage.field_suspicious_text().clear()
+       assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
+
 
 
 

@@ -65,7 +65,6 @@ class Functions(BasePage):
         """Fills the loading number in the search field and submits it."""
         self.loadingPage.field_search().fill(loadingNumber)
         self.loadingPage.field_search().press('Enter')
-        self.page.wait_for_timeout(1000)
 
     # --------------------------- Loading Functions ---------------------------
     def wait_for_element(self, locator, timeout=5000):

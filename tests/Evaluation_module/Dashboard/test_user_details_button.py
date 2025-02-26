@@ -6,7 +6,7 @@ from helper.configuration_manager import ConfigurationManager
 from helper.utils import *
 from helper.soft_assert import soft_assert
 
-@pytest.mark.senior_loading
+@pytest.mark.dashboard #C18160
 @allure.story("Click on User Details Button")
 @allure.description("Click on User Details Button - Navigate to user details page")
 def test_user_details_button(f, add_allure_attach, page):

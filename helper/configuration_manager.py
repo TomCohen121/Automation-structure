@@ -5,9 +5,7 @@ import sys
 import pytest
 import yaml
 from playwright.sync_api import Playwright, BrowserType
-
 from pytest_playwright.pytest_playwright import playwright
-
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 class ConfigurationManager:

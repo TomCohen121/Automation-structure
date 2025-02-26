@@ -19,7 +19,7 @@ def test_regular_delete_notebook_grade(f, add_allure_attach, page):
 
     #CheckNotebookScreen
     f.functions.click_delete_notebook_if_enable()
-    f.workflow.answer_one_question()
+    f.workflow.answer_one_question("1")
     f.workflow.delete_notebook_test()
     f.workflow.assert_check_notebook_score_deleted()
     f.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()

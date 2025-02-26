@@ -33,8 +33,8 @@ class PersonalAreaPage(BasePage):
     def btn_view_update_user_data(self):
         return self.page.get_by_role("button", name="צפייה ועדכון כל הנתונים")
 
-    def btn_move_to_archive(self):
-        return self.page.get_by_role("button", name="מעבר לארכיון טעינות שנפרקו")
+    def btn_watch_loadings_move_to_archive(self):
+        return self.page.locator('app-evaluation-status button')
 
     def btn_messages(self):
         return self.page.locator('.messagesBar-title button')

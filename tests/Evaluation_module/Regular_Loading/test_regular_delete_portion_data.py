@@ -10,12 +10,12 @@ from helper.soft_assert import soft_assert
 @allure.story("Delete Portion Data - Regular Loading")
 @allure.description("Deleting the Portion Data using the 'Delete Portion data' button")
 def test_regular_delete_portion_data(f, add_allure_attach, page):
-    f.functions.check_if_loading_number_exist(regular_loading_for_discharge, 'regular_loading_for_discharge')
+    f.functions.check_if_loading_number_exist(regular_loading_num, 'regular_loading_num')
     # Dashboard
     f.workflow.navigation_to_loading_screen()
 
     #LoadingScreen
-    f.functions.search_loading(regular_loading_for_discharge)
+    f.functions.search_loading(regular_loading_num)
     f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
     #CheckNotebookScreen

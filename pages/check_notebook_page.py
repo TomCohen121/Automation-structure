@@ -138,3 +138,23 @@ class CheckNotebookPage(BasePage):
 
    def txt_approve_and_denied_tag(self):
        return self.page.locator("app-message-bar-square-row")
+
+   def btn_remove_suspicion(self):
+       return self.page.get_by_role("button", name="הסר חשד")
+
+   def btn_remove_suspicion_approve(self):
+       return self.page.get_by_role("button", name="אישור")
+
+
+    # --------------------------- Alerts Component Locators ---------------------------
+   def txt_error_question_number(self):
+       return self.page.locator("div.error").nth(0).text_content().strip()
+
+   def txt_error_grade_score(self):
+       return self.page.locator("div.error").nth(2).text_content().strip()
+
+   def txt_error_comment(self):
+       return self.page.locator("app-message-bar-row p").text_content().strip()
+
+   def txt_error_suspicious_notebook(self):
+       return self.page.locator(".message-bar-row-wrapper.ng-star-inserted p").text_content().strip()
