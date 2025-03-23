@@ -41,7 +41,7 @@ class WorkFlow(BasePage):
        """Process of checking a notebook and saving the Notebook grade."""
        self.answer_one_question("1")
        self.checkNotebookPage.txt_total_notebook_grade().wait_for(state="visible", timeout=5000)
-       self.page.wait_for_function("document.querySelector('.summary-scores p') && document.querySelector('.summary-scores p').textContent.match(/\\d+/)",timeout=5000)
+       self.page.wait_for_function("document.querySelectorAll('.exam-title.py-1.px-3.ng-star-inserted .d-flex.gap-3 p')[1] && ""document.querySelectorAll('.exam-title.py-1.px-3.ng-star-inserted .d-flex.gap-3 p')[1].textContent.match(/\\d+/)",timeout=5000)
        self.notebook_grade = self.functions.extracting_total_notebook_grade(self.checkNotebookPage.txt_total_notebook_grade())
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()

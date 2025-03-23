@@ -23,7 +23,7 @@ class CheckNotebookPage(BasePage):
        return self.page.get_by_role("button", name="שמור", exact=True)
 
    def txt_total_notebook_grade(self):
-       return self.page.locator(".summary-scores p").first
+       return self.page.locator(".exam-title.py-1.px-3.ng-star-inserted .d-flex.gap-3 p").nth(1)
 
    def btn_maximum_grade(self):
        return self.page.get_by_role("button", name="ציון מקסימלי")
