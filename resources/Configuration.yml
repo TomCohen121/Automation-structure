@@ -3,7 +3,7 @@ headless: false                         # true for headless mode, false for norm
 slow_motion: 0                        # Adjust to slow down or speed up the actions, in milliseconds.
 environment: "QA"                       # Choose either 'QA' or 'DEV'.
 user_token: "Senior Evaluator"          # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
-permissions: "Regular Evaluator"        # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
+permissions: "Senior Evaluator"        # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
 maximize_window: true                   # True for maximize window, False for normal window
 
 server_url_QA: "https://marvad-test.mrvd.education.gov.il:4434/api/"
@@ -16,8 +16,8 @@ loading_numbers:
   answer_law: "0045617"
 
   # MisMatch Loading
-  misMatch_loading_num: "0005160"
-  misMatch_loading_for_discharge: "0005160"
+  misMatch_loading_num: "0047696"
+  misMatch_loading_for_discharge: "0047696"
 
   # Senior Loading
   senior_loading_num: "0005154"
@@ -28,8 +28,8 @@ loading_numbers:
   suspicious_loading_for_discharge: "0005146"
 
   # After Appeal Loading
-  appeal_loading_num: "0047675"
-  appeal_loading_for_discharge: "0002463"
+  appeal_loading_num: "0047701"
+  appeal_loading_for_discharge: "0047701"
 
   # Assessment_Loading
   assessment_loading_num: "0001741"

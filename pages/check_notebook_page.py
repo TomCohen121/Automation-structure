@@ -117,14 +117,13 @@ class CheckNotebookPage(BasePage):
 
     # --------------------------- Error Locators ---------------------------
    def popup_saving_notebook_error_message(self):
-       return self.page.locator(".popUp-message-body")
+       return self.page.locator(".mdc-dialog__container")
 
    def txt_saving_notebook_error_message(self):
        return self.page.get_by_role("paragraph")
 
    def btn_txt_saving_notebook_error_message_close(self):
        return self.page.get_by_role("button", name="סגור")
-
 
     # --------------------------- Suspicion Notebook Locators ---------------------------
    def btn_suspicion_approved(self):

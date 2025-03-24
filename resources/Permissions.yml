@@ -1,5 +1,5 @@
 Senior Evaluator:
-  - dashboard
+#  - dashboard
 #  - permissions_senior_evaluator
 #  - senior_loading
 #  - mismatch_loading
@@ -11,6 +11,7 @@ Senior Evaluator:
 #  - mismatch_loading_discharge
 #  - senior_loading_discharge
 #  - suspicious_loading_discharge
+  - messages
 
 Regular Evaluator:
   - dashboard

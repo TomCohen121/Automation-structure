@@ -23,5 +23,5 @@ def test_suspicious_approve_notebook_uncheck(f, add_allure_attach, page):
     #PortionScreen
     f.functions.click_delete_portion_if_enable()
     f.portionPage.btn_approve_portion_uncheck().click()
-    f.functions.reload_page()
+    f.functions.table_choose_a_row(2).dblclick()
     assert f.portionPage.txt_table_portion_status(2) == "מנה סומנה כלא נבדקה"

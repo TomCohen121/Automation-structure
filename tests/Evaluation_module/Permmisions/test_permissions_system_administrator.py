@@ -61,6 +61,7 @@ def test_permissions_for_system_administrator(f, add_allure_attach, page):
     f.functions.table_choose_a_row(2).dblclick()
 
     #CheckNotebookScreen
+    f.functions.questions_numbers_finish_popup()
     f.functions.assert_element_exists(f.permissions.btn_delete_notebook_evaluation_check_notebook(), "The Button - מחק בדיקת מחברת in CheckNotebook Page")
     f.functions.assert_element_exists(f.permissions.btn_student_adaptations(), "The Button - התאמות לתלמיד")
     f.functions.assert_element_exists(f.permissions.btn_show_formats(), "The Button - הצג פורמטים")
@@ -89,6 +90,7 @@ def test_permissions_for_system_administrator(f, add_allure_attach, page):
     f.functions.table_choose_a_row(2).dblclick()
 
     # CheckNotebookScreen
+    f.functions.questions_numbers_finish_popup()
     f.functions.assert_element_not_exists(f.permissions.btn_delete_notebook_evaluation_check_notebook(),"The Button - מחק בדיקת מחברת in CheckNotebook Page in Mismatch Loading")
     f.functions.assert_element_exists(f.permissions.btn_student_adaptations(), "The Button - התאמות לתלמיד in Mismatch Loading")
     f.functions.assert_element_exists(f.permissions.btn_show_formats(), "The Button - הצג פורמטים in Mismatch Loading")

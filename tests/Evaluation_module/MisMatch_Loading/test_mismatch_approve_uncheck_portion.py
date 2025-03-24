@@ -21,9 +21,13 @@ def test_mismatch_approve_notebook_uncheck(f, add_allure_attach, page):
     f.functions.table_choose_a_row(2).dblclick()
 
     #PortionScreen
-    f.functions.click_button_if_enable(f.portionPage.btn_cancel_portion_uncheck())
+    if f.portionPage.btn_cancel_portion_uncheck().is_enabled():
+        f.functions.click_button_if_enable(f.portionPage.btn_cancel_portion_uncheck())
+        f.functions.table_choose_a_row(2).dblclick()
+    else:
+        pass
     f.portionPage.btn_approve_portion_uncheck().click()
-    f.functions.reload_page()
+    f.functions.table_choose_a_row(2).dblclick()
     checked_notebook_percent = f.portionPage.txt_table_percent_of_checked_notebooks(2)
     assert checked_notebook_percent == '100%'
     assert f.portionPage.txt_table_portion_status(2) == "מנה סומנה כלא נבדקה"

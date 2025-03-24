@@ -16,6 +16,7 @@ from pages.portion_page import PortionPage
 from helper.soft_assert import soft_assert
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
+from pages.messages import Messages
 import requests
 
 class Functions(BasePage):
@@ -29,6 +30,7 @@ class Functions(BasePage):
         self.portionPage = PortionPage(self.page)
         self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
+        self.messages = Messages(self.page)
         self.user_token = self.authorization_token(ConfigurationManager.token_url())
     # --------------------------- Check Functions ---------------------------
 

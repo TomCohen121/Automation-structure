@@ -3,7 +3,6 @@ from xmlrpc.client import Error
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
-
 from pages.breadcrumbs import Breadcrumbs
 from pages.check_notebook_page import CheckNotebookPage
 from pages.loading_page import LoadingPage
@@ -12,6 +11,7 @@ from pages.personal_area_page import PersonalAreaPage
 from pages.portion_page import PortionPage
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
+from pages.messages import Messages
 
 class WorkFlow(BasePage):
    def __init__(self, page: Page):
@@ -25,6 +25,7 @@ class WorkFlow(BasePage):
        self.suspiciousLoadingPortionPage = SuspiciousLoadingPortionPage(self.page)
        self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
        self.breadcrumbs = Breadcrumbs(self.page)
+       self.messages = Messages(self.page)
 
     # --------------------------- Notebooks Checking Process ---------------------------
 
@@ -348,6 +349,29 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_suspicious_text().clear()
        assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
 
+    # --------------------------- Messages Flows ---------------------------
+   def send_message_to_recipient(self, recipient_name):
+       self.messages.btn_plus_new_message().click()
+       self.messages.dropdown_recipient_selection().fill(recipient_name)
+       self.messages.dropdown_recipient_selection().click()
+       self.messages.checkbox_choose_recipient(recipient_name)
+       self.messages.btn_choose_recipient_dropdown_options().click()
+       self.messages.field_message_header().fill("tom header")
+       self.messages.field_message_body().fill("tom body")
+       self.messages.btn_send_message().click()
+       self.messages.btn_approve_send_message().click()
+       self.messages.btn_close_success_popup().click()
 
+   def assert_message_display_and_content(self):
+       expected_headline = "tom header"
+       expected_body = "tom body"
+       expected_sender = "רונה הורוביץ"
+       actual_headline = self.messages.txt_incoming_message_headline()
+       actual_body = self.messages.txt_incoming_message_body()
+       actual_sender = self.messages.txt_incoming_message_sender()
+       actual_body = actual_body.replace("\xa0", " ")
+       assert expected_sender == actual_sender, f"Expected error message '{expected_sender}', but got '{actual_sender}'"
+       assert expected_headline == actual_headline , f"Expected error message '{expected_headline}', but got '{actual_headline}'"
+       assert expected_body == actual_body , f"Expected error message '{expected_body}', but got '{actual_body}'"
 
 
