@@ -15,7 +15,7 @@ class Messages(BasePage):
        return self.page.locator('input[placeholder="חפש כאן..."]')
 
    def checkbox_choose_recipient(self, recipient):
-       return  self.page.get_by_label(recipient).check()
+       return  self.page.get_by_label(recipient).first.check()
 
    def btn_choose_recipient_dropdown_options(self):
        return self.page.get_by_role("button", name="בחר")

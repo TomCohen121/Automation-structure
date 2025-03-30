@@ -110,6 +110,7 @@ class WorkFlow(BasePage):
        assert notebook_comment == "tom"
        self.checkNotebookPage.btn_close_comment().click()
        self.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()
+       self.functions.popup_answer_law()
        self.notebookPage.txt_table_notebook_comment(2).click()
        notebook_table_comment = self.checkNotebookPage.txt_first_comment()
        assert notebook_table_comment == "tom"

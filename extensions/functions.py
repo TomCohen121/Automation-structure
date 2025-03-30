@@ -134,6 +134,7 @@ class Functions(BasePage):
         """Clicks the pagination button until it is no longer enabled."""
         while self.checkNotebookPage.btn_notebook_pagination().is_enabled():
             self.checkNotebookPage.btn_notebook_pagination().click()
+            self.page.wait_for_timeout(300)
 
     def is_subquestion_exist(self):
         """Checks if the subquestion field exists and fills it with '1' if enabled."""
@@ -349,7 +350,7 @@ class Functions(BasePage):
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/mismatch/questions?notebookInLoadingId={notebook_id}"
+        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
         response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
         data = response.json()
         return data
@@ -360,7 +361,7 @@ class Functions(BasePage):
         parsed_url = urlparse(current_url)
         segments = parsed_url.path.split('/')
         notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/expert/questions?notebookInLoadingId={notebook_id}"
+        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
         response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
         data = response.json()
         return data
@@ -419,3 +420,31 @@ class Functions(BasePage):
         }
         response = requests.get(url, headers=headers, verify=False)
         return response.json()['data']
+
+    # def make_api_request(self, url, data, request_type, field_to_get):
+    #     """Generic function to make API requests."""
+    #     token = self.user_token
+    #     headers = {"Authorization": f"Bearer {token}"}
+    #     try:
+    #         request_func = getattr(requests, request_type.lower(), None)
+    #         if not request_func:
+    #             raise ValueError(f"Unsupported request type: {request_type}")
+    #         response = request_func(url, headers=headers, json=data)
+    #         response.raise_for_status()  # Raise an error for HTTP failures (4xx, 5xx)
+    #         response_data = response.json()
+    #         return response_data.get(field_to_get, {})
+    #     except requests.exceptions.RequestException as e:
+    #         print(f"API request failed: {e}")
+    #         return None
+    #                                      זה הטסט :
+    # def test_api(f, add_allure_attach, page):
+    #     """Test function using the generic API request function."""
+    #     url = "https://marvad-test.mrvd.education.gov.il:4434/api/Notebook/save"
+    #     data = {
+    #         "buttonAction": 136,
+    #         "loadingId": "1805454",
+    #         "portionInLoadingId": "8274281",
+    #         "notebookInLoadingId": "45673700"
+    #     }
+    #     response_data = make_api_request(f, url, data, "POST", "data")
+
