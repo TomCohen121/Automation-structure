@@ -1,5 +1,4 @@
 import re
-from xmlrpc.client import Error
 from extensions.functions import Functions
 from pages.base_page import BasePage
 from playwright.sync_api import Page
@@ -52,7 +51,7 @@ class WorkFlow(BasePage):
 
    def mismatch_notebook_checking_process(self):
        """Process of checking a Mismatch notebook."""
-       self.functions.process_api_data(self.functions.fetch_api_data_mismatch)
+       self.functions.process_api_data(self.functions.fetch_api_data_mismatch_notebook_questions)
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -61,7 +60,7 @@ class WorkFlow(BasePage):
 
    def senior_notebook_checking_process(self):
        """Process of checking a Senior notebook."""
-       self.functions.process_api_data(self.functions.fetch_api_data_senior)
+       self.functions.process_api_data(self.functions.fetch_api_data_senior_notebook_questions)
        self.functions.notebook_pagination_loop()
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
        self.checkNotebookPage.btn_save_notebook_popup().click()
@@ -204,7 +203,7 @@ class WorkFlow(BasePage):
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"יש לצפות בכל דפי המחברת לפני סיום בדיקת מחברת")
        self.checkNotebookPage.btn_txt_saving_notebook_error_message_close().click()
        self.functions.notebook_pagination_loop()
-       notebook_data = self.functions.fetch_api_data_mismatch()
+       notebook_data = self.functions.fetch_api_data_mismatch_notebook_questions()
        unanswered_questions = self.functions.extract_unanswered_descriptions(notebook_data)
        print(f"the queistons is {unanswered_questions}")
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -351,21 +350,21 @@ class WorkFlow(BasePage):
        assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
 
     # --------------------------- Messages Flows ---------------------------
-   def send_message_to_recipient(self, recipient_name):
+   def send_message_to_recipient(self, recipient_name, header , body):
        self.messages.btn_plus_new_message().click()
        self.messages.dropdown_recipient_selection().fill(recipient_name)
        self.messages.dropdown_recipient_selection().click()
        self.messages.checkbox_choose_recipient(recipient_name)
        self.messages.btn_choose_recipient_dropdown_options().click()
-       self.messages.field_message_header().fill("tom header")
-       self.messages.field_message_body().fill("tom body")
+       self.messages.field_message_header().fill(header)
+       self.messages.field_message_body().fill(body)
        self.messages.btn_send_message().click()
        self.messages.btn_approve_send_message().click()
        self.messages.btn_close_success_popup().click()
 
-   def assert_message_display_and_content(self):
-       expected_headline = "tom header"
-       expected_body = "tom body"
+   def assert_message_display_and_content(self, header , body):
+       expected_headline = header
+       expected_body = body
        expected_sender = "רונה הורוביץ"
        actual_headline = self.messages.txt_incoming_message_headline()
        actual_body = self.messages.txt_incoming_message_body()

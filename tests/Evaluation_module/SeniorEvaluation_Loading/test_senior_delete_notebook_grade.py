@@ -1,10 +1,11 @@
-import re
+import allure
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.configuration_manager import ConfigurationManager
-from helper.utils import *
+
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.senior_loading #C20793
 @allure.story("Delete Notebook Grade - Senior Loading")
@@ -19,9 +20,9 @@ def test_senior_delete_notebook_grade(f, add_allure_attach, page):
 
     #CheckNotebookScreen
     f.functions.questions_numbers_finish_popup()
-    f.functions.click_delete_notebook_if_enable()
+    f.functions.click_delete_notebook_if_enabled()
     total_gap = f.checkNotebookPage.btn_senior_total_gap()
-    f.functions.process_api_data(f.functions.fetch_api_data_senior)
+    f.functions.process_api_data(f.functions.fetch_api_data_senior_notebook_questions)
     f.workflow.delete_notebook_test()
     total_gap_after = f.checkNotebookPage.btn_senior_total_gap()
     assert total_gap == total_gap_after

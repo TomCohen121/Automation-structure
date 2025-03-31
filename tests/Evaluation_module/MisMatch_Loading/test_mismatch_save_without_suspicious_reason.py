@@ -1,8 +1,9 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
+
 from helper.utils import *
-from helper.soft_assert import soft_assert
+
 
 @pytest.mark.mismatch_loading #C20854
 @allure.story("Save Suspicious Notebook without a Suspicious reason for Mismatch Loading")

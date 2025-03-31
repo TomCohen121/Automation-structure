@@ -37,6 +37,7 @@ def load_numbers_from_yaml(file_path):
     global senior_loading_num, senior_loading_for_discharge
     global assessment_loading_num
 
+
     with open(file_path, 'r') as yaml_file:
         config = yaml.safe_load(yaml_file)
 

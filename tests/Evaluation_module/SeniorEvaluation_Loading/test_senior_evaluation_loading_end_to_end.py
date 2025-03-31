@@ -1,9 +1,10 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
-from helper.configuration_manager import ConfigurationManager
+
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.senior_loading #C22620
 @allure.story("E2E Test for Senior Loading - Senior Evaluator")
@@ -19,7 +20,7 @@ def test_senior_loading_end_to_end(f, add_allure_attach, page):
 
    #CheckNotebookScreen
    f.functions.questions_numbers_finish_popup()
-   f.functions.click_delete_notebook_if_enable()
+   f.functions.click_delete_notebook_if_enabled()
    f.workflow.senior_notebook_checking_process()
 
    ##################################################################################################################################################################################

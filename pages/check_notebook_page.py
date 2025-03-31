@@ -1,5 +1,4 @@
 import time
-
 from pages.base_page import BasePage
 from playwright.sync_api import Locator, Page
 

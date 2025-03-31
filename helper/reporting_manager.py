@@ -1,9 +1,8 @@
 import os
 import shutil
-import smtplib
 import subprocess
-import zipfile
 import allure
+
 
 class ReportingManager:
     @staticmethod

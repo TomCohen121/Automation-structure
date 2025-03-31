@@ -1,9 +1,8 @@
-import pytest
 import allure
-from helper.configuration_manager import BrowserManager
-from helper.reporting_manager import ReportingManager
-from pages.base_page import BasePage
+import pytest
 from playwright.sync_api import Playwright
+from helper.configuration_manager import BrowserManager
+from pages.base_page import BasePage
 
 @pytest.fixture(scope="session")
 def setup_page(playwright: Playwright):

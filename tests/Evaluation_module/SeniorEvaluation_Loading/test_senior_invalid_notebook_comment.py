@@ -1,9 +1,10 @@
-import sys
+import allure
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
+
 from helper.utils import *
-from helper.soft_assert import soft_assert
+
 
 @pytest.mark.senior_loading #C20771
 @allure.story("Invalid Notebook Comment for Senior Loading")

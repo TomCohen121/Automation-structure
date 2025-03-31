@@ -1,8 +1,10 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
+
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.afterappeal_loading #C22668
 @allure.story("Error Handling Test for AfterAppeal Loading")
@@ -19,6 +21,6 @@ def test_afterappeal_loading_error_handling(f, add_allure_attach, page):
    ###########################################################################################################################################
                                                                     # Testing
    #CheckNotebookScreen
-   f.functions.click_delete_notebook_if_enable()
+   f.functions.click_delete_notebook_if_enabled()
    f.workflow.assert_and_validate_popup_and_error_messages_regular_loading()
    soft_assert.assert_all()

@@ -1,10 +1,9 @@
-import re
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.configuration_manager import ConfigurationManager
-from helper.utils import *
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.regular_loading #C20694
 @allure.story("Delete Notebook Grade - Regular Loading")
@@ -18,7 +17,7 @@ def test_regular_delete_notebook_grade(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
     #CheckNotebookScreen
-    f.functions.click_delete_notebook_if_enable()
+    f.functions.click_delete_notebook_if_enabled()
     f.workflow.answer_one_question("1")
     f.workflow.delete_notebook_test()
     f.workflow.assert_check_notebook_score_deleted()

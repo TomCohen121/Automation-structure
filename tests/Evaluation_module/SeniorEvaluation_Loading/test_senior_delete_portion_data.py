@@ -1,10 +1,11 @@
-import re
+import allure
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.configuration_manager import ConfigurationManager
-from helper.utils import *
+
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.senior_loading #C17639
 @allure.story("Delete Portion Data - Senior Loading")
@@ -20,7 +21,7 @@ def test_senior_delete_portion_data(f, add_allure_attach, page):
 
     #CheckNotebookScreen
     f.functions.questions_numbers_finish_popup()
-    f.functions.click_delete_notebook_if_enable()
+    f.functions.click_delete_notebook_if_enabled()
     f.workflow.senior_notebook_checking_process()
 
     ##################################################################################################################################################################################

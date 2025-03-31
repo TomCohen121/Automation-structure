@@ -1,8 +1,10 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
+
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.afterappeal_loading_discharge #C25307
 @allure.story("AfterAppeal loading discharge")
@@ -20,7 +22,7 @@ def test_afterappeal_loading_discharge(f, add_allure_attach, page):
    f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
    #CheckNotebookScreen
-   f.functions.click_delete_notebook_if_enable()
+   f.functions.click_delete_notebook_if_enabled()
    f.workflow.notebook_checking_process()
 
    ##################################################################################################################################################################################

@@ -1,11 +1,10 @@
-import re
-import time
+import allure
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.configuration_manager import ConfigurationManager
+
 from helper.utils import *
-from helper.soft_assert import soft_assert
+
 
 @pytest.mark.mismatch_loading #C17638
 @allure.story("Cancel Uncheck Portion - Mismatch Loading")
@@ -20,7 +19,7 @@ def test_mismatch_cancel_notebook_uncheck(f, add_allure_attach, page):
 
     #PortionScreen
     if f.portionPage.btn_approve_portion_uncheck().is_enabled():
-        f.functions.click_button_if_enable(f.portionPage.btn_approve_portion_uncheck())
+        f.functions.click_button_if_enabled(f.portionPage.btn_approve_portion_uncheck())
         f.functions.table_choose_a_row(2).dblclick()
     else:
         pass

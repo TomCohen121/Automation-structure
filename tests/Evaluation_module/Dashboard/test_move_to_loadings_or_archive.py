@@ -1,9 +1,7 @@
-import re
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.configuration_manager import ConfigurationManager
-from helper.utils import *
+
 
 @pytest.mark.dashboard #C18163
 @allure.story("Click on Move to Archive or Loadings Button")

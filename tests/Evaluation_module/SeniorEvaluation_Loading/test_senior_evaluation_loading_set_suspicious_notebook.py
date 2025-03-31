@@ -1,9 +1,10 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
+
 from helper.soft_assert import soft_assert
-from pages.loading_page import LoadingPage
+from helper.utils import *
+
 
 @pytest.mark.senior_loading #C22664
 @allure.story("Set Suspicious Notebook Test for Senior Loading")
@@ -19,7 +20,7 @@ def test_senior_loading_set_suspicious_notebook(f, add_allure_attach, page):
 
     #CheckNotebookScreen
     f.functions.questions_numbers_finish_popup()
-    f.functions.click_delete_notebook_if_enable()
+    f.functions.click_delete_notebook_if_enabled()
     f.workflow.flow_set_suspicious_notebook()
     f.workflow.senior_notebook_checking_process()
 

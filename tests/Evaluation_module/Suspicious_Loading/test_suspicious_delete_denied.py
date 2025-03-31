@@ -17,11 +17,11 @@ def test_suspicious_delete_approve(f, add_allure_attach, page):
    f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
    # CheckNotebookScreen
-   f.functions.click_delete_notebook_if_enable_suspicious()
+   f.functions.click_delete_notebook_if_enabled_suspicious()
    f.workflow.notebook_suspicion_denied_process()
    f.functions.popup_answer_law()
    f.functions.table_choose_a_row(2).dblclick()
-   f.functions.click_delete_notebook_if_enable_suspicious()
+   f.functions.click_delete_notebook_if_enabled_suspicious()
    assert f.checkNotebookPage.txt_approve_and_denied_tag().count() == 0
    f.breadcrumbs.btn_breadcrumbs_to_notebooks_page().click()
 

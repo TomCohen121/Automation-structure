@@ -1,23 +1,20 @@
 import re
 import time
-from asyncio import timeout
-from faulthandler import is_enabled
 from urllib.parse import urlparse
-import certifi
-from pytest_base_url.plugin import base_url
-from helper.configuration_manager import ConfigurationManager
-from pages.base_page import BasePage
+import requests
 from playwright.sync_api import Page
+from helper.configuration_manager import ConfigurationManager
+from helper.soft_assert import soft_assert
+from pages.base_page import BasePage
 from pages.check_notebook_page import CheckNotebookPage
 from pages.loading_page import LoadingPage
+from pages.messages import Messages
 from pages.notebook_page import NotebookPage
 from pages.personal_area_page import PersonalAreaPage
 from pages.portion_page import PortionPage
-from helper.soft_assert import soft_assert
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
-from pages.messages import Messages
-import requests
+
 
 class Functions(BasePage):
     user_token = None
@@ -42,6 +39,9 @@ class Functions(BasePage):
     def check_if_loading_exists_in_archives(self, locator, number):
         """Checks if the loading text in archives matches the expected number."""
         return locator.text_content() == number
+
+    def go_to_user(self, url):
+        self.page.goto(url)
 
     # --------------------------- Table Interaction Functions ---------------------------
 
@@ -115,7 +115,7 @@ class Functions(BasePage):
         try:
             if not locator.is_visible(timeout=timeout):
                 raise AssertionError(error_message)
-        except Exception as e:
+        except Exception as e: #idempotent catch
             raise AssertionError(f"An unexpected error occurred: {str(e)}")
 
     # --------------------------- Checkbox Functions ---------------------------
@@ -213,7 +213,7 @@ class Functions(BasePage):
     def extracting_total_notebook_grade(self, locator):
         """Extracts a float value from the locator's text content, matching a number pattern."""
         text_content = locator.text_content().strip()
-        match = re.search(r'(\d+\.?\d*)', text_content)
+        match = re.search(r'(\d+\.?\d*)', text_content) # this would fail for .76 and that's okay
         number = match.group(0)
         return int(float(number))
     # --------------------------- Assertion Functions ---------------------------
@@ -246,8 +246,7 @@ class Functions(BasePage):
 
     def number_to_int(self, number_str):
         """Converts a string to an integer after stripping whitespace."""
-        number = number_str.strip()
-        return int(round(float(number)))
+        return int(self.number_to_float(number_str))
 
     def number_to_float(self, number_str):
         """Converts a string to a float after stripping whitespace."""
@@ -275,25 +274,25 @@ class Functions(BasePage):
         except Exception as e:
             pass
 
-    def click_button_if_enable(self, button):
+    def click_button_if_enabled(self, button):
         if button.is_enabled():
             button.click()
 
-    def click_delete_notebook_if_enable(self):
+    def click_delete_notebook_if_enabled(self):
         button = self.checkNotebookPage.btn_delete_notebook_test()
         if button.is_enabled():
             button.click()
             self.checkNotebookPage.btn_save_delete_notebook_test().click()
             self.page.wait_for_timeout(1000)
 
-    def click_delete_notebook_if_enable_suspicious(self):
+    def click_delete_notebook_if_enabled_suspicious(self):
         button = self.checkNotebookPage.btn_delete_notebook_test()
         if button.is_enabled():
             button.click()
             self.checkNotebookPage.btn_save_delete_notebook_test_suspicious().click()
             self.page.wait_for_timeout(1000)
 
-    def click_delete_portion_if_enable(self):
+    def click_delete_portion_if_enabled(self):
         button = self.portionPage.btn_delete_portion_data()
         if button.is_enabled():
             button.click()
@@ -344,7 +343,7 @@ class Functions(BasePage):
 
     # ---------------------------  API Fetch Data Functions ---------------------------
 
-    def fetch_api_data_mismatch(self, params=None):
+    def fetch_api_data_mismatch_notebook_questions(self, params=None): #less generic name
         """Fetches API data related to mismatched questions for the notebook."""
         current_url = self.page.url
         parsed_url = urlparse(current_url)
@@ -355,7 +354,7 @@ class Functions(BasePage):
         data = response.json()
         return data
 
-    def fetch_api_data_senior(self, params=None):
+    def fetch_api_data_senior_notebook_questions(self, params=None):
         """Fetches API data related to expert evaluation questions for the notebook."""
         current_url = self.page.url
         parsed_url = urlparse(current_url)
@@ -412,7 +411,6 @@ class Functions(BasePage):
         question_numbers = self.extract_keys(api_data)
         self.fill_question_numbers(question_numbers, api_data)
 
-
     def authorization_token(self, token2):
         url = f'{ConfigurationManager.server_url(self)}User/sso?sso=DEV'
         headers = {
@@ -421,30 +419,21 @@ class Functions(BasePage):
         response = requests.get(url, headers=headers, verify=False)
         return response.json()['data']
 
-    # def make_api_request(self, url, data, request_type, field_to_get):
-    #     """Generic function to make API requests."""
-    #     token = self.user_token
-    #     headers = {"Authorization": f"Bearer {token}"}
-    #     try:
-    #         request_func = getattr(requests, request_type.lower(), None)
-    #         if not request_func:
-    #             raise ValueError(f"Unsupported request type: {request_type}")
-    #         response = request_func(url, headers=headers, json=data)
-    #         response.raise_for_status()  # Raise an error for HTTP failures (4xx, 5xx)
-    #         response_data = response.json()
-    #         return response_data.get(field_to_get, {})
-    #     except requests.exceptions.RequestException as e:
-    #         print(f"API request failed: {e}")
-    #         return None
-    #                                      זה הטסט :
-    # def test_api(f, add_allure_attach, page):
-    #     """Test function using the generic API request function."""
-    #     url = "https://marvad-test.mrvd.education.gov.il:4434/api/Notebook/save"
-    #     data = {
-    #         "buttonAction": 136,
-    #         "loadingId": "1805454",
-    #         "portionInLoadingId": "8274281",
-    #         "notebookInLoadingId": "45673700"
-    #     }
-    #     response_data = make_api_request(f, url, data, "POST", "data")
+    def make_api_request(self, url, data, request_type, field_to_get):
+        """Generic function to make API requests."""
+        token = self.user_token
+        headers = {"Authorization": f"Bearer {token}"}
+        try:
+            request_func = getattr(requests, request_type.lower(), None)
+            if not request_func:
+                raise ValueError(f"Unsupported request type: {request_type}")
+            response = request_func(url, headers=headers, json=data)
+            response.raise_for_status()  # Raise an error for HTTP failures (4xx, 5xx)
+            response_data = response.json()
+            print(response_data)
+            return response_data.get(field_to_get, {})
+        except requests.exceptions.RequestException as e:
+            print(f"API request failed: {e}")
+            return None
+
 

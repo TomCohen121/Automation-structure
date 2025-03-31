@@ -1,8 +1,9 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.suspicious_loading #C22639
 @allure.story("E2E Test for Suspicious Loading - Denied Notebook Suspicion")
@@ -17,7 +18,7 @@ def test_suspicious_loading_end_to_end_denied(f, add_allure_attach, page):
    f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
    # CheckNotebookScreen
-   f.functions.click_delete_notebook_if_enable_suspicious()
+   f.functions.click_delete_notebook_if_enabled_suspicious()
    f.workflow.notebook_suspicion_denied_process()
 
    ##################################################################################################################################################################################

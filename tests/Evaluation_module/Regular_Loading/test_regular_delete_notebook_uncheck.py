@@ -1,10 +1,9 @@
-import re
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.configuration_manager import ConfigurationManager
-from helper.utils import *
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.regular_loading #C20694
 @allure.story("Delete Notebook UnCheck - Regular Loading")
@@ -18,7 +17,7 @@ def test_regular_delete_notebook_uncheck(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
     #CheckNotebookScreen
-    f.functions.click_delete_notebook_if_enable()
+    f.functions.click_delete_notebook_if_enabled()
     f.workflow.flow_set_uncheck_notebook_and_save()
     f.functions.popup_answer_law()
     f.functions.table_choose_a_row(2).dblclick()

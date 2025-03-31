@@ -18,7 +18,7 @@ def test_regular_loading_set_uncheck_notebook(f, add_allure_attach, page):
     f.workflow.navigation_from_loading_to_check_notebook_page(2, 2, 2)
 
     #CheckNotebookScreen
-    f.functions.click_delete_notebook_if_enable()
+    f.functions.click_delete_notebook_if_enabled()
     f.workflow.flow_set_uncheck_notebook_and_save()
 
     ######################################################################################################################################################
