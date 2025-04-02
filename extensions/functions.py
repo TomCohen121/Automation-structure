@@ -29,6 +29,7 @@ class Functions(BasePage):
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
         self.messages = Messages(self.page)
         self.user_token = self.authorization_token(ConfigurationManager.token_url())
+
     # --------------------------- Check Functions ---------------------------
 
     def check_if_loading_number_exist(self, loading_number, variable_name):
@@ -38,24 +39,36 @@ class Functions(BasePage):
 
     def check_if_loading_exists_in_archives(self, locator, number):
         """Checks if the loading text in archives matches the expected number."""
-        return locator.text_content() == number
+        try:
+            return locator.text_content() == number
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while checking if loading exists in archives: {e}")
 
     def go_to_user(self, url):
-        self.page.goto(url)
+        try:
+            self.page.goto(url)
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while navigating to the URL: {e}")
 
     # --------------------------- Table Interaction Functions ---------------------------
 
     def choose_filter_option(self, option_name):
         """selecting a filter option and saving the selection."""
-        self.page.locator("app-loadings-for-evaluator-page app-icon-button").get_by_role("button").click()
-        self.loadingPage.btn_clean_all_filters().click()
-        checkbox_locator = self.page.locator(f"label:text-is('{option_name.strip()}')")
-        checkbox_locator.click()
-        self.page.get_by_role("button", name="שמור").click()
+        try:
+            self.page.locator("app-loadings-for-evaluator-page app-icon-button").get_by_role("button").click()
+            self.loadingPage.btn_clean_all_filters().click()
+            checkbox_locator = self.page.locator(f"label:text-is('{option_name.strip()}')")
+            checkbox_locator.click()
+            self.page.get_by_role("button", name="שמור").click()
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while selecting the filter option '{option_name}': {e}")
 
     def table_choose_a_row(self, row_number):
         """Selects a specific row in a table based on the row number."""
-        return self.page.locator(f"tr:nth-child({row_number})")
+        try:
+            return self.page.locator(f"tr:nth-child({row_number})")
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] Failed to locate row {row_number} in the table: {e}")
 
     def check_row_disabled_soft_assert(self, row_locator, error_message="The row is not disabled as expected"):
         """Uses soft assert to Checks if a row is disabled (for half discharge)."""
@@ -65,10 +78,15 @@ class Functions(BasePage):
 
     def search_loading(self, loadingNumber):
         """Fills the loading number in the search field and submits it."""
-        self.loadingPage.field_search().fill(loadingNumber)
-        self.loadingPage.field_search().press('Enter')
+        try:
+            self.loadingPage.field_search().fill(loadingNumber)
+            self.loadingPage.field_search().press('Enter')
+        except Exception as e:
+            print(f"[ERROR] Unexpected error in search_loading: {e}")
+            raise
 
     # --------------------------- Loading Functions ---------------------------
+
     def wait_for_element(self, locator, timeout=5000):
         try:
             locator.wait_for(timeout=timeout)
@@ -126,21 +144,27 @@ class Functions(BasePage):
         is_checked = checkbox.get_attribute("ng-reflect-checked") == "true"
         assert is_checked == expected_checked, (
             f"Checkbox state is wrong: Expected {'checked' if expected_checked else 'unchecked'}, "
-            f"but found {'checked' if is_checked else 'unchecked'}."
-        )
+            f"but found {'checked' if is_checked else 'unchecked'}.")
+
     # --------------------------- Notebook Functions ---------------------------
 
     def notebook_pagination_loop(self):
         """Clicks the pagination button until it is no longer enabled."""
-        while self.checkNotebookPage.btn_notebook_pagination().is_enabled():
-            self.checkNotebookPage.btn_notebook_pagination().click()
-            self.page.wait_for_timeout(300)
+        try:
+            while self.checkNotebookPage.btn_notebook_pagination().is_enabled():
+                self.checkNotebookPage.btn_notebook_pagination().click()
+                self.page.wait_for_timeout(300)
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred in notebook_pagination_loop: {e}")
 
     def is_subquestion_exist(self):
         """Checks if the subquestion field exists and fills it with '1' if enabled."""
-        if self.checkNotebookPage.field_subquestion().count() > 0 and self.checkNotebookPage.field_subquestion().is_enabled():
-            self.checkNotebookPage.field_subquestion().fill("1")
-            self.page.keyboard.press('Enter')
+        try:
+            if self.checkNotebookPage.field_subquestion().count() > 0 and self.checkNotebookPage.field_subquestion().is_enabled():
+                self.checkNotebookPage.field_subquestion().fill("1")
+                self.page.keyboard.press('Enter')
+        except Exception as e:
+            raise Exception(f"[ERROR] An error occurred in is_subquestion_exist: {e}")
 
     def questions_numbers_finish_popup(self):
         try:
@@ -156,7 +180,7 @@ class Functions(BasePage):
             pass
 
     def fill_question_numbers(self, question_numbers, api_data):
-        """fills in question numbers and sub-question numbers, sets scores for them, and saves the data."""
+        """Fills in question numbers and sub-question numbers, sets scores, and saves the data."""
         for number in question_numbers:
             question_data = api_data["data"].get(str(number), {})
             locator = self.checkNotebookPage.field_question_number()
@@ -170,52 +194,53 @@ class Functions(BasePage):
                     self.page.keyboard.press('Enter')
                     self.checkNotebookPage.field_question_score().fill('6')
                     self.checkNotebookPage.btn_maximum_grade().click()
-                    try:
-                        if self.checkNotebookPage.field_question_score().is_disabled():
-                            popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
-                            try:
-                                popup_locator.wait_for(timeout=2000)
-                            except TimeoutError:
-                                pass
-                            if popup_locator.is_visible():
-                                popup_locator.click()
-                                return
-                    except Exception as e:
-                        pass
+                    if self.handle_popup_for_question_numbers():
+                        return
             else:
                 self.checkNotebookPage.field_question_score().fill('6')
                 self.checkNotebookPage.btn_maximum_grade().click()
-                if self.checkNotebookPage.field_question_score().is_disabled():
-                    self.checkNotebookPage.btn_save_gap_successfully_closed().wait_for(timeout=2000)
-                    try:
-                        if self.checkNotebookPage.field_question_score().is_disabled():
-                            popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
-                            try:
-                                popup_locator.wait_for(timeout=2000)
-                            except TimeoutError:
-                                pass
-                            if popup_locator.is_visible():
-                                popup_locator.click()
-                                return
-                    except Exception as e:
-                        pass
+                if self.handle_popup_for_question_numbers():
+                    return
+
+    def handle_popup_for_question_numbers(self):
+        """Handles the popup if the score field is disabled."""
+        try:
+            if self.checkNotebookPage.field_question_score().is_disabled():
+                popup_locator = self.checkNotebookPage.btn_save_gap_successfully_closed()
+                try:
+                    popup_locator.wait_for(timeout=2000)
+                except TimeoutError:
+                    pass
+                if popup_locator.is_visible():
+                    popup_locator.click()
+                    return True
+        except Exception:
+            pass
+        return False
 
     # --------------------------- Data Extraction Functions ---------------------------
 
     def extracting_value_from_statistics(self, locator):
-        """Extracts a numeric value from a locator's text content."""
-        x = locator.text_content()
-        match = re.search(r'\d+', x)
-        if match:
-            number = int(match.group())
-            return number
+        try:
+            x = locator.text_content()
+            match = re.search(r'\d+', x)
+            if match:
+                number = int(match.group())
+                return number
+            raise RuntimeError("[ERROR] No numeric value found in extracting_value_from_statistics.")
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] Unexpected error in extracting_value_from_statistics: {e}")
 
     def extracting_total_notebook_grade(self, locator):
         """Extracts a float value from the locator's text content, matching a number pattern."""
-        text_content = locator.text_content().strip()
-        match = re.search(r'(\d+\.?\d*)', text_content) # this would fail for .76 and that's okay
-        number = match.group(0)
-        return int(float(number))
+        try:
+            text_content = locator.text_content().strip()
+            match = re.search(r'(\d+\.?\d*)', text_content)  # this would fail for .76 and that's okay
+            number = match.group(0)
+            return int(float(number))
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] Unexpected error in extracting_total_notebook_grade: {e}")
+
     # --------------------------- Assertion Functions ---------------------------
 
     def assert_equal_to(self, value1, value2, message=None):
@@ -228,10 +253,13 @@ class Functions(BasePage):
 
     def select_first_option_from_dropdown(self, dropdown_locator, options_list_locator, element_type):
         """Selects the first option from a dropdown list."""
-        dropdown_locator.click()
-        options_list_locator.wait_for(state='visible')
-        first_option = options_list_locator.locator(element_type).first
-        first_option.click()
+        try:
+            dropdown_locator.click()
+            options_list_locator.wait_for(state='visible')
+            first_option = options_list_locator.locator(element_type).first
+            first_option.click()
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] Failed to select the first option from dropdown: {e}")
 
     # --------------------------- Utility Functions ---------------------------
 
@@ -246,22 +274,34 @@ class Functions(BasePage):
 
     def number_to_int(self, number_str):
         """Converts a string to an integer after stripping whitespace."""
-        return int(self.number_to_float(number_str))
+        try:
+            return int(self.number_to_float(number_str))
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] Unexpected error in number_to_int: {e}")
 
     def number_to_float(self, number_str):
         """Converts a string to a float after stripping whitespace."""
-        number = number_str.strip()
-        number_float = float(number)
-        return number_float
+        try:
+            number = number_str.strip()
+            return float(number)
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] Unexpected error in number_to_float: {e}")
 
     def get_placeholder_text(self, locator):
         """Returns the placeholder text of a given locator."""
-        locator.wait_for(state="visible", timeout=5000)
-        placeholder_text = locator.get_attribute("placeholder")
-        return placeholder_text
+        try:
+            locator.wait_for(state="visible", timeout=5000)
+            placeholder_text = locator.get_attribute("placeholder")
+            return placeholder_text
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] Failed to get placeholder text: {e}")
 
     def get_current_url(self, page):
-        return page.url
+        """Returns the current URL of the given page."""
+        try:
+            return page.url
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while retrieving the current URL: {e}")
 
     # --------------------------- Element Interaction Functions ---------------------------
 
@@ -275,28 +315,40 @@ class Functions(BasePage):
             pass
 
     def click_button_if_enabled(self, button):
-        if button.is_enabled():
-            button.click()
+        try:
+            if button.is_enabled():
+                button.click()
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while clicking delete notebook: {e}")
 
     def click_delete_notebook_if_enabled(self):
-        button = self.checkNotebookPage.btn_delete_notebook_test()
-        if button.is_enabled():
-            button.click()
-            self.checkNotebookPage.btn_save_delete_notebook_test().click()
-            self.page.wait_for_timeout(1000)
+        try:
+            button = self.checkNotebookPage.btn_delete_notebook_test()
+            if button.is_enabled():
+                button.click()
+                self.checkNotebookPage.btn_save_delete_notebook_test().click()
+                self.page.wait_for_timeout(1000)
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while clicking delete notebook: {e}")
 
     def click_delete_notebook_if_enabled_suspicious(self):
-        button = self.checkNotebookPage.btn_delete_notebook_test()
-        if button.is_enabled():
-            button.click()
-            self.checkNotebookPage.btn_save_delete_notebook_test_suspicious().click()
-            self.page.wait_for_timeout(1000)
+        try:
+            button = self.checkNotebookPage.btn_delete_notebook_test()
+            if button.is_enabled():
+                button.click()
+                self.checkNotebookPage.btn_save_delete_notebook_test_suspicious().click()
+                self.page.wait_for_timeout(1000)
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while clicking delete notebook suspicious: {e}")
 
     def click_delete_portion_if_enabled(self):
-        button = self.portionPage.btn_delete_portion_data()
-        if button.is_enabled():
-            button.click()
-            self.portionPage.btn_save_delete_portion_data().click()
+        try:
+            button = self.portionPage.btn_delete_portion_data()
+            if button.is_enabled():
+                button.click()
+                self.portionPage.btn_save_delete_portion_data().click()
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while clicking delete portion: {e}")
 
     def check_if_button_enabled_and_click(self, button_locator, error_message):
         """Waits for a button to be visible, clicks it if enabled."""
@@ -345,25 +397,31 @@ class Functions(BasePage):
 
     def fetch_api_data_mismatch_notebook_questions(self, params=None): #less generic name
         """Fetches API data related to mismatched questions for the notebook."""
-        current_url = self.page.url
-        parsed_url = urlparse(current_url)
-        segments = parsed_url.path.split('/')
-        notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
-        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
-        data = response.json()
-        return data
+        try:
+            current_url = self.page.url
+            parsed_url = urlparse(current_url)
+            segments = parsed_url.path.split('/')
+            notebook_id = segments[segments.index('notebooks') + 1]
+            api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
+            response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
+            data = response.json()
+            return data
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while fetching API data: {e}")
 
     def fetch_api_data_senior_notebook_questions(self, params=None):
         """Fetches API data related to expert evaluation questions for the notebook."""
-        current_url = self.page.url
-        parsed_url = urlparse(current_url)
-        segments = parsed_url.path.split('/')
-        notebook_id = segments[segments.index('notebooks') + 1]
-        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
-        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
-        data = response.json()
-        return data
+        try:
+            current_url = self.page.url
+            parsed_url = urlparse(current_url)
+            segments = parsed_url.path.split('/')
+            notebook_id = segments[segments.index('notebooks') + 1]
+            api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
+            response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
+            data = response.json()
+            return data
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while fetching API data: {e}")
 
     # ---------------------------  Extract From API Functions ---------------------------
 
@@ -407,17 +465,22 @@ class Functions(BasePage):
 
     def process_api_data(self, fetch_function):
         """Processes API data by calling the fetch function and filling the questions."""
-        api_data = fetch_function()
-        question_numbers = self.extract_keys(api_data)
-        self.fill_question_numbers(question_numbers, api_data)
+        try:
+            api_data = fetch_function()
+            question_numbers = self.extract_keys(api_data)
+            self.fill_question_numbers(question_numbers, api_data)
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while processing API data: {e}")
 
     def authorization_token(self, token2):
-        url = f'{ConfigurationManager.server_url(self)}User/sso?sso=DEV'
-        headers = {
-            'SC': token2
-        }
-        response = requests.get(url, headers=headers, verify=False)
-        return response.json()['data']
+        try:
+            url = f'{ConfigurationManager.server_url(self)}User/sso?sso=DEV'
+            headers = {'SC': token2}
+            response = requests.get(url, headers=headers, verify=False)
+            response.raise_for_status()
+            return response.json().get('data')
+        except Exception as e:
+            raise RuntimeError(f"[ERROR] An error occurred while authorizing token: {e}")
 
     def make_api_request(self, url, data, request_type, field_to_get):
         """Generic function to make API requests."""

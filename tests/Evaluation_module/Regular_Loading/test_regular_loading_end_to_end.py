@@ -1,4 +1,3 @@
-import sys
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page

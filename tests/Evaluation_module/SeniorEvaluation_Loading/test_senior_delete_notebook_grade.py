@@ -1,5 +1,4 @@
 import allure
-import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
 
@@ -11,6 +10,7 @@ from helper.utils import *
 @allure.story("Delete Notebook Grade - Senior Loading")
 @allure.description("Deleting the notebook's Grade using the 'Delete Notebook Check' button")
 def test_senior_delete_notebook_grade(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(senior_loading_num, 'senior_loading_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 

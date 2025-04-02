@@ -350,6 +350,7 @@ class WorkFlow(BasePage):
        assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
 
     # --------------------------- Messages Flows ---------------------------
+
    def send_message_to_recipient(self, recipient_name, header , body):
        self.messages.btn_plus_new_message().click()
        self.messages.dropdown_recipient_selection().fill(recipient_name)

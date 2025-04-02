@@ -1,9 +1,7 @@
 import allure
-import pytest
 from pytest_playwright.pytest_playwright import page
 from helper.utils import *
 from helper.soft_assert import soft_assert
-from pages.loading_page import LoadingPage
 
 # @pytest.mark.regular_loading #C22673
 @allure.story("Half Discharge Process for Regular Loading")

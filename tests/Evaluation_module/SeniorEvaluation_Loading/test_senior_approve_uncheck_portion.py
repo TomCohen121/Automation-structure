@@ -1,8 +1,6 @@
 import allure
-import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-
 from helper.utils import *
 
 
@@ -10,6 +8,7 @@ from helper.utils import *
 @allure.story("Approve Uncheck Portion - Senior Loading")
 @allure.description("Approve notebook UnCheck using the 'Approve uncheck' button")
 def test_senior_approve_notebook_uncheck(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(senior_loading_num, 'senior_loading_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 
@@ -20,7 +19,7 @@ def test_senior_approve_notebook_uncheck(f, add_allure_attach, page):
     #PortionScreen
     f.functions.click_delete_portion_if_enabled()
     f.portionPage.btn_approve_portion_uncheck().click()
-    f.functions.table_choose_a_row(2).dblclick()
+    f.functions.reload_page()
     checked_notebook_percent = f.portionPage.txt_table_percent_of_checked_notebooks(2)
     assert checked_notebook_percent == '100%'
     assert f.portionPage.txt_table_portion_status(2) == "מנה סומנה כלא נבדקה"

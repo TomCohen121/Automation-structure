@@ -11,6 +11,7 @@ from helper.utils import *
 @allure.story("Delete Notebook Suspicious - Senior Loading")
 @allure.description("Deleting the notebook's Suspicious using the 'Delete Notebook Check' button")
 def test_senior_delete_notebook_suspicious(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(senior_loading_num, 'senior_loading_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 

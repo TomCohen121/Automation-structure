@@ -3,6 +3,7 @@ from helper.configuration_manager import ConfigurationManager
 
 class BasePage:
     def __init__(self, page: Page):
+        # When adding a new page, define its variable as None here
         self.page = page
         self.loadingPage = None
         self.checkNotebookPage = None
@@ -22,10 +23,12 @@ class BasePage:
         return self
 
     def initialize_all_pages(self):
+        #1. Import the new page class inside this function.
+        #2. Assign the new page instance to the corresponding variable.
         from pages.portion_page import PortionPage
         from pages.loading_page import LoadingPage
         from extensions.functions import Functions
-        from flows.web_flows import WorkFlow
+        from flows.workflows import WorkFlow
         from pages.check_notebook_page import CheckNotebookPage
         from pages.notebook_page import NotebookPage
         from pages.personal_area_page import PersonalAreaPage

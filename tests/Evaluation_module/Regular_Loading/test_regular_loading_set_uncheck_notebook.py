@@ -1,9 +1,10 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
+
 from helper.soft_assert import soft_assert
-from pages.loading_page import LoadingPage
+from helper.utils import *
+
 
 @pytest.mark.regular_loading #C22655
 @allure.story("Set Uncheck Notebook Test for Regular Loading")

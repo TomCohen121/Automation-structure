@@ -1,7 +1,6 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-
 from helper.soft_assert import soft_assert
 from helper.utils import *
 

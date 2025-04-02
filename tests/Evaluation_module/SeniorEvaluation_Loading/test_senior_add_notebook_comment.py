@@ -10,6 +10,7 @@ from helper.utils import *
 @allure.story("Add Comment to Notebook - Senior Loading")
 @allure.description("Adding a Comment to notebook using the 'Add comment' button")
 def test_senior_add_notebook_comment(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(senior_loading_num, 'senior_loading_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 

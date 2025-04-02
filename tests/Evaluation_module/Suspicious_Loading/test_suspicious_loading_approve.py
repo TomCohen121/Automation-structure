@@ -1,8 +1,9 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.dashboard #C18163
 @allure.story("E2E Test for Suspicious Loading - Approve Notebook Suspicion")

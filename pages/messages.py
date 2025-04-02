@@ -38,7 +38,6 @@ class Messages(BasePage):
        return self.page.locator(".additional_Text")
 
     # --------------------------- Exists Message Locators ---------------------------
-
    def btn_first_message(self):
        return self.page.locator(".rx-virtual-scroll__runway.rx-virtual-scroll-element div").nth(1)
 

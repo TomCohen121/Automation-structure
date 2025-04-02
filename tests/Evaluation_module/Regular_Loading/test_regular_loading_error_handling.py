@@ -1,8 +1,9 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.utils import *
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.regular_loading #C22667
 @allure.story("Error Handling Test for Regular loading")

@@ -9,6 +9,7 @@ from helper.utils import *
 @allure.story("Delete Notebook Grade - AfterAppeal Loading")
 @allure.description("Deleting the notebook's Grade using the 'Delete Notebook Check' button")
 def test_afterappeal_delete_notebook_grade(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(appeal_loading_num, 'appeal_loading_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 

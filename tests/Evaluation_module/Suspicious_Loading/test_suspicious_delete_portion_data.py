@@ -1,10 +1,9 @@
-import re
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from helper.configuration_manager import ConfigurationManager
-from helper.utils import *
 from helper.soft_assert import soft_assert
+from helper.utils import *
+
 
 @pytest.mark.suspicious_loading #C17639
 @allure.story("Delete Portion Data - Suspicious Loading")

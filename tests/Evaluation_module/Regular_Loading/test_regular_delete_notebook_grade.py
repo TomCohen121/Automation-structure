@@ -1,6 +1,7 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
+
 from helper.soft_assert import soft_assert
 from helper.utils import *
 
@@ -9,6 +10,7 @@ from helper.utils import *
 @allure.story("Delete Notebook Grade - Regular Loading")
 @allure.description("Deleting the notebook's Grade using the 'Delete Notebook Check' button")
 def test_regular_delete_notebook_grade(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(regular_loading_num, 'regular_loading_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 

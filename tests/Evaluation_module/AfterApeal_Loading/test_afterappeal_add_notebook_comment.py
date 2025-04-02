@@ -8,6 +8,7 @@ from helper.utils import *
 @allure.story("Add Comment to Notebook - AfterAppeal Loading")
 @allure.description("Adding a Comment to notebook using the 'Add comment' button")
 def test_afterappeal_add_notebook_comment(f, add_allure_attach, page):
+    f.functions.check_if_loading_number_exist(appeal_loading_num, 'appeal_loading_num')
     #Dashboard
     f.workflow.navigation_to_loading_screen()
 
