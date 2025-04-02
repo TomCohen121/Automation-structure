@@ -11,6 +11,7 @@ from pages.portion_page import PortionPage
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
 from pages.messages import Messages
+from helper.decorators import handle_errors
 
 class WorkFlow(BasePage):
    def __init__(self, page: Page):
@@ -128,7 +129,7 @@ class WorkFlow(BasePage):
        assert uncheck_reason == "חפש כאן...", f'The uncheck process was not deleted, The uncheck reason is: {uncheck_reason}'
 
    # --------------------------- Navigation Flows ---------------------------
-
+   @handle_errors
    def navigation_from_loading_to_check_notebook_page(self, row_number, row_number1, row_number2):
        """Navigates from the loading screen to the checkNotebookPage by selecting and interacting with table rows."""
        self.functions.table_choose_a_row(row_number).click()
