@@ -128,7 +128,6 @@ class ConfigurationManager:
             selected_server_url = ConfigurationManager._config["server_url_DEV"]
         else:
             selected_server_url = ConfigurationManager._config["server_url_QA"]
-
         return selected_server_url
 
     @staticmethod
@@ -144,7 +143,6 @@ class BrowserManager:
     @staticmethod
     def __get_browser_type(playwright: Playwright) -> BrowserType:
         browser = ConfigurationManager.get_browser()
-
         if browser == 'chromium':
             return playwright.chromium
         if browser == 'firefox':

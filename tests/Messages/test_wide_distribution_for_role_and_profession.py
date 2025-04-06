@@ -1,7 +1,7 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from tests.Messages.users import UsersForMessages
+from tests.Messages.users_for_messages import UsersForMessages
 
 @pytest.mark.messages
 @allure.story("Wide distribution permissions for Profession and Role")

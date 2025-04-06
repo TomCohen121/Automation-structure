@@ -138,12 +138,14 @@ class WorkFlow(BasePage):
        self.functions.popup_answer_law()
        self.functions.table_choose_a_row(row_number2).dblclick()
 
+   @handle_errors
    def navigation_to_loading_screen(self):
        """Navigates to the loading screen from the personal area."""
        self.personalAreaPage.btn_questionnaire_evaluation().click()
        self.personalAreaPage.btn_reception_screens().click()
        self.personalAreaPage.btn_loading_for_the_evaluator().click()
 
+   @handle_errors
    def loading_discharge_and_navigate_to_archive(self):
        """Discharge a loading and navigate to archive screen."""
        self.loadingPage.btn_loading_discharge().click()

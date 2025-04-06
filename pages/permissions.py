@@ -21,9 +21,7 @@ class Permissions(BasePage):
    def comp_links(self):
        return self.page.locator(".links-container")
 
-
     # --------------------------- Loading Page Locators ---------------------------
-
    def btn_loading_discharge(self):
        return self.page.get_by_role("button", name="סיום בדיקה ושליחה למרב\"ד")
 
@@ -34,7 +32,6 @@ class Permissions(BasePage):
        return self.page.get_by_role("button", name="החזר טעינה למצב התחלתי")
 
     # --------------------------- Portion Page Locators ---------------------------
-
    def btn_half_discharge_loading(self):
        return self.page.get_by_role("button", name="פריקה חלקית")
 
@@ -48,7 +45,6 @@ class Permissions(BasePage):
        return self.page.get_by_role("button", name="אשר אי בדיקה")
 
    # --------------------------- Notebook Page Locators ---------------------------
-
    def btn_delete_notebook_evaluation(self):
        return self.page.get_by_role("button", name="מחק בדיקת מחברת")
 
@@ -56,7 +52,6 @@ class Permissions(BasePage):
        return self.page.get_by_role("button", name="סיים בדיקת מנה")
 
    # --------------------------- CheckNotebook Page Locators ---------------------------
-
    def btn_delete_notebook_evaluation_check_notebook(self):
        return self.page.get_by_role("button", name="מחק בדיקת מחברת")
 
