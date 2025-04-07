@@ -3,7 +3,7 @@ name: Run Tests
 on:
   push:
     branches:
-      - main  # או כל ענף אחר שבו אתה רוצה להריץ את הטסטים
+      - master  # או כל ענף אחר שבו אתה רוצה להריץ את הטסטים
 
 jobs:
   test:
