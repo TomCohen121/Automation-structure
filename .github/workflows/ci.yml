@@ -24,4 +24,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run specific test
-        run: pytest C:/Automation/Projects/marvad_automation/tests/Evaluation_module/Dashboard/test_move_to_loadings_or_archive.py
+        run: pytest tests/Evaluation_module/Dashboard/test_move_to_loadings_or_archive.py
