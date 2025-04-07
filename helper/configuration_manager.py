@@ -74,6 +74,7 @@ class ConfigurationManager:
     @staticmethod
     def get_browser():
         return ConfigurationManager._config["browser"]
+
     @staticmethod
     def is_headless():
         return ConfigurationManager._config["headless"]
@@ -164,7 +165,6 @@ class BrowserManager:
         page = context.new_page()
         page.evaluate("window.moveTo(0, 0); window.resizeTo(screen.width, screen.height);")
         return browser, page
-
 
 if __name__ == "__main__":
     print("Starting ConfigurationManager...")

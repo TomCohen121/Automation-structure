@@ -1,7 +1,7 @@
 import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
-from Messages.users_for_messages import UsersForMessages
+from tests.Messages_component.users_for_messages import UsersForMessages
 
 
 @pytest.mark.messages

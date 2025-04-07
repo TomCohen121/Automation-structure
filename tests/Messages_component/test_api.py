@@ -49,4 +49,3 @@ def test_api(f, add_allure_attach, page):
 
 
 
-
