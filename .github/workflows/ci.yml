@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # אם אתה ב-Windows, שנה ל- 'windows-latest'
+    runs-on: windows-latest  # אם אתה ב-Windows, שנה ל- 'windows-latest'
 
     steps:
       - name: Checkout Code
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x  # גרסה שאתה עובד איתה
+          python-version: 3.10  # גרסה שאתה עובד איתה
 
       - name: Install dependencies
         run: |
