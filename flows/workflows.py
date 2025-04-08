@@ -28,7 +28,7 @@ class WorkFlow(BasePage):
        self.messages = Messages(self.page)
 
     # --------------------------- Notebooks Checking Process ---------------------------
-
+   @handle_errors
    def notebook_checking_process(self):
        """Process of checking a notebook."""
        self.answer_one_question("1")
@@ -38,6 +38,7 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   @handle_errors
    def notebook_checking_process_with_grade(self):
        """Process of checking a notebook and saving the Notebook grade."""
        self.answer_one_question("1")
@@ -50,6 +51,7 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   @handle_errors
    def mismatch_notebook_checking_process(self):
        """Process of checking a Mismatch notebook."""
        self.functions.process_api_data(self.functions.fetch_api_data_mismatch_notebook_questions)
@@ -59,6 +61,7 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   @handle_errors
    def senior_notebook_checking_process(self):
        """Process of checking a Senior notebook."""
        self.functions.process_api_data(self.functions.fetch_api_data_senior_notebook_questions)
@@ -68,6 +71,7 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   @handle_errors
    def answer_law_questions_loop(self):
         """filling and saving scores for law-related questions 1 to 5."""
         for i in range(1, 6):
@@ -76,6 +80,7 @@ class WorkFlow(BasePage):
             self.checkNotebookPage.field_question_score().fill('6')
             self.checkNotebookPage.btn_maximum_grade().click()
 
+   @handle_errors
    def answer_one_question(self, question_number: str):
        """Answer one Question."""
        self.checkNotebookPage.field_question_number().fill(question_number)
@@ -85,13 +90,14 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_maximum_grade().click()
 
    # --------------------------- Delete Flows ---------------------------
-
+   @handle_errors
    def delete_notebook_test(self):
        """Deletes a notebook test by clicking the delete button and confirming the action."""
        self.checkNotebookPage.btn_delete_notebook_test().click()
        self.checkNotebookPage.btn_save_delete_notebook_test().click()
        self.page.wait_for_timeout(1000)
 
+   @handle_errors
    def delete_portion_data(self):
        """Deletes portion data by clicking the delete button and confirming the action."""
        self.portionPage.btn_delete_portion_data().click()
@@ -99,7 +105,7 @@ class WorkFlow(BasePage):
        self.page.wait_for_timeout(1000)
 
     # --------------------------- Notebooks Process ---------------------------
-
+   @handle_errors
    def assert_add_notebook_comment_and_check(self):
        """Adds a comment to the notebook and opens the comments list."""
        self.checkNotebookPage.btn_add_comment().click()
@@ -115,6 +121,7 @@ class WorkFlow(BasePage):
        notebook_table_comment = self.checkNotebookPage.txt_first_comment()
        assert notebook_table_comment == "tom"
 
+   @handle_errors
    def assert_check_notebook_score_deleted(self):
        """Verifies that the notebook score has been deleted."""
        self.page.wait_for_function("document.querySelector('.summary-scores p') && !document.querySelector('.summary-scores p').textContent.match(/\\d+/)",timeout=5000)
@@ -122,6 +129,7 @@ class WorkFlow(BasePage):
        match = re.search(r'\d+', notebook_grade)
        assert not match, f"Notebook grade was not deleted, The Grade is: {notebook_grade}."
 
+   @handle_errors
    def assert_check_notebook_uncheck_deleted(self):
        """Verifies that the notebook uncheck process has been deleted."""
        self.checkNotebookPage.btn_uncheck_notebook().click()
@@ -153,7 +161,7 @@ class WorkFlow(BasePage):
        self.loadingPage.btn_loading_archive().click()
 
     # --------------------------- Asserts Error Message Flows ---------------------------
-
+   @handle_errors
    def assert_and_validate_popup_and_error_messages_regular_loading(self):
        """Validate the correct error message for Regular loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -166,6 +174,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש להזין ציון לפחות לשאלה אחת")
 
+   @handle_errors
    def assert_and_validate_popup_and_error_messages_answer_law(self):
        """Validate the correct error message for Answer Law."""
        self.answer_law_questions_loop()
@@ -173,6 +182,7 @@ class WorkFlow(BasePage):
        self.functions.verify_correct_popup_appeared(self.checkNotebookPage.popup_saving_notebook_error_message())
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(),"אין אפשרות לקלוט שאלה - הפרת חוקי מענה!")
 
+   @handle_errors
    def assert_and_validate_popup_and_error_messages_suspicious_loading(self):
        """Validate the correct error message for Suspicious loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -185,6 +195,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לאשר / לבטל חשד לפני סיום בדיקה")
 
+   @handle_errors
    def assert_and_validate_popup_and_error_messages_senior_loading(self):
        """Validate the correct error message for Senior loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -198,6 +209,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.popup_saving_notebook_error_message().wait_for(state="visible", timeout=5000)
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), "יש לסגור את הפער לפני סיום בדיקה")
 
+   @handle_errors
    def assert_and_validate_popup_and_error_messages_mismatch_loading(self):
        """Validate the correct error message for Mismatch loading."""
        self.checkNotebookPage.btn_save_and_end_notebook_test().click()
@@ -214,7 +226,7 @@ class WorkFlow(BasePage):
        self.functions.assert_verify_popup_error_message(self.checkNotebookPage.popup_saving_notebook_error_message(), f"לא הוזן ציון לכל השאלות, יש להזין ציון לשאלות: {unanswered_questions}")
 
     # --------------------------- Suspicious Notebook Flows ---------------------------
-
+   @handle_errors
    def flow_set_suspicious_notebook(self):
        """Marks the notebook as suspicious."""
        self.checkNotebookPage.btn_suspicious_notebook().click()
@@ -223,6 +235,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.field_suspicious_text().fill('tom')
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
 
+   @handle_errors
    def notebook_suspicion_approved_process(self):
        self.checkNotebookPage.btn_suspicion_approved().click()
        badge_count = self.page.locator('div.badges-area > app-badge').count()
@@ -239,6 +252,7 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   @handle_errors
    def notebook_suspicion_denied_process(self):
        """Denies the suspicion process for the notebook and saves it."""
        self.checkNotebookPage.btn_suspicion_denied().click()
@@ -249,6 +263,7 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   @handle_errors
    def assert_check_notebook_suspicious_deleted(self):
        """Asserts that suspicion details are removed from the notebook."""
        self.checkNotebookPage.btn_suspicious_notebook().click()
@@ -257,6 +272,7 @@ class WorkFlow(BasePage):
        suspicious_text = self.checkNotebookPage.field_suspicious_text().text_content()
        assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
 
+   @handle_errors
    def assert_check_notebook_approve_suspicious_deleted(self):
        """Asserts that suspicion approval details are removed from the notebook."""
        self.checkNotebookPage.btn_suspicion_approved().click()
@@ -266,6 +282,7 @@ class WorkFlow(BasePage):
        assert suspicious_text is None or suspicious_text.strip() == "", f'The suspicious text field is not empty, it contains: {suspicious_text}'
        self.checkNotebookPage.btn_x_suspicious_notebook_popup().click()
 
+   @handle_errors
    def assert_remove_suspicion_button(self):
        self.checkNotebookPage.btn_suspicious_notebook().click()
        badge_count = self.page.locator('div.badges-area > app-badge').count()
@@ -282,7 +299,7 @@ class WorkFlow(BasePage):
        self.assert_check_notebook_suspicious_deleted()
 
    # --------------------------- Uncheck Notebook Flows ---------------------------
-
+   @handle_errors
    def flow_set_uncheck_notebook_and_save(self):
        """Marks the notebook as unchecked and saves the changes."""
        self.flow_set_uncheck_notebook()
@@ -291,6 +308,7 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
+   @handle_errors
    def flow_set_uncheck_notebook(self):
        """Marks the notebook as unchecked and selects a reason."""
        self.checkNotebookPage.btn_uncheck_notebook().click()
@@ -299,7 +317,7 @@ class WorkFlow(BasePage):
        self.checkNotebookPage.btn_save_uncheck_notebook_popup().click()
 
     # --------------------------- Half Discharge Flow ---------------------------
-
+   @handle_errors
    def assert_and_perform_half_discharge(self):
        """Performs half discharge on the loading and verifies the action."""
        self.functions.check_if_button_enabled_and_click(self.portionPage.btn_half_discharge_loading(),"The half discharged button is not clickable")
@@ -308,7 +326,7 @@ class WorkFlow(BasePage):
        self.functions.check_row_disabled_soft_assert(self.functions.table_choose_a_row(2),"The Portion is still Enable - The half discharge Action dosent work")
 
     # --------------------------- Notebook Error Flows ---------------------------
-
+   @handle_errors
    def assert_invalid_question_number_error(self):
        self.checkNotebookPage.field_question_number().fill("20")
        self.checkNotebookPage.field_question_number().press('Enter')
@@ -316,6 +334,7 @@ class WorkFlow(BasePage):
        actual_text = self.checkNotebookPage.txt_error_question_number()
        assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
 
+   @handle_errors
    def assert_invalid_comment_error(self):
        self.checkNotebookPage.btn_add_comment().click()
        self.checkNotebookPage.btn_save_comment().click()
@@ -323,6 +342,7 @@ class WorkFlow(BasePage):
        actual_text = self.checkNotebookPage.txt_error_comment()
        assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
 
+   @handle_errors
    def assert_invalid_grade_score_error(self):
        self.checkNotebookPage.field_question_number().fill("1")
        self.checkNotebookPage.field_question_number().press('Enter')
@@ -333,6 +353,7 @@ class WorkFlow(BasePage):
        actual_text = self.checkNotebookPage.txt_error_grade_score()
        assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
 
+   @handle_errors
    def assert_invalid_uncheck_reason_error(self):
        self.checkNotebookPage.btn_uncheck_notebook().click()
        self.checkNotebookPage.btn_save_uncheck_notebook_popup().click()
@@ -340,6 +361,7 @@ class WorkFlow(BasePage):
        dropdown_classes = locator.get_attribute("class")
        assert "error" in dropdown_classes, "The uncheck dropdown didn't get an error"
 
+   @handle_errors
    def assert_invalid_suspicious_reason_error(self):
        self.checkNotebookPage.btn_suspicious_notebook().click()
        self.checkNotebookPage.btn_save_suspicious_notebook_popup().click()
@@ -353,7 +375,7 @@ class WorkFlow(BasePage):
        assert actual_text == expected_text, f"Expected error message '{expected_text}', but got '{actual_text}'"
 
     # --------------------------- Messages Flows ---------------------------
-
+   @handle_errors
    def send_message_to_recipient(self, recipient_name, header , body):
        self.messages.btn_plus_new_message().click()
        self.messages.dropdown_recipient_selection().fill(recipient_name)
@@ -366,6 +388,7 @@ class WorkFlow(BasePage):
        self.messages.btn_approve_send_message().click()
        self.messages.btn_close_success_popup().click()
 
+   @handle_errors
    def assert_message_display_and_content(self, header , body):
        expected_headline = header
        expected_body = body
