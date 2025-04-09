@@ -23,4 +23,5 @@ def test_senior_loading_error_handling(f, add_allure_attach, page):
    f.functions.questions_numbers_finish_popup()
    f.functions.click_delete_notebook_if_enabled()
    f.workflow.assert_and_validate_popup_and_error_messages_senior_loading()
+
    soft_assert.assert_all()

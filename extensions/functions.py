@@ -2,7 +2,7 @@ import re
 import time
 from urllib.parse import urlparse
 import requests
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Locator
 from helper.configuration_manager import ConfigurationManager
 from helper.soft_assert import soft_assert
 from pages.base_page import BasePage
@@ -81,6 +81,7 @@ class Functions(BasePage):
         try:
             self.loadingPage.field_search().fill(loadingNumber)
             self.loadingPage.field_search().press('Enter')
+            self.page.wait_for_timeout(2000)
         except Exception as e:
             print(f"[ERROR] Unexpected error in search_loading: {e}")
             raise
@@ -411,17 +412,15 @@ class Functions(BasePage):
 
     def fetch_api_data_senior_notebook_questions(self, params=None):
         """Fetches API data related to expert evaluation questions for the notebook."""
-        try:
-            current_url = self.page.url
-            parsed_url = urlparse(current_url)
-            segments = parsed_url.path.split('/')
-            notebook_id = segments[segments.index('notebooks') + 1]
-            api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
-            response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
-            data = response.json()
-            return data
-        except Exception as e:
-            raise RuntimeError(f"[ERROR] An error occurred while fetching API data: {e}")
+        current_url = self.page.url
+        parsed_url = urlparse(current_url)
+        segments = parsed_url.path.split('/')
+        notebook_id = segments[segments.index('notebooks') + 1]
+        api_url = f"{ConfigurationManager.server_url(self)}NotebookEvaluation/questions?notebookInLoadingId={notebook_id}"
+        response = requests.get(api_url, params=params, verify=False, headers={"Authorization": f"Bearer {self.user_token}"})
+        data = response.json()
+        return data
+
 
     # ---------------------------  Extract From API Functions ---------------------------
 
@@ -465,22 +464,16 @@ class Functions(BasePage):
 
     def process_api_data(self, fetch_function):
         """Processes API data by calling the fetch function and filling the questions."""
-        try:
-            api_data = fetch_function()
-            question_numbers = self.extract_keys(api_data)
-            self.fill_question_numbers(question_numbers, api_data)
-        except Exception as e:
-            raise RuntimeError(f"[ERROR] An error occurred while processing API data: {e}")
+        api_data = fetch_function()
+        question_numbers = self.extract_keys(api_data)
+        self.fill_question_numbers(question_numbers, api_data)
 
     def authorization_token(self, token2):
-        try:
-            url = f'{ConfigurationManager.server_url(self)}User/sso?sso=DEV'
-            headers = {'SC': token2}
-            response = requests.get(url, headers=headers, verify=False)
-            response.raise_for_status()
-            return response.json().get('data')
-        except Exception as e:
-            raise RuntimeError(f"[ERROR] An error occurred while authorizing token: {e}")
+        url = f'{ConfigurationManager.server_url(self)}User/sso?sso=DEV'
+        headers = {'SC': token2}
+        response = requests.get(url, headers=headers, verify=False)
+        response.raise_for_status()
+        return response.json().get('data')
 
     def make_api_request(self, url, data, request_type, field_to_get):
         """Generic function to make API requests."""
@@ -499,4 +492,11 @@ class Functions(BasePage):
             print(f"API request failed: {e}")
             return None
 
+    def upload_and_verify_file(self, file_path, file_input_locator, file_name_locator):
+        self.page.set_input_files(file_input_locator, file_path)
+        file_name_element = self.page.locator(file_name_locator)
+        file_name = file_name_element.text_content()
+        expected_file_name = file_path.split("\\")[-1]
+        assert file_name == expected_file_name, f"Expected file name: {expected_file_name}, but got: {file_name}"
+        print("File uploaded successfully and name verified.")
 

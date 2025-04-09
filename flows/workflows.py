@@ -61,7 +61,6 @@ class WorkFlow(BasePage):
        self.functions.wait_for_loader()
        self.functions.click_element_if_visible(self.checkNotebookPage.btn_close_after_saving_notebook())
 
-   @handle_errors
    def senior_notebook_checking_process(self):
        """Process of checking a Senior notebook."""
        self.functions.process_api_data(self.functions.fetch_api_data_senior_notebook_questions)

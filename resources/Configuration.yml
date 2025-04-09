@@ -17,12 +17,12 @@ loading_numbers:
 
 
   # MisMatch Loading
-  misMatch_loading_num: "0047696"
-  misMatch_loading_for_discharge: "0047696"
+  misMatch_loading_num: "0047691"
+  misMatch_loading_for_discharge: "0047691"
 
   # Senior Loading
-  senior_loading_num: "0005154"
-  senior_loading_for_discharge: "0005154"
+  senior_loading_num: "0005189"
+  senior_loading_for_discharge: "0005189"
 
   # Suspicious Loading
   suspicious_loading_num: "0005146"

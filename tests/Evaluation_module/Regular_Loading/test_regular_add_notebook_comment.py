@@ -14,7 +14,7 @@ def test_regular_add_notebook_comment(f, add_allure_attach, page):
 
     #LoadingScreen
     f.functions.search_loading(regular_loading_num)
-    f.workflow.navigation_from_loading_to_check_notebook_page(2,5,2)
+    f.workflow.navigation_from_loading_to_check_notebook_page(2,2,2)
 
     #CheckNotebook
     f.workflow.assert_add_notebook_comment_and_check()

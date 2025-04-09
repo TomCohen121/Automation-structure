@@ -35,9 +35,10 @@ def test_api(f, add_allure_attach, page):
     url4 = "https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/save/question-grade"
     data4 = {
             "grade": "1",
-            "questionId": 767607,
-            "notebookInLoadingId": "53106933"
+            "questionId": 766904,
+            "notebookInLoadingId": "53106913"
             }
+
     f.functions.make_api_request(url4, data4, "POST", "data")
     # -------------------------------------------------------------------------------------------------------
     url5 = "https://marvad-test.mrvd.education.gov.il:4434/api/NotebookEvaluation/save-and-finish?notebookInLoadingId=53106933"

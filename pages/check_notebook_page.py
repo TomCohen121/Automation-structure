@@ -28,7 +28,7 @@ class CheckNotebookPage(BasePage):
        return self.page.get_by_role("button", name="ציון מקסימלי")
 
    def btn_save_gap_successfully_closed(self):
-       return self.page.get_by_role("button", name="סגור")
+       return self.page.locator("app-small-button[mat-dialog-close] button")
 
    def btn_senior_total_gap(self):
        time.sleep(3)
@@ -98,7 +98,6 @@ class CheckNotebookPage(BasePage):
        return self.page.locator(".closeSuspiciousNotebookPopup > .mat-icon > svg")
 
     # --------------------------- Uncheck Notebook Locators ---------------------------
-
    def btn_uncheck_notebook(self):
        return self.page.get_by_role("button", name="אי בדיקת מחברת")
 

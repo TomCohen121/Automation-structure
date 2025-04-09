@@ -37,6 +37,9 @@ class Messages(BasePage):
    def btn_upload_file(self):
        return self.page.locator(".additional_Text")
 
+   def file_upload_name(self):
+       return self.page.locator("div.fileName.align-self-center").text_content()
+
     # --------------------------- Exists Message Locators ---------------------------
    def btn_first_message(self):
        return self.page.locator(".rx-virtual-scroll__runway.rx-virtual-scroll-element div").nth(1)
@@ -49,3 +52,7 @@ class Messages(BasePage):
 
    def txt_incoming_message_sender(self):
        return self.page.locator(".incoming-message-popup .user-details p").first.text_content().strip()
+
+
+
+
