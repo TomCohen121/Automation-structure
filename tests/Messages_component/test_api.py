@@ -1,5 +1,4 @@
 from datetime import date
-
 from assertpy import assert_that
 from pytest_playwright.pytest_playwright import page
 

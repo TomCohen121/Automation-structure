@@ -17,6 +17,7 @@ class BasePage:
         self.suspiciousLoadingNotebookPage = None
         self.permissions = None
         self.messages = None
+        self.personalDetailsPage = None
 
     def goto(self, url=None):
         self.page.goto(url or ConfigurationManager.base_url())
@@ -37,6 +38,7 @@ class BasePage:
         from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
         from pages.permissions import Permissions
         from pages.messages import Messages
+        from pages.personal_details_page import PersonalDetailsPage
 
         self.loadingPage = LoadingPage(self.page)
         self.checkNotebookPage = CheckNotebookPage(self.page)
@@ -50,6 +52,7 @@ class BasePage:
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
         self.permissions = Permissions(self.page)
         self.messages = Messages(self.page)
+        self.personalDetailsPage = PersonalDetailsPage(self.page)
 
     @staticmethod
     def goto_homepage(pages):
