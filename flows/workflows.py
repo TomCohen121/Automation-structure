@@ -1,3 +1,4 @@
+import random
 import re
 from extensions.functions import Functions
 from pages.base_page import BasePage
@@ -10,6 +11,7 @@ from pages.personal_area_page import PersonalAreaPage
 from pages.portion_page import PortionPage
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
+from pages.personal_details_page import PersonalDetailsPage
 from pages.messages import Messages
 from helper.decorators import handle_errors
 
@@ -26,6 +28,7 @@ class WorkFlow(BasePage):
        self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
        self.breadcrumbs = Breadcrumbs(self.page)
        self.messages = Messages(self.page)
+       self.personalDetailsPage = PersonalDetailsPage(self.page)
 
     # --------------------------- Notebooks Checking Process ---------------------------
    @handle_errors
@@ -400,4 +403,15 @@ class WorkFlow(BasePage):
        assert expected_headline == actual_headline , f"Expected error message '{expected_headline}', but got '{actual_headline}'"
        assert expected_body == actual_body , f"Expected error message '{expected_body}', but got '{actual_body}'"
 
-
+   def assert_add_and_verify_examiner_phone(self):
+       self.personalDetailsPage.btn_add_new_row().click()
+       examiner_phone = str(random.randint(1000000, 9999999))
+       examiner_area_code = str(random.randint(100, 999))
+       self.personalDetailsPage.field_examiner_phone().fill(examiner_phone)
+       self.personalDetailsPage.field_examiner_area_code().fill(examiner_area_code)
+       self.personalDetailsPage.btn_save().click()
+       self.personalDetailsPage.btn_confirm_save().click()
+       phone = self.page.locator("app-text-input:has(div.title:has-text('מספר טלפון')) div.value").nth(1).inner_text().strip()
+       area_code = self.page.locator("app-text-input[ng-reflect-name='prefix'] div.value").nth(1).inner_text().strip()
+       assert examiner_phone == phone
+       assert examiner_area_code == area_code

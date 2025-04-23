@@ -14,3 +14,4 @@ def test_private_distribution_for_profession(f, add_allure_attach, page):
     f.workflow.assert_message_display_and_content("private profession header", "private profession body")
 
 
+

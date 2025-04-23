@@ -2,12 +2,8 @@ import allure
 import pytest
 from pytest_playwright.pytest_playwright import page
 
+@pytest.mark.permissions_personal_area_button
 @allure.story("Private distribution permissions for Profession")
 @allure.description("Sending a message in Private distribution for Profession - Verifying message receipt")
-def test_update_examiner_phone(f, add_allure_attach, page):
-    f.functions.go_to_edit_screen_and_clear_rows(f.personalDetailsPage.btn_update_examiner_phone())
-    f.workflow.assert_add_and_verify_examiner_phone()
-
-
-
-
+def test_permissions_personal_area_btn(f, add_allure_attach, page):
+    f.functions.assert_element_exists(f.personalDetailsPage.btn_personal_area_page_sidebar(),"The Component - איזור אישי")

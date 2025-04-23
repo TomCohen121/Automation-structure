@@ -14,6 +14,7 @@ from pages.personal_area_page import PersonalAreaPage
 from pages.portion_page import PortionPage
 from pages.suspicious_loading_notebook_page import SuspiciousLoadingNotebookPage
 from pages.suspicious_loading_portions_page import SuspiciousLoadingPortionPage
+from pages.personal_details_page import PersonalDetailsPage
 
 
 class Functions(BasePage):
@@ -29,6 +30,7 @@ class Functions(BasePage):
         self.suspiciousLoadingNotebookPage = SuspiciousLoadingNotebookPage(self.page)
         self.messages = Messages(self.page)
         self.user_token = self.authorization_token(ConfigurationManager.token_url())
+        self.personalDetailsPage = PersonalDetailsPage(self.page)
 
     # --------------------------- Check Functions ---------------------------
 
@@ -499,4 +501,17 @@ class Functions(BasePage):
         expected_file_name = file_path.split("\\")[-1]
         assert file_name == expected_file_name, f"Expected file name: {expected_file_name}, but got: {file_name}"
         print("File uploaded successfully and name verified.")
+
+    def go_to_edit_screen_and_clear_rows(self, update_button):
+        self.personalAreaPage.btn_view_update_user_data().click()
+        update_button.click()
+        while True:
+            try:
+                if self.personalDetailsPage.btn_delete_row().is_enabled(timeout=3000):
+                    self.personalDetailsPage.btn_delete_row().click()
+                    self.personalDetailsPage.btn_confirm_delete().click()
+                else:
+                    break
+            except:
+                break
 

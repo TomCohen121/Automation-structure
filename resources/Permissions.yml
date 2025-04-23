@@ -13,12 +13,14 @@ Senior Evaluator:
 #  - suspicious_loading_discharge
 #  - messages
 
+
 Regular Evaluator:
   - dashboard
   - permissions_regular_evaluator
   - regular_loading
 #  - regular_loading_discharge
 #  - answer_law #Questioneer 035481
+
 
 Development Worker:
   - dashboard
@@ -34,6 +36,7 @@ Development Worker:
 #  - senior_loading_discharge
 #  - suspicious_loading_discharge
 
+
 Assessment Section Manager:
   - dashboard
   - permissions_assessment_section_manager
@@ -47,6 +50,7 @@ Assessment Section Manager:
 #  - mismatch_loading_discharge
 #  - senior_loading_discharge
 #  - suspicious_loading_discharge
+
 
 Marvad CEO:
   - dashboard
@@ -62,6 +66,7 @@ Marvad CEO:
 #  - senior_loading_discharge
 #  - suspicious_loading_discharge
 
+
 System Administrator:
   - dashboard
   - permissions_system_administrator
@@ -76,6 +81,7 @@ System Administrator:
 #  - senior_loading_discharge
 #  - suspicious_loading_discharge
 
+
 Mafmar:
   - dashboard
   - permissions_mafmar
@@ -83,6 +89,7 @@ Mafmar:
   - afterappeal_loading
 #  - afterappeal_loading_discharge
 #  - senior_loading_discharge
+
 
 Professional Manager:
   - dashboard
@@ -97,4 +104,5 @@ Professional Manager:
 #  - mismatch_loading_discharge
 #  - senior_loading_discharge
 #  - suspicious_loading_discharge
+
 

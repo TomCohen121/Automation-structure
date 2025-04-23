@@ -1,6 +1,6 @@
 browser: "chromium"                     # options are 'chromium', 'firefox', 'webkit'.
 headless: false                         # true for headless mode, false for normal mode.
-slow_motion: 2000                        # Adjust to slow down or speed up the actions, in milliseconds.
+slow_motion: 1000                        # Adjust to slow down or speed up the actions, in milliseconds.
 environment: "QA"                       # Choose either 'QA' or 'DEV'.
 user_token: "Senior Evaluator"          # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
 permissions: "Senior Evaluator"        # Choose either Regular Evaluator/Senior Evaluator/Development Worker/Assessment Section Manager/Marvad CEO/System Administrator/Mafmar/Professional Manager.
