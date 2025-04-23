@@ -20,7 +20,7 @@ class ReportingManager:
             print(f"Error generating Allure report: {e}")
             raise
 
-    @staticmethod
+    @staticmethod #שד
     def open_allure_report(report_path):
         os.system(f"allure open {report_path}")
 
